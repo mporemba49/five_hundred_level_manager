@@ -1,5 +1,4 @@
 class Clothing < ApplicationRecord
-  self.inheritance_column = :type
 
   SEASON = "winter"
   PUBLISHED = "TRUE"
@@ -9,6 +8,7 @@ class Clothing < ApplicationRecord
   RS = "TRUE"
   T = "FALSE"
   G = "FALSE"
+  attr_accessor :kids
   attr_reader :tags, :colors, :style, :sizes,
               :handle_extension, :type, :weight,
               :price, :gender

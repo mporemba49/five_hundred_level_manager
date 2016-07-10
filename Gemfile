@@ -10,15 +10,17 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'slim-rails'
 group :development, :test do
   gem 'pry'
   gem 'dotenv-rails'
   gem 'rspec-rails', '~> 3.4'
   gem 'factory_girl_rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

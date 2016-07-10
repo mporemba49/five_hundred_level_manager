@@ -16,19 +16,19 @@ ActiveRecord::Schema.define(version: 20160707232928) do
   enable_extension "plpgsql"
 
   create_table "clothings", force: :cascade do |t|
-    t.integer  "version",                       null: false
-    t.string   "base_name",                     null: false
-    t.string   "type",                          null: false
-    t.string   "style",                         null: false
-    t.string   "gender",                        null: false
-    t.integer  "price",                         null: false
-    t.text     "sizes",            default: [], null: false, array: true
-    t.integer  "weight",                        null: false
-    t.string   "handle_extension",              null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.index ["type"], name: "index_clothings_on_type", using: :btree
-    t.index ["version"], name: "index_clothings_on_version", using: :btree
+    t.string   "base_name",                            null: false
+    t.string   "clothing_type",    default: "T-Shirt", null: false
+    t.string   "style",                                null: false
+    t.string   "gender",                               null: false
+    t.integer  "price",                                null: false
+    t.text     "sizes",            default: [],        null: false, array: true
+    t.integer  "weight",                               null: false
+    t.string   "extension"
+    t.string   "handle_extension", default: ",",       null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.index ["base_name"], name: "index_clothings_on_base_name", unique: true, using: :btree
+    t.index ["clothing_type"], name: "index_clothings_on_clothing_type", using: :btree
   end
 
 end
