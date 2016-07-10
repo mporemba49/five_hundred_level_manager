@@ -1,4 +1,5 @@
 class Clothing < ApplicationRecord
+  before_save :set_handle_extension
 
   SEASON = "winter"
   PUBLISHED = "TRUE"
@@ -9,9 +10,7 @@ class Clothing < ApplicationRecord
   T = "FALSE"
   G = "FALSE"
   attr_accessor :kids
-  attr_reader :tags, :colors, :style, :sizes,
-              :handle_extension, :type, :weight,
-              :price, :gender
+  attr_reader :tags, :colors
 
   def image_url_builder(url_design, sub_dir, image)
     [url_design, @extension, sub_dir, image].compact.join("/")
@@ -97,5 +96,13 @@ class Clothing < ApplicationRecord
     end
 
     return true
+  end
+
+  private
+
+  def set_handle_extension
+    handle_extension = ","
+    handle_extension = '-kids' if gender == 'Kids'
+    handle_extension += "-#{extension}" if extension
   end
 end
