@@ -16,7 +16,7 @@ class Clothing < ApplicationRecord
   def add_tags(tags)
     tags.each do |tag|
       tag_record = Tag.where(name: tag).first_or_create
-      self.tags << tag_record
+      ClothingTag.where(clothing: self, tag: tag_record).first_or_create
     end
   end
 
