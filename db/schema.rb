@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707232928) do
+ActiveRecord::Schema.define(version: 20160721011732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clothing_colors", force: :cascade do |t|
+    t.integer  "clothing_id", null: false
+    t.integer  "color_id",    null: false
+    t.string   "image",       null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["clothing_id", "color_id"], name: "index_clothing_colors_on_clothing_id_and_color_id", unique: true, using: :btree
+  end
+
+  create_table "clothing_tags", force: :cascade do |t|
+    t.integer "clothing_id"
+    t.integer "tag_id"
+    t.index ["clothing_id", "tag_id"], name: "index_clothing_tags_on_clothing_id_and_tag_id", unique: true, using: :btree
+  end
 
   create_table "clothings", force: :cascade do |t|
     t.string   "base_name",                            null: false
@@ -29,6 +44,20 @@ ActiveRecord::Schema.define(version: 20160707232928) do
     t.datetime "updated_at",                           null: false
     t.index ["base_name"], name: "index_clothings_on_base_name", unique: true, using: :btree
     t.index ["clothing_type"], name: "index_clothings_on_clothing_type", using: :btree
+  end
+
+  create_table "colors", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_colors_on_name", unique: true, using: :btree
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.text     "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
   end
 
 end

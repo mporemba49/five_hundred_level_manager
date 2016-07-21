@@ -1,2 +1,2 @@
 = form_for @clothing, url: clothing_index_url do |f|
-  = render partial: 'form', locals: { f: f }
+  = render partial: 'form', locals: { f: f, clothing: @clothing }

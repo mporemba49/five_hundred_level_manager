@@ -1,0 +1,2 @@
+class ClothingColor < ApplicationRecord
+end

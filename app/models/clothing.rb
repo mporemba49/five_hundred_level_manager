@@ -11,6 +11,14 @@ class Clothing < ApplicationRecord
   G = "FALSE"
   attr_accessor :kids
   attr_reader :tags, :colors
+  has_and_belongs_to_many :tags
+
+  def add_tags(tags)
+    tags.each do |tag|
+      tag_record = Tag.where(name: tag).first_or_create
+      self.tags << tag_record
+    end
+  end
 
   def image_url_builder(url_design, sub_dir, image)
     [url_design, @extension, sub_dir, image].compact.join("/")
