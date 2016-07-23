@@ -9,9 +9,8 @@ class Clothing < ApplicationRecord
   RS = "TRUE"
   T = "FALSE"
   G = "FALSE"
-  attr_accessor :kids
-  attr_reader :tags, :colors
-  has_and_belongs_to_many :tags
+  has_and_belongs_to_many :tags, join_table: :clothing_tags
+  has_and_belongs_to_many :colors, join_table: :clothing_colors
 
   def add_tags(tags)
     tags.each do |tag|

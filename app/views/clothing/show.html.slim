@@ -1,3 +1,34 @@
-= @clothing.attributes
-br
-= link_to "Edit", edit_clothing_path(@clothing)
+= link_to "Edit #{@clothing.base_name}", edit_clothing_path(@clothing)
+table
+  tr
+    td Base Name
+    td = @clothing.base_name
+  tr
+    td Type
+    td = @clothing.clothing_type
+  tr
+    td Style
+    td = @clothing.style
+  tr
+    td Gender
+    td = @clothing.gender
+  tr
+    td Price
+    td = @clothing.price
+  tr
+    td Sizes
+    td = @clothing.sizes.join(', ')
+  tr
+    td Weight
+    td = @clothing.weight
+  tr
+    td Active
+    td = @clothing.active
+  tr
+    td Colors
+    td = @clothing.colors.map(&:name).join(", ")
+    td = link_to "Update Colors", clothing_color_path(@clothing)
+  tr
+    td Tags
+    td = @clothing.tags.map(&:name).join(", ")
+    td = link_to "Update Tags", clothing_tag_path(@clothing)

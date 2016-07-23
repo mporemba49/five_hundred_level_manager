@@ -10,10 +10,12 @@ class CreateClothings < ActiveRecord::Migration[5.0]
       t.integer :weight, null: false
       t.string  :extension
       t.string  :handle_extension, null: false, default: ','
+      t.boolean :active, default: true, null: false
       t.timestamps
     end
 
     add_index :clothings, :base_name, unique: true
     add_index :clothings, :clothing_type
+    add_index :clothings, :active
   end
 end

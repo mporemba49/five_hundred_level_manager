@@ -8,12 +8,15 @@ table
     td Price
     td Sizes
     td Weight
+    td Active
   - @clothing.each do |clothing|
-    td = link_to clothing.base_name, clothing_path(clothing)
-    td = clothing.clothing_type
-    td = clothing.style
-    td = clothing.gender
-    td = clothing.price
-    td = clothing.sizes.join(', ')
-    td = clothing.weight
-    td = link_to 'Edit', edit_clothing_path(clothing)
+    tr
+      td = link_to clothing.base_name, clothing_path(clothing)
+      td = clothing.clothing_type
+      td = clothing.style
+      td = clothing.gender
+      td = clothing.price
+      td = clothing.sizes.join(', ')
+      td = clothing.weight
+      td = clothing.active
+      td = link_to 'Edit', edit_clothing_path(clothing)

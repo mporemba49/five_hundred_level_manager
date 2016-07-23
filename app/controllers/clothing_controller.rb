@@ -8,7 +8,7 @@ class ClothingController < ApplicationController
   end
 
   def show
-    @clothing = Clothing.find(params[:id])
+    @clothing = Clothing.includes(:colors, :tags).find(params[:id])
   end
 
   def edit

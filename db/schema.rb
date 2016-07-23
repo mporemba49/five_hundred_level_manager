@@ -16,11 +16,13 @@ ActiveRecord::Schema.define(version: 20160721011732) do
   enable_extension "plpgsql"
 
   create_table "clothing_colors", force: :cascade do |t|
-    t.integer  "clothing_id", null: false
-    t.integer  "color_id",    null: false
-    t.string   "image",       null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "clothing_id",                null: false
+    t.integer  "color_id",                   null: false
+    t.string   "image",                      null: false
+    t.boolean  "active",      default: true, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["active"], name: "index_clothing_colors_on_active", using: :btree
     t.index ["clothing_id", "color_id"], name: "index_clothing_colors_on_clothing_id_and_color_id", unique: true, using: :btree
   end
 
@@ -40,8 +42,10 @@ ActiveRecord::Schema.define(version: 20160721011732) do
     t.integer  "weight",                               null: false
     t.string   "extension"
     t.string   "handle_extension", default: ",",       null: false
+    t.boolean  "active",           default: true,      null: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.index ["active"], name: "index_clothings_on_active", using: :btree
     t.index ["base_name"], name: "index_clothings_on_base_name", unique: true, using: :btree
     t.index ["clothing_type"], name: "index_clothings_on_clothing_type", using: :btree
   end
