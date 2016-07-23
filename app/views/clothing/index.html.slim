@@ -20,3 +20,12 @@ table
       td = clothing.weight
       td = clothing.active
       td = link_to 'Edit', edit_clothing_path(clothing)
+
+= form_tag create_csv_path, multipart: true do |f|
+  .fieldset
+    = label_tag :title_team_player
+    = file_field_tag :title_team_player
+  .fieldset
+    = label_tag :input
+    = file_field_tag :input
+  = submit_tag "Download CSV"

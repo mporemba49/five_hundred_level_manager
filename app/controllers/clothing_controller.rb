@@ -34,6 +34,13 @@ class ClothingController < ApplicationController
     end
   end
 
+  def toggle_active
+    @clothing = Clothing.find(params[:clothing_id])
+    @clothing.update_attribute(:active, !@clothing.active)
+    flash[:notice] = "Clothing is now #{@clothing.active ? 'active' : 'inactive' }"
+    redirect_to clothing_path(@clothing)
+  end
+
   private
 
   def clothing_params
