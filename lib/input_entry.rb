@@ -1,23 +1,23 @@
 require 'uri'
 
 class InputEntry
-  attr_reader :handle, :title, :artist, :extension, :host_validator, :title_team_player
+  attr_reader :handle, :title, :artist, :extension, :title_team_player, :title_team_players
 
-  def initialize(row, host_validator)
+  def initialize(row, title_team_players)
+    @title_team_players = title_team_players
     @handle = row[0]
     @title = row[1].gsub("\"","").gsub("'","")
     @artist = row[3]
     @extension = ""
-    @host_validator = host_validator
   end
 
-  def url_string_for_product(product, image)
+  def url_string_for_clothing(clothing, image)
     search_sub_dirs.each do |sub_dir|
-      test_url = product.image_url_builder(url_design, sub_dir, image)
+      test_url = clothing.image_url_builder(url_design, sub_dir, image)
       rootless_url = test_url.gsub(/.*\/#{league}/,league)
       rootless_url.gsub!("?a=b","")
 
-      return URI.escape(test_url) if @host_validator.objects.select { |object| object.key == rootless_url }.any?
+      return URI.escape(test_url) if Validator.objects.select { |object| object.key == rootless_url }.any?
     end
 
     return nil
@@ -31,22 +31,30 @@ class InputEntry
     end
   end
 
-  def url_design
-    return @url_design if @url_design 
+  def default_folder
+    league + "/" + team + "/" + @title + "/"
+  end
 
-    if host_validator.validate_folder(league + "/" + team + "/" + @title + "/")
+  def folder_with_artist
+    league + "/" + team + "/" + @title + " (#{@artist})/"
+  end
+
+  def url_design
+    return @url_design if @url_design
+
+    if Validator.valid_folder?(default_folder)
       @url_design = ENV['IMAGE_ROOT'] + league + "/" + team + "/" + @title
       return @url_design 
     end
 
-    if host_validator.validate_folder(league + "/" + team + "/" + @title + " (#{@artist})/")
+    if Validator.valid_folder?(folder_with_artist)
       @url_design = ENV['IMAGE_ROOT'] + league + "/" + team + "/" + @title + " (#{@artist})"
       return @url_design
     end
   end
 
   def title_team_player
-    @title_team_player ||= TITLE_TEAM_PLAYERS.select { |ttp| ttp.title == @title }.first
+    @title_team_player ||= title_team_players.select { |ttp| ttp.title == @title }.first
   end
 
   def league
@@ -74,7 +82,7 @@ class InputEntry
   def player
     return @player if @player
     # Check that there is a match for this design, else report ERR and return empty string
-    set = TITLE_TEAM_PLAYERS.select { |a,b,c| a.title == title }.first
+    set = title_team_players.select { |a,b,c| a.title == title }.first
     if title_team_player && title_team_player.player
       @player = title_team_player.player
     else
@@ -104,44 +112,28 @@ class InputEntry
     end
   end
 
-  def image_design_url_exists?
-    return true if url_design
+  def missing_image_design_url?
+    !url_design
   end
 
-  def products
-    @products ||= if gender == "Mens"
-      [
-        MensHoodie.new(self),
-        CrewSweatshirt.new(self),
-        ZipHoodie.new(self),
-        LaceHoodie.new(self),
-        LongSleeve.new(self),
-        MensTShirt.new(self),
-        MensVNeck.new(self),
-        MensTankTop.new(self),
-        Onesie.new(self),
-        ToddlerTShirt.new(self),
-        YouthTShirt.new(self),
-        YouthHoodie.new(self)
-      ]
+  def missing_design_url_error
+    "MISSING \"/#{league}/#{team}/#{title}#{extension}/\" "
+  end
+
+  def clothing
+    @clothing ||= if gender == "Mens"
+      Clothing.where(gender: ['Male', 'Kids'])
     else
-      [
-        WomensHoodie.new(self),
-        ManiacSweatshirt.new(self),
-        ScoopNeck.new(self),
-        WomensTShirt.new(self),
-        FineJerseyTShirt.new(self),
-        WomensVNeck.new(self),
-        WomenTankTop.new(self)
-      ]
+      Clothing.where(gender: 'Women')
     end
   end
 
-  def tags(product, published, first_line)
+  def tags(clothing, published, first_line)
+    puts first_line
     if first_line
-      title+",,#{artist},#{product.type},\"#{product.tags.unshift(player).uniq.join(',')}\",#{published},"
+      [title,nil,artist,clothing.clothing_type, clothing.tags.unshift(player).uniq.join(','),published,]
     else
-      ",,,,,,"
+      [nil,nil,nil,nil,nil,nil]
     end
   end
 end

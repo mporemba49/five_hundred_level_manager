@@ -13,7 +13,7 @@ class HostValidator
     return @objects if @objects
 
     objs = []
-     @validator.list_objects(bucket: BUCKET_NAME).each do |response|
+     @validator.list_objects(bucket: ENV['BUCKET_NAME']).each do |response|
       objs += response.contents
     end
 
@@ -24,7 +24,7 @@ class HostValidator
     @paths ||= objects.map { |object| object.key.split('/')[0...-1].join('/') + '/' }.uniq
   end
 
-  def validate_folder(path)
+  def valid_folder?(path)
     encoded_path = path.gsub("(","\\(")
     encoded_path = encoded_path.gsub(")","\\)")
     paths.join.match(encoded_path)
