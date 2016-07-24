@@ -9,7 +9,7 @@ class CreateClothings < ActiveRecord::Migration[5.0]
       t.text    :sizes, array: true, default: [], null: false
       t.integer :weight, null: false
       t.string  :extension
-      t.string  :handle_extension, null: false, default: ','
+      t.string  :handle_extension, null: false, default: ''
       t.boolean :active, default: true, null: false
       t.timestamps
     end

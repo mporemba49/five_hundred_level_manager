@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20160721011732) do
     t.text     "sizes",            default: [],        null: false, array: true
     t.integer  "weight",                               null: false
     t.string   "extension"
-    t.string   "handle_extension", default: ",",       null: false
+    t.string   "handle_extension", default: "",        null: false
     t.boolean  "active",           default: true,      null: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false

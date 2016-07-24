@@ -129,9 +129,8 @@ class InputEntry
   end
 
   def tags(clothing, published, first_line)
-    puts first_line
     if first_line
-      [title,nil,artist,clothing.clothing_type, clothing.tags.unshift(player).uniq.join(','),published,]
+      [title,nil,artist,clothing.clothing_type, clothing.tags.pluck(:name).unshift(player).uniq.join(','),published,]
     else
       [nil,nil,nil,nil,nil,nil]
     end

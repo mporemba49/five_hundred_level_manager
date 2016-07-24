@@ -49,7 +49,7 @@ mens_hoodie.update_attributes(
   price: 45,
   sizes: ["S","M","L","XL","XXL","XXXL"],
   weight: 908,
-  extension: 'WINTER'
+  extension: 'Winter'
 )
 mens_hoodie.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
 ClothingColor.where(clothing: mens_hoodie, color: gray, image: "UNISEX-GREY-CHAMPION-HOODIE.png").first_or_create
@@ -69,7 +69,7 @@ zip_hoodie.update_attributes(
   price: 50,
   sizes: ["S","M","L","XL","XXL"],
   weight: 908,
-  extension: 'WINTER'
+  extension: 'Winter'
 )
 zip_hoodie.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
 ClothingColor.where(clothing: zip_hoodie, color: eco_gray, image: "UNISEX-GREY-AA-ZIP-HOODIE.png").first_or_create
@@ -89,12 +89,12 @@ lace_hoodie.update_attributes(
   price: 50,
   sizes: ["S","M","L","XL","XXL", "XXXL"],
   weight: 908,
-  extension: 'WINTER'
+  extension: 'Winter'
 )
 lace_hoodie.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
 ClothingColor.where(clothing: lace_hoodie, color: gray, image: "UNISEX-GREY-HOCKEY-HOODIE.png").first_or_create
 ClothingColor.where(clothing: lace_hoodie, color: white, image: "UNISEX-WHITE-HOCKEY-HOODIE.png").first_or_create
-ClothingColor.where(clothing: lace_hoodie, color: royal, image: "UNISEX-ROYAL-HOCKEY-HOODIE.png").first_or_create
+ClothingColor.where(clothing: lace_hoodie, color: royal, image: "UNISEX-BLUE-HOCKEY-HOODIE.png").first_or_create
 ClothingColor.where(clothing: lace_hoodie, color: red, image: "UNISEX-RED-HOCKEY-HOODIE.png").first_or_create
 ClothingColor.where(clothing: lace_hoodie, color: charcoal, image: "UNISEX-BLACK-HOCKEY-HOODIE.png").first_or_create
 
@@ -108,7 +108,7 @@ crew_sweatshirt.update_attributes(
   price: 45,
   sizes: ["S","M","L","XL","XXL"],
   weight: 454,
-  extension: 'WINTER'
+  extension: 'Winter'
 )
 crew_sweatshirt.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
 ClothingColor.where(clothing: crew_sweatshirt, color: eco_gray, image: "UNISEX-GREY-AA-CREWNECK-SWEATSHIRT.png").first_or_create
@@ -127,7 +127,7 @@ long_sleeve.update_attributes(
   price: 32,
   sizes: ["S","M","L","XL","XXL"],
   weight: 227,
-  extension: 'WINTER'
+  extension: 'Winter'
 )
 long_sleeve.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
 ClothingColor.where(clothing: long_sleeve, color: white, image: "MEN-WHITE-AA-LS-TEE.png").first_or_create
@@ -144,11 +144,11 @@ w_hoodie_sleeve.update_attributes(
   price: 45,
   sizes: ["S","M","L","XL"],
   weight: 908,
-  extension: 'WINTER'
+  extension: 'Winter'
 )
 w_hoodie_sleeve.add_tags(["Womens Hoodie", "Maniac Sweatshirt"])
 ClothingColor.where(clothing: w_hoodie_sleeve, color: eco_gray, image: "WOMAN-GREY-AA-HOODIE.png").first_or_create
-ClothingColor.where(clothing: w_hoodie_sleeve, color: eco_stone, image: "WOMAN-OATMEAL-AA-HOODIE.png").first_or_create
+ClothingColor.where(clothing: w_hoodie_sleeve, color: eco_stone, image: "WOMEN-OATMEAL-AA-HOODIE.png").first_or_create
 
 maniac = Clothing.where(
   base_name: 'Maniac Sweatshirt'
@@ -160,23 +160,23 @@ maniac.update_attributes(
   price: 45,
   sizes: ["S","M","L","XL"],
   weight: 454,
-  extension: 'WINTER'
+  extension: 'Winter'
 )
 maniac.add_tags(["Womens Hoodie", "Maniac Sweatshirt"])
-ClothingColor.where(clothing: maniac, color: eco_gray, image: "WOMAN-GREY-AA-MANIAC.png").first_or_create
-ClothingColor.where(clothing: maniac, color: eco_wheat, image: "WOMAN-OATMEAL-AA-MANIAC.png").first_or_create
-ClothingColor.where(clothing: maniac, color: eco_true_purple, image: "WOMAN-PURPLE-AA-MANIAC.png").first_or_create
+ClothingColor.where(clothing: maniac, color: eco_gray, image: "WOMEN-GREY-AA-MANIAC.png").first_or_create
+ClothingColor.where(clothing: maniac, color: eco_wheat, image: "WOMEN-OATMEAL-AA-MANIAC.png").first_or_create
+ClothingColor.where(clothing: maniac, color: eco_true_purple, image: "WOMEN-PURPLE-AA-MANIAC.png").first_or_create
 ClothingColor.where(clothing: maniac, color: eco_teal, image: "a.png").first_or_create
 ClothingColor.where(clothing: maniac, color: eco_black, image: "a.png").first_or_create
-ClothingColor.where(clothing: maniac, color: eco_true_royal, image: "WOMAN-BLUE-AA-MANIAC.png").first_or_create
-ClothingColor.where(clothing: maniac, color: eco_royal, image: "WOMAN-LT-BLUE-AA-MANIAC.png").first_or_create
+ClothingColor.where(clothing: maniac, color: eco_true_royal, image: "WOMEN-BLUE-AA-MANIAC.png").first_or_create
+ClothingColor.where(clothing: maniac, color: eco_royal, image: "WOMEN-LT-BLUE-AA-MANIAC.png").first_or_create
 
 m_tshirt = Clothing.where(
   base_name: 'Mens T-Shirt'
 ).first_or_initialize
 m_tshirt.update_attributes(
   clothing_type: 'T-Shirt',
-  style: 'Mens T-Shirt',
+  style: 'T-Shirt',
   gender: 'Male',
   price: 27,
   sizes: ["S","M","L","XL", "XXL"],
@@ -199,12 +199,32 @@ ClothingColor.where(clothing: m_tshirt, color: true_royal, image: "Men-True-Roya
 ClothingColor.where(clothing: m_tshirt, color: lime_green, image: "Men-Lime-Green-Tee.png").first_or_create
 ClothingColor.where(clothing: m_tshirt, color: eco_royal, image: "Men-Lt-Blue-Tee.png").first_or_create
 
+scoop = Clothing.where(
+  base_name: "Scoop Neck"
+).first_or_initialize
+scoop.update_attributes(
+  clothing_type: 'T-Shirt',
+  style: "Scoop Neck",
+  gender: 'Women',
+  price: 27,
+  sizes: ["S","M","L","XL"],
+  weight: 318,
+)
+scoop.add_tags(["Scoop Neck", "T-Shirt", "Fine Jersey T-Shirt", "V-Neck", "Tank Top"])
+ClothingColor.where(clothing: scoop, color: heather_black, image: "Women-Eco-Black-AA-Fine-Tee.png").first_or_create
+ClothingColor.where(clothing: scoop, color: heather_gray, image: "Women-Grey-Scoop-Tee.png").first_or_create
+ClothingColor.where(clothing: scoop, color: heather_lake_blue, image: "Women-Blue-AA-Fine-Tee.png").first_or_create
+ClothingColor.where(clothing: scoop, color: kelly_green, image: "Women-Green-Scoop-Tee.png").first_or_create
+ClothingColor.where(clothing: scoop, color: purple, image: "Women-Purple-Scoop-Tee.png").first_or_create
+ClothingColor.where(clothing: scoop, color: red, image: "Women-Red-Scoop-Tee.png").first_or_create
+ClothingColor.where(clothing: scoop, color: white, image: "Women-White-Scoop-Tee.png").first_or_create
+
 w_tshirt = Clothing.where(
   base_name: 'Womens T-Shirt'
 ).first_or_initialize
 w_tshirt.update_attributes(
   clothing_type: 'T-Shirt',
-  style: 'Womens T-Shirt',
+  style: 'T-Shirt',
   gender: 'Women',
   price: 27,
   sizes: ["S","M","L","XL", "XXL"],
@@ -269,7 +289,7 @@ y_hoodie.update_attributes(
   price: 35,
   sizes: ["S","M","L","XL"],
   weight: 908,
-  extension: 'WINTER'
+  extension: 'Winter'
 )
 y_hoodie.add_tags(["Youth Hoodie"])
 ClothingColor.where(clothing: y_hoodie, color: gray, image: "UNISEX-GREY-CHAMPION-HOODIE.png?a=b").first_or_create
@@ -369,26 +389,6 @@ ClothingColor.where(clothing: w_tank, color: ivory, image: "Women-Ivory-Tank-Top
 ClothingColor.where(clothing: w_tank, color: red, image: "Women-Red-Tank-Top.png").first_or_create
 ClothingColor.where(clothing: w_tank, color: true_royal, image: "Women-Blue-Tank-Top.png").first_or_create
 ClothingColor.where(clothing: w_tank, color: turquoise, image: "Women-Teal-Tank-Top.png").first_or_create
-
-scoop = Clothing.where(
-  base_name: "Scoop Neck"
-).first_or_initialize
-scoop.update_attributes(
-  clothing_type: 'T-Shirt',
-  style: "Scoop Neck",
-  gender: 'Women',
-  price: 27,
-  sizes: ["S","M","L","XL"],
-  weight: 318,
-)
-scoop.add_tags(["Scoop Neck", "T-Shirt", "Fine Jersey T-Shirt", "V-Neck", "Tank Top"])
-ClothingColor.where(clothing: scoop, color: heather_black, image: "Women-Eco-Black-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: heather_gray, image: "Women-Grey-Scoop-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: heather_lake_blue, image: "Women-Blue-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: kelly_green, image: "Women-Green-Scoop-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: purple, image: "Women-Purple-Scoop-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: red, image: "Women-Red-Scoop-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: white, image: "Women-White-Scoop-Tee.png").first_or_create
 
 onesie = Clothing.where(
   base_name: "Onesie"

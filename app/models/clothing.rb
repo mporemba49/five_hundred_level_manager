@@ -3,7 +3,6 @@ class Clothing < ApplicationRecord
   attr_accessor :entry
   has_many :clothing_colors, join_table: 'clothing_colors'
 
-  SEASON = "winter"
   PUBLISHED = "TRUE"
   VARIANT_INVENTORY_QTY = "1"
   VARIANT_INVENTORY_POLICY = "deny"
@@ -28,7 +27,7 @@ class Clothing < ApplicationRecord
   end
 
   def handle
-    @entry.handle + handle_extension
+    @entry.handle + handle_extension.downcase
   end
 
   def entry_tags(first_line)
@@ -36,11 +35,11 @@ class Clothing < ApplicationRecord
   end
 
   def options_data(color, size)
-    ["Style",@style,"Color",color,"Size",size]
+    ["Style",style,"Color",color,"Size",size]
   end
 
   def variants_data
-    [nil, @weight,nil,nil,VARIANT_INVENTORY_QTY,VARIANT_INVENTORY_POLICY,FULFILLMENT_SVC, nil, @price, nil, VARIANT_REQUIRES_SHIPPING, VARIANT_TAXABLE,nil]
+    [nil, weight,nil,VARIANT_INVENTORY_QTY,VARIANT_INVENTORY_POLICY,FULFILLMENT_SVC, price, nil, VARIANT_REQUIRES_SHIPPING, VARIANT_TAXABLE,nil]
   end
 
   def img_alt_text(color)
@@ -52,11 +51,11 @@ class Clothing < ApplicationRecord
   end
 
   def seo_title
-    "\"#{@entry.title}: #{gender}, #{@tags.join(",")} #{@entry.team} | 500Level.com\""
+    "#{@entry.title}: #{gender}, #{tags.pluck(:name).join(",")} #{@entry.team} | 500Level.com"
   end
 
   def seo_description
-    "\"#{@entry.title} #{@entry.team} #{gender} #{@type} from 500LEVEL. This #{@entry.player} #{@entry.team} #{@type.downcase} comes in multiple sizes and colors.\","
+    "#{@entry.title} #{@entry.team} #{gender} #{clothing_type} from 500LEVEL. This #{@entry.player} #{@entry.team} #{clothing_type.downcase} comes in multiple sizes and colors."
   end
 
   def collection_name
@@ -75,7 +74,7 @@ class Clothing < ApplicationRecord
     csv_line = [GIFT_CARD, nil, nil, nil, nil]
     csv_line << seo_title
     csv_line << seo_description
-    8.times { csv_line << nil }
+    9.times { csv_line << nil }
     csv_line << image_url
     csv_line << nil
     csv_line << collection_name
@@ -112,8 +111,8 @@ class Clothing < ApplicationRecord
   private
 
   def set_handle_extension
-    handle_extension = ","
-    handle_extension = '-kids' if gender == 'Kids'
-    handle_extension += "-#{extension}" if extension
+    self.handle_extension = ""
+    self.handle_extension = '-kids' if gender == 'Kids'
+    self.handle_extension += "-#{extension.upcase}" if extension
   end
 end
