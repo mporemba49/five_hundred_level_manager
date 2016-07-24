@@ -6,4 +6,6 @@ Rails.application.routes.draw do
     resources :colors
     post 'toggle_active', to: 'clothing#toggle_active'
   end
+
+  root to: 'clothing#index'
 end
