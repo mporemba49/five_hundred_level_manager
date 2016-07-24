@@ -31,8 +31,6 @@ table
   tr
     td Colors
     td = @clothing.colors.map(&:name).join(", ")
-    td = link_to "Update Colors", clothing_color_path(@clothing)
   tr
     td Tags
     td = @clothing.tags.map(&:name).join(", ")
-    td = link_to "Update Tags", clothing_tag_path(@clothing)
