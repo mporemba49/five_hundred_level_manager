@@ -9,6 +9,11 @@
   </head>
 
   <body>
+    <% [:notice, :error].each do |flash_type| %>
+      <div class="<%= flash_type %>">
+        <%= flash[flash_type] %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
