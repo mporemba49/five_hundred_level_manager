@@ -130,7 +130,13 @@ class InputEntry
 
   def tags(clothing, published, first_line)
     if first_line
-      [title,nil,artist,clothing.clothing_type, clothing.tags.pluck(:name).unshift(player).uniq.join(','),published,]
+      item_tags = clothing.tags.pluck(:name).unshift(player)
+      item_tags << "player=#{player}"
+      item_tags << "gender=#{clothing.gender}"
+      item_tags << "style=#{clothing.style_tag}"
+      item_tags = item_tags.uniq.join(',')
+
+      [title, nil, artist, clothing.clothing_type, item_tags, published]
     else
       [nil,nil,nil,nil,nil,nil]
     end
