@@ -1,6 +1,6 @@
 class ClothingController < ApplicationController
   def index
-    @clothing = Clothing.all
+    @clothing = Clothing.unscoped.order(active: :desc).all
   end
 
   def new
@@ -8,15 +8,15 @@ class ClothingController < ApplicationController
   end
 
   def show
-    @clothing = Clothing.includes(:colors, :tags).find(params[:id])
+    @clothing = Clothing.unscoped.includes(:colors, :tags).find(params[:id])
   end
 
   def edit
-    @clothing = Clothing.find(params[:id])
+    @clothing = Clothing.unscoped.find(params[:id])
   end
 
   def update
-    @clothing = Clothing.find(params[:id])
+    @clothing = Clothing.unscoped.find(params[:id])
     if @clothing.update_attributes(clothing_params)
       redirect_to clothing_path(@clothing)
     else
@@ -35,7 +35,7 @@ class ClothingController < ApplicationController
   end
 
   def toggle_active
-    @clothing = Clothing.find(params[:clothing_id])
+    @clothing = Clothing.unscoped.find(params[:clothing_id])
     @clothing.update_attribute(:active, !@clothing.active)
     flash[:notice] = "Clothing is now #{@clothing.active ? 'active' : 'inactive' }"
     redirect_to clothing_path(@clothing)

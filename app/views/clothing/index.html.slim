@@ -9,7 +9,7 @@ table
     td Sizes
     td Weight
     td Active
-  - @clothing.each do |clothing|
+  - @clothing.active.each do |clothing|
     tr
       td = link_to clothing.base_name, clothing_path(clothing)
       td = clothing.clothing_type
@@ -20,6 +20,20 @@ table
       td = clothing.weight
       td = clothing.active
       td = link_to 'Edit', edit_clothing_path(clothing)
+  - if @clothing.inactive.any?
+    tr
+      td Inactive Clothing
+      - @clothing.inactive.each do |clothing|
+        tr
+          td = link_to clothing.base_name, clothing_path(clothing)
+          td = clothing.clothing_type
+          td = clothing.style
+          td = clothing.gender
+          td = clothing.price
+          td = clothing.sizes.join(', ')
+          td = clothing.weight
+          td = clothing.active
+          td = link_to 'Edit', edit_clothing_path(clothing)
 
 = form_tag create_csv_path, multipart: true do |f|
   .fieldset

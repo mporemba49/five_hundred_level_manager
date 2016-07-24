@@ -1,3 +1,5 @@
+= link_to "Back to Clothing", clothing_index_path
+br
 = link_to "Edit #{@clothing.base_name}", edit_clothing_path(@clothing)
 br
 = link_to "#{@clothing.active ? 'Deactivate' : 'Activate'}  #{@clothing.base_name}", clothing_toggle_active_path(@clothing), method: 'POST'

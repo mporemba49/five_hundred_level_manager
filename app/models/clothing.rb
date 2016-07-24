@@ -13,6 +13,7 @@ class Clothing < ApplicationRecord
   has_and_belongs_to_many :tags, join_table: :clothing_tags
   has_and_belongs_to_many :colors, join_table: :clothing_colors
   scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
   default_scope { where(active: true) }
 
   def add_tags(tags)
@@ -34,8 +35,23 @@ class Clothing < ApplicationRecord
     @entry.tags(self, PUBLISHED, first_line)
   end
 
+  def style_tag
+    if (style.split(' ') & %w(Mens Womens Kids)).empty?
+      case gender
+      when 'Male'
+        return "Mens #{style}"
+      when 'Women'
+        return "Womens #{style}"
+      when 'Kids'
+        return "Kids #{style}"
+      end
+    else
+      return style
+    end
+  end
+
   def options_data(color, size)
-    ["Style",style,"Color",color,"Size",size]
+    ["Style", style_tag, "Color", color, "Size", size]
   end
 
   def variants_data
