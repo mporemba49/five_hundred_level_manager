@@ -2,6 +2,7 @@ class Clothing < ApplicationRecord
   before_save :set_handle_extension
   attr_accessor :entry
   has_many :clothing_colors, join_table: 'clothing_colors'
+  has_many :clothing_tags, join_table: 'clothing_tags'
 
   PUBLISHED = "TRUE"
   VARIANT_INVENTORY_QTY = "1"
@@ -67,7 +68,7 @@ class Clothing < ApplicationRecord
   end
 
   def seo_title
-    "#{@entry.title}: #{gender}, #{tags.pluck(:name).join(",")} #{@entry.team} | 500Level.com"
+    "#{@entry.title}: #{gender}, #{tags.map(&:name).join(",")} #{@entry.team} | 500Level.com"
   end
 
   def seo_description

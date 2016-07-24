@@ -122,15 +122,15 @@ class InputEntry
 
   def clothing
     @clothing ||= if gender == "Mens"
-      Clothing.where(gender: ['Male', 'Kids'])
+      Clothing.where(gender: ['Male', 'Kids']).includes(clothing_colors: [:color]).includes(:tags)
     else
-      Clothing.where(gender: 'Women')
+      Clothing.where(gender: 'Women').includes(clothing_colors: [:color]).includes(:tags)
     end
   end
 
   def tags(clothing, published, first_line)
     if first_line
-      item_tags = clothing.tags.pluck(:name).unshift(player)
+      item_tags = clothing.tags.map(&:name).unshift(player)
       item_tags << "player=#{player}"
       item_tags << "gender=#{clothing.gender}"
       item_tags << "style=#{clothing.style_tag}"
