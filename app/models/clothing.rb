@@ -28,7 +28,7 @@ class Clothing < ApplicationRecord
   end
 
   def handle
-    @entry.handle + handle_extension.downcase
+    @entry.handle + handle_extension.downcase + "-" + style.parameterize
   end
 
   def entry_tags(first_line)
