@@ -7,6 +7,8 @@ class GenerateCsv
     output_csv_lines = [HEADER]
     title_team_players = []
     missing_files = []
+
+
     CSV.foreach(title_team_player.path,headers: true) do |row|
       title_team_players << TitleTeamPlayer.new(row)
     end

@@ -131,6 +131,16 @@ class InputEntry
   def tags(clothing, published, first_line)
     if first_line
       item_tags = clothing.tags.map(&:name).unshift(player)
+      item_tags.map! do |tag|
+        case clothing.gender
+        when 'Male'
+          tag.include?('Mens') ? tag : "Mens #{tag}"
+        when 'Women'
+          tag.include?('Womens') ? tag : "Womens #{tag}"
+        when 'Kids'
+          tag.include?('Kids') ? tag : "Kids #{tag}"
+        end
+      end
       item_tags << "player=#{player}"
       item_tags << "gender=#{clothing.gender}"
       item_tags << "style=#{clothing.style_tag}"

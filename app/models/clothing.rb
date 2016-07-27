@@ -60,7 +60,16 @@ class Clothing < ApplicationRecord
   end
 
   def img_alt_text(color)
-    style + " " + color
+    gender_prefix = ''
+    case gender
+    when 'Male'
+      gender_prefix = "Mens " unless style.include?('Mens')
+    when 'Women'
+      gender_prefix = "Womens " unless style.include?('Womens')
+    when 'Kids'
+      gender_prefix = "Kids " unless style.include?('Kids')
+    end
+    gender_prefix + style + " " + color
   end
 
   def image_data(image_url, color)
