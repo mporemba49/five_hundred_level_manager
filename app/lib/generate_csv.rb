@@ -9,11 +9,11 @@ class GenerateCsv
     missing_files = []
 
 
-    CSV.foreach(title_team_player.path,headers: true) do |row|
+    CSV.foreach(title_team_player, headers: true) do |row|
       title_team_players << TitleTeamPlayer.new(row)
     end
 
-    CSV.foreach(input.path, col_sep: ",", encoding: "ISO8859-1") do |row|
+    CSV.foreach(input, col_sep: ",", encoding: "ISO8859-1") do |row|
       entry = InputEntry.new(row, title_team_players)
 
       if entry.missing_image_design_url?

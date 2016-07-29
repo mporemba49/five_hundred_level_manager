@@ -18,9 +18,18 @@ Bundler.require(*Rails.groups)
 
 module FiveHundredLevelManager
   class Application < Rails::Application
+      config.action_mailer.delivery_method = :smtp
+      config.action_mailer.smtp_settings = {
+          address: "smtp.gmail.com",
+          domain: "gmail.com",
+          port:   587,
+          user_name: ENV['EMAIL_USER'],
+          password: ENV['EMAIL_PASSWORD'],
+          authentication: :plain,
+          enable_starttls_auto: true
+      }
     config.autoload_paths << Rails.root.join('lib')
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    config.active_job.queue_adapter = :sidekiq
+    config.cache_store = :redis_store, ENV['REDIS_URL'], { expires_in: 90.minutes }
   end
 end

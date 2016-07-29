@@ -11,8 +11,9 @@
   <body>
     <header>
       <% if !!session[:user_id] %>
-        <%= form_tag logout_path, method: 'GET' %>
+        <%= form_tag logout_path, method: 'GET' do %>
           <%= submit_tag "Log Out", class: 'log-out' %>
+        <% end %>
       <% else %>
       <% end %>
     </header>
