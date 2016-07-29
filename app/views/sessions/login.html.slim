@@ -1,0 +1,9 @@
+h1 500 Level Manager
+= form_tag confirm_login_path
+  .fieldset
+    = label_tag :email
+    = text_field_tag :email
+  .fieldset
+    = label_tag :password
+    = password_field_tag :password
+  = submit_tag "Log In"

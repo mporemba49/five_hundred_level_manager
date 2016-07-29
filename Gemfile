@@ -12,6 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'slim-rails'
 gem 'aws-sdk'
+gem 'bcrypt'
 group :development, :test do
   gem 'pry'
   gem 'dotenv-rails'

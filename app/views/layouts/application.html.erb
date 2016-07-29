@@ -9,6 +9,13 @@
   </head>
 
   <body>
+    <header>
+      <% if !!session[:user_id] %>
+        <%= form_tag logout_path, method: 'GET' %>
+          <%= submit_tag "Log Out", class: 'log-out' %>
+      <% else %>
+      <% end %>
+    </header>
     <% [:notice, :error].each do |flash_type| %>
       <% if flash[flash_type] %>
         <div class="<%= flash_type %>">
