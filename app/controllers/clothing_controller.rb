@@ -1,4 +1,6 @@
 class ClothingController < ApplicationController
+  before_action :require_login
+
   def index
     @clothing = Clothing.unscoped.order(active: :desc).all
   end
@@ -47,5 +49,12 @@ class ClothingController < ApplicationController
     params.require(:clothing).permit(:base_name, :clothing_type, :style,
                                      :gender, :price, :weight, :extension,
                                      :handle_extension, :kids, sizes: [],)
+  end
+
+  def require_login
+    unless logged_in?
+      flash[:error] = "You must be logged in to access this section"
+      redirect_to login_url
+    end
   end
 end
