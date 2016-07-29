@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def login
+    redirect_to clothing_index_path if session[:user_id]
     @user = User.new
   end
 
