@@ -11,5 +11,5 @@ Rails.application.routes.draw do
     post 'toggle_active', to: 'clothing#toggle_active'
   end
 
-  root to: 'clothing#index'
+  root to: 'sessions#login'
 end
