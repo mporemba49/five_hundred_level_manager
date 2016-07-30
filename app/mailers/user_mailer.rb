@@ -14,9 +14,7 @@ class UserMailer < ApplicationMailer
           csv << line
         end
       end
-      attachments["shopify_upload.csv"] =  returned_csv#{ mime_type: 'text/csv',
-                                             #content: returned_csv,
-                                             #content_disposition: 'attachment'}
+      attachments["shopify_upload.csv"] =  returned_csv
     end
 
     mail(to: email, subject: "CSV Download")

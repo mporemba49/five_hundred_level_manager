@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728233414) do
+ActiveRecord::Schema.define(version: 20160730182224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160728233414) do
     t.boolean  "active",           default: true,      null: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.string   "sku"
     t.index ["active"], name: "index_clothings_on_active", using: :btree
     t.index ["base_name"], name: "index_clothings_on_base_name", unique: true, using: :btree
     t.index ["clothing_type"], name: "index_clothings_on_clothing_type", using: :btree
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160728233414) do
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "sku"
     t.index ["name"], name: "index_colors_on_name", unique: true, using: :btree
   end
 
@@ -62,6 +64,15 @@ ActiveRecord::Schema.define(version: 20160728233414) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.string   "player_sku"
+    t.string   "team_sku"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_teams_on_name", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|
