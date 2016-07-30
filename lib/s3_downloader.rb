@@ -5,11 +5,12 @@ class S3Downloader < AwsParent
   end
 
   def call(path)
-    save_file = "/tmp/#{path.split('/')[-1]}"
+    key = path.split('/')[-1]
+    save_file = "/tmp/#{key}"
     File.open(save_file, 'wb') do |file|
       @s3.get_object({
         bucket: ENV['UPLOAD_BUCKET'],
-        key: "title_team_player-1469838772.csv"},
+        key: key},
         target: file)
     end
 
