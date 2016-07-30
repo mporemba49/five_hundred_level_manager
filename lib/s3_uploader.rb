@@ -1,6 +1,7 @@
 class S3Uploader < AwsParent
   def initialize
     super
+    Aws.config.update({ region: 'us-west-2' })
     @s3 = Aws::S3::Resource.new
     @uploader = @s3.bucket(ENV['UPLOAD_BUCKET'])
   end

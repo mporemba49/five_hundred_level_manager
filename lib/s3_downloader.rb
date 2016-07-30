@@ -1,6 +1,7 @@
 class S3Downloader < AwsParent
   def initialize
     super
+    Aws.config.update({ region: 'us-west-2' })
     @s3 = Aws::S3::Client.new
   end
 
