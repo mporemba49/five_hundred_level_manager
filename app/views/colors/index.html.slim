@@ -1,0 +1,9 @@
+table
+  tr
+    td Color
+    td SKU
+  - @colors.each do |color|
+    tr
+      td = color.name
+      td = color.sku
+      td = link_to "Edit", edit_color_path(color)

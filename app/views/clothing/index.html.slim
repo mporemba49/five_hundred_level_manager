@@ -8,6 +8,7 @@ table
     td Price
     td Sizes
     td Weight
+    td SKU
   tr
     td Active Clothing
   - @clothing.active.each do |clothing|
@@ -19,6 +20,7 @@ table
       td = clothing.price
       td = clothing.sizes.join(', ')
       td = clothing.weight
+      td = clothing.sku
       td = link_to 'Edit', edit_clothing_path(clothing)
   - if @clothing.inactive.any?
     tr
@@ -32,6 +34,7 @@ table
           td = clothing.price
           td = clothing.sizes.join(', ')
           td = clothing.weight
+          td = clothing.sku
           td = link_to 'Edit', edit_clothing_path(clothing)
 
 = form_tag create_csv_path, multipart: true do |f|

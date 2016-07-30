@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#logout'
   post '/confirm_login', to: 'sessions#confirm_login'
 
+  resources :colors
+
   resources :clothing do
     resources :tags
     resources :colors

@@ -1,4 +1,4 @@
 class Color < ApplicationRecord
-  scope :active, -> { where(active: true) }
+  default_scope { order(:name) }
   has_and_belongs_to_many :clothing, join_table: :clothing_colors
 end

@@ -48,7 +48,7 @@ class ClothingController < ApplicationController
   def clothing_params
     params.require(:clothing).permit(:base_name, :clothing_type, :style,
                                      :gender, :price, :weight, :extension,
-                                     :handle_extension, :kids, sizes: [],)
+                                     :handle_extension, :sku, :kids, sizes: [])
   end
 
   def require_login
