@@ -1,4 +1,8 @@
 class UserMailer < ApplicationMailer
+  def test
+      mail(to: "nicholas.lee.3@gmail.com", subject: "Test")
+  end
+
   def csv_upload(email, title_team_player, input)
     title_team_player_path = Downloader.call(title_team_player)
     input_path = Downloader.call(input)
