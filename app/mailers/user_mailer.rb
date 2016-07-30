@@ -1,6 +1,9 @@
 class UserMailer < ApplicationMailer
   def csv_upload(email, title_team_player, input)
-    csv_lines = GenerateCsv.call(title_team_player, input)
+    title_team_player_path = Downloader.call(title_team_player)
+    input_path = Downloader.call(input)
+
+    csv_lines = GenerateCsv.call(title_team_player_path, input_path)
     if csv_lines
       returned_csv = CSV.generate(headers: true) do |csv|
         csv_lines.each do |line|

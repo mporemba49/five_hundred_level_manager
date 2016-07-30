@@ -1,11 +1,8 @@
-class HostValidator
+class HostValidator < AwsParent
   attr_reader :validator
 
   def initialize
-    Aws.config.update({
-      region: 'us-east-1',
-      credentials: Aws::Credentials.new(ENV['ACCESS_KEY_ID'], ENV['SECRET_KEY'])
-    })
+    super
     @validator = Aws::S3::Client.new
   end
 
