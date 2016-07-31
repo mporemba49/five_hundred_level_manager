@@ -255,7 +255,7 @@ t_tshirt.update_attributes(
   style: 'Toddler T-Shirt',
   gender: 'Kids',
   price: 17,
-  sizes: ["2","4/5","6/7"],
+  sizes: %w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y),
   weight: 136,
 )
 t_tshirt.add_tags(["Onesie","Toddler T-Shirt","Youth T-Shirt"])
@@ -271,7 +271,7 @@ y_tshirt.update_attributes(
   style: 'Youth T-Shirt',
   gender: 'Kids',
   price: 19,
-  sizes: ["8","10/12","14/16"],
+  sizes: %w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y),
   weight: 136,
 )
 y_tshirt.add_tags(["Onesie","Toddler T-Shirt","Youth T-Shirt"])
@@ -398,7 +398,7 @@ onesie.update_attributes(
   style: "Onesie",
   gender: 'Kids',
   price: 17,
-  sizes: ["3-6M","6-12M","12-18M","18-24M"],
+  sizes: %w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y),
   weight: 136,
 )
 onesie.add_tags(["Onesie","Toddler T-Shirt","Youth T-Shirt"])
