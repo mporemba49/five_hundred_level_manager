@@ -2,6 +2,8 @@ require 'uri'
 
 class InputEntry
   attr_reader :handle, :title, :artist, :extension, :title_team_player, :title_team_players
+  FORMATTED_GENDER = { "Women" => "Women", "Womens" => "Women", "Mens" => "Men",
+                       "Male" => "Men", "Kids" => "Kids" }
 
   def initialize(row, title_team_players)
     @title_team_players = title_team_players
@@ -98,18 +100,7 @@ class InputEntry
   end
 
   def formatted_gender(gender)
-    case gender
-    when "Women"
-      return "Women"
-    when "Womens"
-      return "Women"
-    when "Mens"
-      return "Men"
-    when "Male"
-      return "Men"
-    when "Kids"
-      return "Kids"
-    end
+    FORMATTED_GENDER[gender]
   end
 
   def missing_image_design_url?
@@ -130,21 +121,7 @@ class InputEntry
 
   def tags(clothing, published, first_line)
     if first_line
-      item_tags = clothing.tags.map(&:name).unshift(player)
-      item_tags.map! do |tag|
-        case clothing.gender
-        when 'Male'
-          tag.include?('Mens') ? tag : "Mens #{tag}"
-        when 'Women'
-          tag.include?('Womens') ? tag : "Womens #{tag}"
-        when 'Kids'
-          tag.include?('Kids') ? tag : "Kids #{tag}"
-        end
-      end
-      item_tags << "player=#{player}"
-      item_tags << "gender=#{clothing.gender}"
-      item_tags << "style=#{clothing.style_tag}"
-      item_tags = item_tags.uniq.join(',')
+      item_tags = ["player=#{player}", "gender=#{clothing.gender}", "style=#{clothing.style_tag}"].join(',')
 
       [title, nil, artist, clothing.clothing_type, item_tags, published]
     else
