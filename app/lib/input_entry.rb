@@ -19,7 +19,7 @@ class InputEntry
       rootless_url = test_url.gsub(/.*\/#{league}/,league)
       rootless_url.gsub!("?a=b","")
 
-      return URI.escape(test_url) if Validator.objects.select { |object| object.key == rootless_url }.any?
+      return "http://migildi.com/500level/png2jpg.php?i=" + URI.escape(test_url) if Validator.objects.select { |object| object.key == rootless_url }.any?
     end
 
     return nil
