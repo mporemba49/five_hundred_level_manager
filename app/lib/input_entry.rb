@@ -121,7 +121,12 @@ class InputEntry
 
   def tags(clothing, published, first_line)
     if first_line
-      item_tags = ["player=#{player}", "gender=#{clothing.gender.downcase}", "style=#{clothing.style_tag}"].join(',')
+      item_tags = [
+        "player=#{player}",
+        "gender=#{clothing.gender.downcase}",
+        "style=#{clothing.style_tag}",
+        "v=#{500_LEVEL_VERSION}"
+      ].join(',')
 
       [title, nil, artist, clothing.clothing_type, item_tags, published]
     else
