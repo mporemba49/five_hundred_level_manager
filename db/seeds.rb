@@ -259,9 +259,9 @@ t_tshirt.update_attributes(
   weight: 136,
 )
 t_tshirt.add_tags(["Onesie","Toddler T-Shirt","Youth T-Shirt"])
-ClothingColor.where(clothing: t_tshirt, color: heather_gray, image: "Kids-Grey-Toddler-Tee.png?a=b").first_or_create
-ClothingColor.where(clothing: t_tshirt, color: red, image: "Kids-Red-Toddler-Tee.png?a=b").first_or_create
-ClothingColor.where(clothing: t_tshirt, color: white, image: "Kids-White-Toddler-Tee.png?a=b").first_or_create
+ClothingColor.where(clothing: t_tshirt, color: heather_gray, image: "Kids-Grey-Toddler-Tee.png").first_or_create
+ClothingColor.where(clothing: t_tshirt, color: red, image: "Kids-Red-Toddler-Tee.png").first_or_create
+ClothingColor.where(clothing: t_tshirt, color: white, image: "Kids-White-Toddler-Tee.png").first_or_create
 
 y_tshirt = Clothing.where(
   base_name: 'Youth T-Shirt'
@@ -292,7 +292,7 @@ y_hoodie.update_attributes(
   extension: 'Winter'
 )
 y_hoodie.add_tags(["Youth Hoodie"])
-ClothingColor.where(clothing: y_hoodie, color: gray, image: "UNISEX-GREY-CHAMPION-HOODIE.png?a=b").first_or_create
+ClothingColor.where(clothing: y_hoodie, color: gray, image: "UNISEX-GREY-CHAMPION-HOODIE.png").first_or_create
 
 jersey = Clothing.where(
   base_name: "Fine Jersey T-Shirt"
