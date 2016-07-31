@@ -17,12 +17,11 @@ class InputEntry
     search_sub_dirs.each do |sub_dir|
       test_url = clothing.image_url_builder(url_design, sub_dir, image)
       rootless_url = test_url.gsub(/.*\/#{league}/,league)
-      rootless_url.gsub!("?a=b","")
 
-      return "http://migildi.com/500level/png2jpg.php?i=" + URI.escape(test_url) if Validator.objects.select { |object| object.key == rootless_url }.any?
+      return "http://migildi.com/500level/png2jpg.php?i=#{URI.escape(test_url)}" if Validator.objects.select { |object| object.key == rootless_url }.any?
     end
 
-    return nil
+    nil
   end
 
   def search_sub_dirs
@@ -125,7 +124,7 @@ class InputEntry
         "player=#{player}",
         "gender=#{clothing.gender.downcase}",
         "style=#{clothing.style_tag}",
-        "v=#{500_LEVEL_VERSION}"
+        "v=#{ENV['500_LEVEL_VERSION']}"
       ].join(',')
 
       [title, nil, artist, clothing.clothing_type, item_tags, published]
