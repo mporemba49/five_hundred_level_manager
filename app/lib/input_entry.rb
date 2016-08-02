@@ -71,12 +71,10 @@ class InputEntry
 
   def team
     return @team if @team
-    # Check that there is a match for this design, else report ERR and return empty string
     @team = if title_team_player && title_team_player.team
-      title_team_player.team 
+      Team.where(name: title_team_player.team).first_or_create
     else
       STDERR.puts "No Team for '#{@handle}'"
-      ""
     end
   end
 

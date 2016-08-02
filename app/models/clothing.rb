@@ -11,6 +11,7 @@ class Clothing < ApplicationRecord
   VARIANT_REQUIRES_SHIPPING = "TRUE"
   VARIANT_TAXABLE = "FALSE"
   GIFT_CARD = "FALSE"
+  SIZE_SKUS = {'XS' => 'XS', 'S' => 'S', 'M' => 'M', 'L' => 'L',  'XL' => 'XL',  'XXL' => 'XXL'}
   has_and_belongs_to_many :tags, join_table: :clothing_tags
   has_and_belongs_to_many :colors, join_table: :clothing_colors
   scope :active, -> { where(active: true) }
@@ -52,7 +53,7 @@ class Clothing < ApplicationRecord
   end
 
   def options_data(color, size)
-    ["Style", style_tag, "Color", color, "Size", size]
+    ["Style", style_tag, "Color", color.color_name, "Size", size]
   end
 
   def variants_data
@@ -73,7 +74,7 @@ class Clothing < ApplicationRecord
   end
 
   def image_data(image_url, color)
-    [image_url, img_alt_text(color)]
+    [image_url, img_alt_text(color.color_name)]
   end
 
   def seo_title
@@ -87,12 +88,13 @@ class Clothing < ApplicationRecord
     description
   end
 
-  def csv_line_for_size_and_color(size, color, image_url, first_line)
+  def csv_line_for_size_and_color(size, clothing_color, image_url, first_line)
     columns = [handle] 
     columns += entry_tags(first_line)
-    columns += options_data(color, size)
-    columns += variants_data + image_data(image_url, color)
+    columns += options_data(clothing_color, size)
+    columns += variants_data + image_data(image_url, clothing_color)
     columns += first_line ? first_line_entries(image_url) : later_line_entries(image_url)
+    columns += full_sku(size, clothing_color)
   end
 
   def first_line_entries(image_url)
@@ -115,6 +117,22 @@ class Clothing < ApplicationRecord
     csv_line
   end
 
+  def size_style_color_sku(size, clothing_color)
+    size_sku = SIZE_SKUS[size] || size[0..1]
+    [size_sku, sku, clothing_color.color.sku].join('')
+  end
+
+  def full_sku(size)
+    [
+      [
+        ENV['UPLOAD_VERSION'],
+        size_style_color_sku(size, color),
+        "XX-XX"
+        @entry.team.id_string,
+      ].join("-")
+    ]
+  end
+
   def valid_colors
     @valid_colors ||= Hash[colors.map{ |color, image_url| !@entry.url_string_for_product(self, image_url).nil? ? [color, image_url] : nil }.compact]
   end
@@ -125,7 +143,7 @@ class Clothing < ApplicationRecord
     return false unless image_url
 
     sizes.each do |size|
-      lines << csv_line_for_size_and_color(size, clothing_color.color_name, image_url, first_line)
+      lines << csv_line_for_size_and_color(size, clothing_color, image_url, first_line)
       first_line = false if first_line
     end
 
