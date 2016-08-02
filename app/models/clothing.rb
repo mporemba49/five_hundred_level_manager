@@ -126,7 +126,7 @@ class Clothing < ApplicationRecord
     [
       [
         ENV['UPLOAD_VERSION'],
-        size_style_color_sku(size, , clothing_color),
+        size_style_color_sku(size, clothing_color),
         "XX-XX",
         @entry.team.id_string,
       ].join("-")
