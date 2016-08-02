@@ -33,23 +33,23 @@ class InputEntry
   end
 
   def default_folder
-    league + "/" + team + "/" + @title + "/"
+    "#{league}/#{team}/#{@title}/"
   end
 
   def folder_with_artist
-    league + "/" + team + "/" + @title + " (#{@artist})/"
+    "#{league}/#{team}/#{@title} (#{@artist})/"
   end
 
   def url_design
     return @url_design if @url_design
 
     if Validator.valid_folder?(default_folder)
-      @url_design = ENV['IMAGE_ROOT'] + league + "/" + team + "/" + @title
+      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title}"
       return @url_design 
     end
 
     if Validator.valid_folder?(folder_with_artist)
-      @url_design = ENV['IMAGE_ROOT'] + league + "/" + team + "/" + @title + " (#{@artist})"
+      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title} (#{@artist})"
       return @url_design
     end
   end
