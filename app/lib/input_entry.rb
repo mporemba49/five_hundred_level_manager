@@ -78,14 +78,6 @@ class InputEntry
     end
   end
 
-  def player_sku_id
-    @team ? @team.player_sku.id : nil
-  end
-
-  def player_sku
-    @team ? @team.id_string : nil
-  end
-
   def player
     return @player if @player
     # Check that there is a match for this design, else report ERR and return empty string
