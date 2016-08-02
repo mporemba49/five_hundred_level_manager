@@ -199,7 +199,7 @@ ClothingColor.where(clothing: m_tshirt, color: true_royal, image: "Men-True-Roya
 ClothingColor.where(clothing: m_tshirt, color: lime_green, image: "Men-Lime-Green-Tee.png").first_or_create
 ClothingColor.where(clothing: m_tshirt, color: eco_royal, image: "Men-Lt-Blue-Tee.png").first_or_create
 
-w_tshirt = Clothing.where(
+w_tshirt = Clothing.unscoped.where(
   base_name: 'Womens T-Shirt'
 ).first_or_initialize
 w_tshirt.update_attributes(
