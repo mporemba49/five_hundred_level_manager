@@ -199,26 +199,6 @@ ClothingColor.where(clothing: m_tshirt, color: true_royal, image: "Men-True-Roya
 ClothingColor.where(clothing: m_tshirt, color: lime_green, image: "Men-Lime-Green-Tee.png").first_or_create
 ClothingColor.where(clothing: m_tshirt, color: eco_royal, image: "Men-Lt-Blue-Tee.png").first_or_create
 
-scoop = Clothing.where(
-  base_name: "Scoop Neck"
-).first_or_initialize
-scoop.update_attributes(
-  clothing_type: 'T-Shirt',
-  style: "Scoop Neck",
-  gender: 'Women',
-  price: 27,
-  sizes: ["S","M","L","XL"],
-  weight: 318,
-)
-scoop.add_tags(["Scoop Neck", "T-Shirt", "Fine Jersey T-Shirt", "V-Neck", "Tank Top"])
-ClothingColor.where(clothing: scoop, color: heather_black, image: "Women-Eco-Black-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: heather_gray, image: "Women-Grey-Scoop-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: heather_lake_blue, image: "Women-Blue-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: kelly_green, image: "Women-Green-Scoop-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: purple, image: "Women-Purple-Scoop-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: red, image: "Women-Red-Scoop-Tee.png").first_or_create
-ClothingColor.where(clothing: scoop, color: white, image: "Women-White-Scoop-Tee.png").first_or_create
-
 w_tshirt = Clothing.where(
   base_name: 'Womens T-Shirt'
 ).first_or_initialize
@@ -230,54 +210,30 @@ w_tshirt.update_attributes(
   sizes: ["S","M","L","XL", "XXL"],
   weight: 318,
 )
-w_tshirt.add_tags(["Scoop Neck", "T-Shirt", "Fine Jersey T-Shirt", "V-Neck", "Tank Top"])
-ClothingColor.where(clothing: w_tshirt, color: eco_black, image: "Men-Eco-Black-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: eco_green, image: "Men-Eco-Green-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: eco_red, image: "Men-Eco-Red-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: navy, image: "Men-Eco-Navy-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: gold, image: "Men-Gold-AA-Tee1.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: heather_gold, image: "Men-Gold-AA-Tee-Lighter.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: heather_gray, image: "Men-Grey-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: ivory, image: "Men-Ivory-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: purple, image: "Men-Purple-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: turquoise, image: "Men-Teal-AA-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: true_green, image: "Men-True-Green-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: true_red, image: "Men-True-Red-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: true_royal, image: "Men-True-Royal-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: lime_green, image: "Men-Lime-Green-Tee.png").first_or_create
-ClothingColor.where(clothing: w_tshirt, color: eco_royal, image: "Men-Lt-Blue-Tee.png").first_or_create
+w_tshirt.add_tags(["T-Shirt", "V-Neck", "Tank Top"])
+ClothingColor.where(clothing: w_tshirt, color: heather_black, image: "Women-Eco-Black-AA-Fine-Tee.png").first_or_create
+ClothingColor.where(clothing: w_tshirt, color: heather_gray, image: "Women-Grey-Scoop-Tee.png").first_or_create
+ClothingColor.where(clothing: w_tshirt, color: heather_lake_blue, image: "Women-Blue-AA-Fine-Tee.png").first_or_create
+ClothingColor.where(clothing: w_tshirt, color: kelly_green, image: "Women-Green-Scoop-Tee.png").first_or_create
+ClothingColor.where(clothing: w_tshirt, color: purple, image: "Women-Purple-Scoop-Tee.png").first_or_create
+ClothingColor.where(clothing: w_tshirt, color: red, image: "Women-Red-Scoop-Tee.png").first_or_create
+ClothingColor.where(clothing: w_tshirt, color: white, image: "Women-White-Scoop-Tee.png").first_or_create
 
 t_tshirt = Clothing.where(
-  base_name: 'Toddler T-Shirt'
+  base_name: 'Kids T-Shirt'
 ).first_or_initialize
 t_tshirt.update_attributes(
   clothing_type: 'T-Shirt',
-  style: 'Toddler T-Shirt',
+  style: 'Kids T-Shirt',
   gender: 'Kids',
   price: 17,
   sizes: %w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y),
   weight: 136,
 )
-t_tshirt.add_tags(["Onesie","Toddler T-Shirt","Youth T-Shirt"])
+t_tshirt.add_tags(["Onesie","Kids T-Shirt"])
 ClothingColor.where(clothing: t_tshirt, color: heather_gray, image: "Kids-Grey-Toddler-Tee.png").first_or_create
 ClothingColor.where(clothing: t_tshirt, color: red, image: "Kids-Red-Toddler-Tee.png").first_or_create
 ClothingColor.where(clothing: t_tshirt, color: white, image: "Kids-White-Toddler-Tee.png").first_or_create
-
-y_tshirt = Clothing.where(
-  base_name: 'Youth T-Shirt'
-).first_or_initialize
-y_tshirt.update_attributes(
-  clothing_type: 'T-Shirt',
-  style: 'Youth T-Shirt',
-  gender: 'Kids',
-  price: 19,
-  sizes: %w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y),
-  weight: 136,
-)
-y_tshirt.add_tags(["Onesie","Toddler T-Shirt","Youth T-Shirt"])
-ClothingColor.where(clothing: y_tshirt, color: heather_gray, image: "Kids-Grey-Toddler-Tee.png").first_or_create
-ClothingColor.where(clothing: y_tshirt, color: red, image: "Kids-Red-Toddler-Tee.png").first_or_create
-ClothingColor.where(clothing: y_tshirt, color: white, image: "Kids-White-Toddler-Tee.png").first_or_create
 
 y_hoodie = Clothing.where(
   base_name: 'Youth Hoodie'
@@ -293,29 +249,6 @@ y_hoodie.update_attributes(
 )
 y_hoodie.add_tags(["Youth Hoodie"])
 ClothingColor.where(clothing: y_hoodie, color: gray, image: "UNISEX-GREY-CHAMPION-HOODIE.png").first_or_create
-
-jersey = Clothing.where(
-  base_name: "Fine Jersey T-Shirt"
-).first_or_initialize
-jersey.update_attributes(
-  clothing_type: 'T-Shirt',
-  style: "Fine Jersey T-Shirt",
-  gender: 'Women',
-  price: 27,
-  sizes: ["S","M","L","XL", "XXL"],
-  weight: 318,
-)
-jersey.add_tags(["Scoop Neck", "T-Shirt", "Fine Jersey T-Shirt", "V-Neck", "Tank Top"])
-ClothingColor.where(clothing: jersey, color: baby_blue, image: "Women-Lt-Blue-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: jersey, color: gold, image: "Women-Gold-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: jersey, color: grass, image: "Women-Lt-Green-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: jersey, color: heather_gold, image: "Women-Gold-Lighter-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: jersey, color: heather_gray, image: "Women-Grey-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: jersey, color: kelly_green, image: "Women-Green-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: jersey, color: lavender, image: "Women-Purple-2-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: jersey, color: purple, image: "Women-Purple-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: jersey, color: red, image: "Women-Red-AA-Fine-Tee.png").first_or_create
-ClothingColor.where(clothing: jersey, color: white, image: "Women-White-AA-Fine-Tee.png").first_or_create
 
 m_vneck = Clothing.where(
   base_name: "Mens V-Neck"
@@ -348,7 +281,7 @@ w_vneck.update_attributes(
   sizes: ["S","M","L","XL", "XXL"],
   weight: 318,
 )
-w_vneck.add_tags(["Scoop Neck", "T-Shirt", "Fine Jersey T-Shirt", "V-Neck", "Tank Top"])
+w_vneck.add_tags(["T-Shirt", "V-Neck", "Tank Top"])
 ClothingColor.where(clothing: w_vneck, color: white, image: "Women-White-V-Neck.png").first_or_create
 ClothingColor.where(clothing: w_vneck, color: red, image: "Women-Red-V-Neck.png").first_or_create
 ClothingColor.where(clothing: w_vneck, color: baby_blue, image: "Women-Lt-Blue-V-Neck.png").first_or_create
@@ -380,7 +313,7 @@ w_tank.update_attributes(
   sizes: ["S","M","L","XL"],
   weight: 318,
 )
-w_tank.add_tags(["Scoop Neck", "T-Shirt", "Fine Jersey T-Shirt", "V-Neck", "Tank Top"])
+w_tank.add_tags(["T-Shirt", "V-Neck", "Tank Top"])
 ClothingColor.where(clothing: w_tank, color: eco_black, image: "Women-Eco-Black-Tank-Top.png").first_or_create
 ClothingColor.where(clothing: w_tank, color: eco_purple, image: "Women-Purple-Tank-Top.png").first_or_create
 ClothingColor.where(clothing: w_tank, color: gold, image: "Women-Gold-Tank-Top.png").first_or_create
@@ -401,7 +334,7 @@ onesie.update_attributes(
   sizes: %w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y),
   weight: 136,
 )
-onesie.add_tags(["Onesie","Toddler T-Shirt","Youth T-Shirt"])
+onesie.add_tags(["Onesie","Kids T-Shirt"])
 ClothingColor.where(clothing: onesie, color: white, image: "Kids-White-Onesie.png").first_or_create
 ClothingColor.where(clothing: onesie, color: heather_gray, image: "Kids-Grey-Onesie.png").first_or_create
 ClothingColor.where(clothing: onesie, color: red, image: "Kids-Red-Onesie.png").first_or_create
