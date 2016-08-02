@@ -122,11 +122,11 @@ class Clothing < ApplicationRecord
     [size_sku, sku, clothing_color.color.sku].join('')
   end
 
-  def full_sku(size)
+  def full_sku(size, clothing_color)
     [
       [
         ENV['UPLOAD_VERSION'],
-        size_style_color_sku(size, color),
+        size_style_color_sku(size, , clothing_color),
         "XX-XX",
         @entry.team.id_string,
       ].join("-")
