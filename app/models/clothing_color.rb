@@ -1,6 +1,6 @@
 class ClothingColor < ApplicationRecord
-  belongs_to :clothing
-  belongs_to :color
+  belongs_to :clothing, dependent: :destroy
+  belongs_to :color, dependent: :destroy
 
   def color_name
     color.name

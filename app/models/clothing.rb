@@ -78,15 +78,14 @@ class Clothing < ApplicationRecord
   end
 
   def seo_title
-    "#{@entry.title}: #{gender}, #{tags.map(&:name).join(",")} #{@entry.team} | 500Level.com"
+    "#{@entry.title} #{style} | 500 LEVEL"
   end
 
   def seo_description
-    "#{@entry.title} #{@entry.team} #{gender} #{clothing_type} from 500LEVEL. This #{@entry.player} #{@entry.team} #{clothing_type.downcase} comes in multiple sizes and colors."
-  end
-
-  def collection_name
-    "#{@entry.team} (#{@entry.formatted_gender(gender)})"
+    description = "Show off your fandom with 500 LEVEL's #{@entry.title} #{style}. Made by fans, "
+    description << "for fans, 500 LEVEL sports apparel lets you rep your team in style. Browse our selection "
+    description << "and order today."
+    description
   end
 
   def csv_line_for_size_and_color(size, clothing_color, image_url, first_line)
@@ -105,7 +104,6 @@ class Clothing < ApplicationRecord
     9.times { csv_line << nil }
     csv_line << image_url
     csv_line << nil
-    csv_line << collection_name
 
     csv_line
   end
@@ -114,7 +112,7 @@ class Clothing < ApplicationRecord
     csv_line = []
     16.times { csv_line << nil }
     csv_line << image_url
-    2.times { csv_line << nil }
+    csv_line << nil
 
     csv_line
   end
