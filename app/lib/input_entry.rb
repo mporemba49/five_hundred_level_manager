@@ -72,7 +72,7 @@ class InputEntry
   def team
     return @team if @team
     @team = if title_team_player && title_team_player.team
-      Team.where(name: title_team_player.team).first_or_create
+      Team.where(name: title_team_player.team, league: title_team_player.league).first_or_create
     else
       STDERR.puts "No Team for '#{@handle}'"
     end
