@@ -4,7 +4,7 @@ class Clothing < ApplicationRecord
   has_many :clothing_colors, join_table: 'clothing_colors'
   has_many :clothing_tags, join_table: 'clothing_tags'
   has_many :clothing_sizes, join_table: 'clothing_sizes'
-  validates_uniqueness_of :sku
+  validates_uniqueness_of :sku, blank: true
 
   PUBLISHED = "TRUE"
   VARIANT_INVENTORY_QTY = "1"
