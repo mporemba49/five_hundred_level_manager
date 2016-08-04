@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
     title_team_player_path = Downloader.call(title_team_player)
     input_path = Downloader.call(input)
 
-    csv_lines = GenerateCsv.call(title_team_player_path, input_path)
+    csv_lines, @missing_files = GenerateCsv.call(title_team_player_path, input_path)
     if csv_lines
       returned_csv = CSV.generate(headers: true) do |csv|
         csv_lines.each do |line|
@@ -17,6 +17,6 @@ class UserMailer < ApplicationMailer
       attachments["shopify_upload.csv"] =  returned_csv
     end
 
-    mail(to: email, subject: "CSV Download")
+    mail(to: email, subject: "500 Level | CSV Download")
   end
 end

@@ -33,6 +33,6 @@ class GenerateCsv
       end
     end
 
-    output_csv_lines
+    output_csv_lines, missing_files
   end
 end

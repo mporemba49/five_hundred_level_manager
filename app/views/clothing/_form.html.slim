@@ -53,8 +53,8 @@
   = f.text_field :sku
 .fieldset
   = f.label :extension, "Winter?"
-  = f.radio_button :extension, "WINTER"
+  = f.radio_button :extension, "WINTER", checked: clothing.extension.include?("WINTER")
   = f.label :extension_yes, "Yes"
-  = f.radio_button :extension, "", checked: true
-  = f.label :extension_winter, "No"
+  = f.radio_button :extension, "", checked: !clothing.extension.include?("WINTER")
+  = f.label :extension_no, "No"
 = f.submit

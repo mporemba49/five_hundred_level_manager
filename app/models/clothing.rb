@@ -148,7 +148,6 @@ class Clothing < ApplicationRecord
 
   def csv_lines_for_color(clothing_color, first_line)
     lines = []
-    puts clothing_color.image
     image_url = @entry.url_string_for_clothing(self, clothing_color.image)
     return false unless image_url
 
