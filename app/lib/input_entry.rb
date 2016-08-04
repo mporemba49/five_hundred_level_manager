@@ -17,8 +17,13 @@ class InputEntry
     search_sub_dirs.each do |sub_dir|
       test_url = clothing.image_url_builder(url_design, sub_dir, image)
       rootless_url = test_url.gsub(/.*\/#{league}/,league)
+      puts "url design: #{url_design}"
+      puts "url: #{rootless_url}"
 
-      return "http://migildi.com/500level/png2jpg.php?i=#{URI.escape(test_url)}" if Validator.objects.select { |object| object.key == rootless_url }.any?
+      if Validator.objects.select { |object| object.key == rootless_url }.any?
+        puts "success: #{test_url}"
+        return "http://migildi.com/500level/png2jpg.php?i=#{URI.escape(test_url)}"
+      end
     end
 
     nil
@@ -45,13 +50,11 @@ class InputEntry
 
     if Validator.valid_folder?(default_folder)
       @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title}"
-      return @url_design 
+    elsif Validator.valid_folder?(folder_with_artist)
+      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title} (#{@artist})"
     end
 
-    if Validator.valid_folder?(folder_with_artist)
-      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title} (#{@artist})"
-      return @url_design
-    end
+    @url_design
   end
 
   def title_team_player
