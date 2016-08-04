@@ -20,7 +20,6 @@ class GenerateCsv
         next
       end
 
-      puts missing_files
       last_style = ''
       entry.clothing.each do |clothing_item|
         clothing_item.entry = entry
