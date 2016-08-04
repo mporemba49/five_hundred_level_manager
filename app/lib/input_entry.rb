@@ -17,6 +17,8 @@ class InputEntry
     search_sub_dirs.each do |sub_dir|
       test_url = clothing.image_url_builder(url_design, sub_dir, image)
       rootless_url = test_url.gsub(/.*\/#{league}/,league)
+      puts test_url
+      puts rootless_url 
 
       return "http://migildi.com/500level/png2jpg.php?i=#{URI.escape(test_url)}" if Validator.objects.select { |object| object.key == rootless_url }.any?
     end
