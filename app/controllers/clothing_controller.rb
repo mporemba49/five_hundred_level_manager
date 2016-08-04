@@ -2,7 +2,7 @@ class ClothingController < ApplicationController
   before_action :require_login
 
   def index
-    @clothing = Clothing.unscoped.order(active: :desc).all
+    @clothing = Clothing.unscoped.order(active: :desc, gender: :asc, base_name: :asc).all
   end
 
   def new
@@ -22,11 +22,12 @@ class ClothingController < ApplicationController
   def update
     @clothing = Clothing.unscoped.find(params[:id])
     sizes = params[:clothing].delete(:sizes)
-    new_sizes = sizes.reject { |size| size == "0" }
+    @sizes = sizes.reject { |size| size == "0" }
     if @clothing.update_attributes(clothing_params)
-      @clothing.add_sizes(new_sizes)
+      @clothing.add_sizes(@sizes)
       redirect_to clothing_path(@clothing)
     else
+      flash[:error] = "Clothing could not be saved"
       render :edit
     end
   end

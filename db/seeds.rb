@@ -63,6 +63,7 @@ mens_hoodie.update_attributes(
   gender: 'Male',
   price: 45,
   weight: 908,
+  sku: 'MNH',
   extension: 'Winter'
 )
 mens_hoodie.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
@@ -83,6 +84,7 @@ zip_hoodie.update_attributes(
   gender: 'Male',
   price: 50,
   weight: 908,
+  sku: 'ZPH',
   extension: 'Winter'
 )
 zip_hoodie.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
@@ -103,6 +105,7 @@ lace_hoodie.update_attributes(
   gender: 'Male',
   price: 50,
   weight: 908,
+  sku: 'LCH',
   extension: 'Winter'
 )
 lace_hoodie.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
@@ -122,6 +125,7 @@ crew_sweatshirt.update_attributes(
   gender: 'Male',
   price: 45,
   weight: 454,
+  sku: 'CRW',
   extension: 'Winter'
 )
 crew_sweatshirt.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
@@ -141,6 +145,7 @@ long_sleeve.update_attributes(
   gender: 'Male',
   price: 32,
   weight: 227,
+  sku: 'MLS',
   extension: 'Winter'
 )
 long_sleeve.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
@@ -158,6 +163,7 @@ w_hoodie_sleeve.update_attributes(
   gender: 'Women',
   price: 45,
   weight: 908,
+  sku: 'WMH',
   extension: 'Winter'
 )
 w_hoodie_sleeve.add_tags(["Womens Hoodie", "Maniac Sweatshirt"])
@@ -174,6 +180,7 @@ maniac.update_attributes(
   gender: 'Women',
   price: 45,
   weight: 454,
+  sku: 'MAN',
   extension: 'Winter'
 )
 maniac.add_tags(["Womens Hoodie", "Maniac Sweatshirt"])
@@ -194,6 +201,7 @@ m_tshirt.update_attributes(
   style: 'T-Shirt',
   gender: 'Male',
   price: 27,
+  sku: 'MNT',
   weight: 318,
 )
 m_tshirt.add_tags(["T-Shirt", "V-Neck", "Tank Top"])
@@ -221,6 +229,7 @@ w_tshirt.update_attributes(
   clothing_type: 'T-Shirt',
   style: 'T-Shirt',
   gender: 'Women',
+  sku: 'WMT',
   price: 27,
   weight: 318,
 )
@@ -242,6 +251,7 @@ t_tshirt.update_attributes(
   style: 'Kids T-Shirt',
   gender: 'Kids',
   price: 17,
+  sku: 'KDT',
   weight: 136,
 )
 t_tshirt.add_tags(["Onesie","Kids T-Shirt"])
@@ -258,6 +268,7 @@ y_hoodie.update_attributes(
   style: 'Youth Hoodie',
   gender: 'Kids',
   price: 35,
+  sku: 'YTH',
   weight: 908,
   extension: 'Winter'
 )
@@ -272,6 +283,7 @@ m_vneck.update_attributes(
   clothing_type: 'T-Shirt',
   style: "V-Neck",
   gender: 'Male',
+  sku: 'MVN',
   price: 27,
   weight: 318,
 )
@@ -293,6 +305,7 @@ w_vneck.update_attributes(
   style: "V-Neck",
   gender: 'Women',
   price: 27,
+  sku: 'WVN',
   weight: 318,
 )
 w_vneck.add_tags(["T-Shirt", "V-Neck", "Tank Top"])
@@ -310,6 +323,7 @@ m_tank.update_attributes(
   style: "Tank Top",
   gender: 'Male',
   price: 27,
+  sku: 'MTK',
   weight: 318,
 )
 m_tank.add_tags(["T-Shirt","V-Neck","Tank Top"])
@@ -324,6 +338,7 @@ w_tank.update_attributes(
   clothing_type: 'T-Shirt',
   style: "Tank Top",
   gender: 'Women',
+  sku: 'WTK',
   price: 27,
   weight: 318,
 )
@@ -346,6 +361,7 @@ onesie.update_attributes(
   style: "Onesie",
   gender: 'Kids',
   price: 17,
+  sku: 'WNZ',
   weight: 136,
 )
 onesie.add_tags(["Onesie","Kids T-Shirt"])
