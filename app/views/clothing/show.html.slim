@@ -19,7 +19,7 @@ table
     td = @clothing.price
   tr
     td Sizes
-    td = @clothing.sizes.join(', ')
+    td = @clothing.sizes.pluck(:name).join(', ')
   tr
     td Weight
     td = @clothing.weight

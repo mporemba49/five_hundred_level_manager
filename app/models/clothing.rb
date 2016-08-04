@@ -3,6 +3,7 @@ class Clothing < ApplicationRecord
   attr_accessor :entry
   has_many :clothing_colors, join_table: 'clothing_colors'
   has_many :clothing_tags, join_table: 'clothing_tags'
+  has_many :clothing_sizes, join_table: 'clothing_sizes'
 
   PUBLISHED = "TRUE"
   VARIANT_INVENTORY_QTY = "1"
@@ -11,12 +12,20 @@ class Clothing < ApplicationRecord
   VARIANT_REQUIRES_SHIPPING = "TRUE"
   VARIANT_TAXABLE = "FALSE"
   GIFT_CARD = "FALSE"
-  SIZE_SKUS = {'XS' => 'XS', 'S' => 'S', 'M' => 'M', 'L' => 'L',  'XL' => 'XL',  'XXL' => 'XXL'}
   has_and_belongs_to_many :tags, join_table: :clothing_tags
   has_and_belongs_to_many :colors, join_table: :clothing_colors
+  has_and_belongs_to_many :sizes, join_table: :clothing_sizes
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
   default_scope { where(active: true) }
+
+  def add_sizes(sizes)
+    clothing_sizes.where.not(size_id: Size.where(name: sizes)).destroy_all
+    sizes.each do |size|
+      size_record = Size.find_by_name(size)
+      ClothingSize.where(clothing: self, size: size_record).first_or_create if size_record
+    end
+  end
 
   def add_tags(tags)
     tags.each do |tag|
@@ -91,10 +100,10 @@ class Clothing < ApplicationRecord
   def csv_line_for_size_and_color(size, clothing_color, image_url, first_line)
     columns = [handle] 
     columns += entry_tags(first_line)
-    columns += options_data(clothing_color, size)
+    columns += options_data(clothing_color, size.name)
     columns += variants_data + image_data(image_url, clothing_color)
     columns += first_line ? first_line_entries(image_url) : later_line_entries(image_url)
-    columns += full_sku(size, clothing_color)
+    columns += full_sku(size.sku, clothing_color)
   end
 
   def first_line_entries(image_url)
@@ -118,8 +127,7 @@ class Clothing < ApplicationRecord
   end
 
   def size_style_color_sku(size, clothing_color)
-    size_sku = SIZE_SKUS[size] || size[0..1]
-    [size_sku, sku, clothing_color.color.sku].join('')
+    [size, sku, clothing_color.color.sku].join('')
   end
 
   def full_sku(size, clothing_color)

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post '/confirm_login', to: 'sessions#confirm_login'
 
   resources :colors
+  resources :sizes
 
   resources :clothing do
     resources :tags

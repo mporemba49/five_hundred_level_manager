@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803013310) do
+ActiveRecord::Schema.define(version: 20160803231525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20160803013310) do
     t.index ["clothing_id", "color_id"], name: "index_clothing_colors_on_clothing_id_and_color_id", unique: true, using: :btree
   end
 
+  create_table "clothing_sizes", force: :cascade do |t|
+    t.integer "clothing_id", null: false
+    t.integer "size_id",     null: false
+    t.index ["clothing_id", "size_id"], name: "index_clothing_sizes_on_clothing_id_and_size_id", unique: true, using: :btree
+    t.index ["size_id"], name: "index_clothing_sizes_on_size_id", using: :btree
+  end
+
   create_table "clothing_tags", force: :cascade do |t|
     t.integer "clothing_id"
     t.integer "tag_id"
@@ -38,7 +45,6 @@ ActiveRecord::Schema.define(version: 20160803013310) do
     t.string   "style",                                null: false
     t.string   "gender",                               null: false
     t.integer  "price",                                null: false
-    t.text     "sizes",            default: [],        null: false, array: true
     t.integer  "weight",                               null: false
     t.string   "extension"
     t.string   "handle_extension", default: "",        null: false
@@ -57,6 +63,14 @@ ActiveRecord::Schema.define(version: 20160803013310) do
     t.datetime "updated_at", null: false
     t.string   "sku"
     t.index ["name"], name: "index_colors_on_name", unique: true, using: :btree
+  end
+
+  create_table "sizes", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "sku",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_sizes_on_name", unique: true, using: :btree
   end
 
   create_table "tags", force: :cascade do |t|

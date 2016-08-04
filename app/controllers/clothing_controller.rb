@@ -7,19 +7,24 @@ class ClothingController < ApplicationController
 
   def new
     @clothing = Clothing.new
+    @sizes = []
   end
 
   def show
-    @clothing = Clothing.unscoped.includes(:colors, :tags).find(params[:id])
+    @clothing = Clothing.unscoped.includes(:colors, :tags, :sizes).find(params[:id])
   end
 
   def edit
     @clothing = Clothing.unscoped.find(params[:id])
+    @sizes = @clothing.sizes.pluck(:name)
   end
 
   def update
     @clothing = Clothing.unscoped.find(params[:id])
+    sizes = params[:clothing].delete(:sizes)
+    new_sizes = sizes.reject { |size| size == "0" }
     if @clothing.update_attributes(clothing_params)
+      @clothing.add_sizes(new_sizes)
       redirect_to clothing_path(@clothing)
     else
       render :edit

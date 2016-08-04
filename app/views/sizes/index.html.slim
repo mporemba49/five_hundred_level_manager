@@ -1,0 +1,9 @@
+table
+  tr
+    td Size
+    td SKU
+  - @sizes.each do |size|
+    tr
+      td = size.name
+      td = size.sku
+      td = link_to "Edit", edit_size_path(size)

@@ -39,6 +39,21 @@ eco_teal = Color.where(name: 'Eco Teal').first_or_create
 eco_stone = Color.where(name: 'Eco Stone').first_or_create
 eco_wheat = Color.where(name: 'Eco Wheat').first_or_create
 
+# Sizes
+Size.where(name: 'XS', sku: 'XS').first_or_create
+Size.where(name: 'S', sku: 'SM').first_or_create
+Size.where(name: 'M', sku: 'MD').first_or_create
+Size.where(name: 'L', sku: 'LG').first_or_create
+Size.where(name: 'XL', sku: 'XL').first_or_create
+Size.where(name: 'XXL', sku: '2X').first_or_create
+Size.where(name: 'XXXL', sku: '3X').first_or_create
+Size.where(name: '2T', sku: '2T').first_or_create
+Size.where(name: '4-5Y', sku: '5Y').first_or_create
+Size.where(name: '6-7Y', sku: '7Y').first_or_create
+Size.where(name: '8Y', sku: '8Y').first_or_create
+Size.where(name: '10-12Y', sku: 'PT').first_or_create #Pre-Teen
+Size.where(name: '14-16Y', sku: 'TN').first_or_create #Teen
+
 mens_hoodie = Clothing.where(
   base_name: 'Mens Hoodie'
 ).first_or_initialize
@@ -47,11 +62,11 @@ mens_hoodie.update_attributes(
   style: 'Mens Hoodie',
   gender: 'Male',
   price: 45,
-  sizes: ["S","M","L","XL","XXL","XXXL"],
   weight: 908,
   extension: 'Winter'
 )
 mens_hoodie.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
+mens_hoodie.add_sizes(["S","M","L","XL","XXL","XXXL"])
 ClothingColor.where(clothing: mens_hoodie, color: gray, image: "UNISEX-GREY-CHAMPION-HOODIE.png").first_or_create
 ClothingColor.where(clothing: mens_hoodie, color: white, image: "UNISEX-WHITE-CHAMPION-HOODIE.png").first_or_create
 ClothingColor.where(clothing: mens_hoodie, color: ash, image: "UNISEX-ASH-CHAMPION-HOODIE.png").first_or_create
@@ -67,11 +82,11 @@ zip_hoodie.update_attributes(
   style: 'Zip Hoodie',
   gender: 'Male',
   price: 50,
-  sizes: ["S","M","L","XL","XXL"],
   weight: 908,
   extension: 'Winter'
 )
 zip_hoodie.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
+zip_hoodie.add_sizes(["S","M","L","XL","XXL"])
 ClothingColor.where(clothing: zip_hoodie, color: eco_gray, image: "UNISEX-GREY-AA-ZIP-HOODIE.png").first_or_create
 ClothingColor.where(clothing: zip_hoodie, color: true_red, image: "UNISEX-RED-AA-ZIP-HOODIE.png").first_or_create
 ClothingColor.where(clothing: zip_hoodie, color: eco_royal, image: "UNISEX-LT-BLUE-AA-ZIP-HOODIE.png").first_or_create
@@ -87,11 +102,11 @@ lace_hoodie.update_attributes(
   style: 'Lace Hoodie',
   gender: 'Male',
   price: 50,
-  sizes: ["S","M","L","XL","XXL", "XXXL"],
   weight: 908,
   extension: 'Winter'
 )
 lace_hoodie.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
+lace_hoodie.add_sizes(["S","M","L","XL","XXL", "XXXL"])
 ClothingColor.where(clothing: lace_hoodie, color: gray, image: "UNISEX-GREY-HOCKEY-HOODIE.png").first_or_create
 ClothingColor.where(clothing: lace_hoodie, color: white, image: "UNISEX-WHITE-HOCKEY-HOODIE.png").first_or_create
 ClothingColor.where(clothing: lace_hoodie, color: royal, image: "UNISEX-BLUE-HOCKEY-HOODIE.png").first_or_create
@@ -106,11 +121,11 @@ crew_sweatshirt.update_attributes(
   style: 'Crew Sweatshirt',
   gender: 'Male',
   price: 45,
-  sizes: ["S","M","L","XL","XXL"],
   weight: 454,
   extension: 'Winter'
 )
 crew_sweatshirt.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
+crew_sweatshirt.add_sizes(["S","M","L","XL","XXL"])
 ClothingColor.where(clothing: crew_sweatshirt, color: eco_gray, image: "UNISEX-GREY-AA-CREWNECK-SWEATSHIRT.png").first_or_create
 ClothingColor.where(clothing: crew_sweatshirt, color: eco_true_red, image: "UNISEX-RED-AA-CREWNECK-SWEATSHIRT.png").first_or_create
 ClothingColor.where(clothing: crew_sweatshirt, color: eco_true_royal, image: "UNISEX-BLUE-AA-CREWNECK-SWEATSHIRT.png").first_or_create
@@ -125,11 +140,11 @@ long_sleeve.update_attributes(
   style: 'Long Sleeve',
   gender: 'Male',
   price: 32,
-  sizes: ["S","M","L","XL","XXL"],
   weight: 227,
   extension: 'Winter'
 )
 long_sleeve.add_tags(["Mens Hoodie", "Crew Sweatshirt", "Zip Hoodie", "Lace Hoodie", "Long Sleeve"])
+long_sleeve.add_sizes(["S","M","L","XL","XXL"])
 ClothingColor.where(clothing: long_sleeve, color: white, image: "MEN-WHITE-AA-LS-TEE.png").first_or_create
 ClothingColor.where(clothing: long_sleeve, color: heather_gray, image: "MEN-GREY-AA-LS-TEE.png").first_or_create
 ClothingColor.where(clothing: long_sleeve, color: lime_green, image: "MEN-LIME-GREEN-AA-LS-TEE.png").first_or_create
@@ -142,11 +157,11 @@ w_hoodie_sleeve.update_attributes(
   style: 'Womens Hoodie',
   gender: 'Women',
   price: 45,
-  sizes: ["S","M","L","XL"],
   weight: 908,
   extension: 'Winter'
 )
 w_hoodie_sleeve.add_tags(["Womens Hoodie", "Maniac Sweatshirt"])
+w_hoodie_sleeve.add_sizes(["S","M","L","XL"])
 ClothingColor.where(clothing: w_hoodie_sleeve, color: eco_gray, image: "WOMAN-GREY-AA-HOODIE.png").first_or_create
 ClothingColor.where(clothing: w_hoodie_sleeve, color: eco_stone, image: "WOMEN-OATMEAL-AA-HOODIE.png").first_or_create
 
@@ -158,11 +173,11 @@ maniac.update_attributes(
   style: 'Maniac Sweatshirt',
   gender: 'Women',
   price: 45,
-  sizes: ["S","M","L","XL"],
   weight: 454,
   extension: 'Winter'
 )
 maniac.add_tags(["Womens Hoodie", "Maniac Sweatshirt"])
+maniac.add_sizes(["S","M","L","XL"])
 ClothingColor.where(clothing: maniac, color: eco_gray, image: "WOMEN-GREY-AA-MANIAC.png").first_or_create
 ClothingColor.where(clothing: maniac, color: eco_wheat, image: "WOMEN-OATMEAL-AA-MANIAC.png").first_or_create
 ClothingColor.where(clothing: maniac, color: eco_true_purple, image: "WOMEN-PURPLE-AA-MANIAC.png").first_or_create
@@ -179,10 +194,10 @@ m_tshirt.update_attributes(
   style: 'T-Shirt',
   gender: 'Male',
   price: 27,
-  sizes: ["S","M","L","XL", "XXL"],
   weight: 318,
 )
 m_tshirt.add_tags(["T-Shirt", "V-Neck", "Tank Top"])
+m_tshirt.add_sizes(["S","M","L","XL","XXL"])
 ClothingColor.where(clothing: m_tshirt, color: eco_black, image: "Men-Eco-Black-Tee.png").first_or_create
 ClothingColor.where(clothing: m_tshirt, color: eco_green, image: "Men-Eco-Green-Tee.png").first_or_create
 ClothingColor.where(clothing: m_tshirt, color: eco_red, image: "Men-Eco-Red-Tee.png").first_or_create
@@ -207,10 +222,10 @@ w_tshirt.update_attributes(
   style: 'T-Shirt',
   gender: 'Women',
   price: 27,
-  sizes: ["S","M","L","XL", "XXL"],
   weight: 318,
 )
 w_tshirt.add_tags(["T-Shirt", "V-Neck", "Tank Top"])
+w_tshirt.add_sizes(["S","M","L","XL","XXL"])
 ClothingColor.where(clothing: w_tshirt, color: heather_black, image: "Women-Eco-Black-AA-Fine-Tee.png").first_or_create
 ClothingColor.where(clothing: w_tshirt, color: heather_gray, image: "Women-Grey-Scoop-Tee.png").first_or_create
 ClothingColor.where(clothing: w_tshirt, color: heather_lake_blue, image: "Women-Blue-AA-Fine-Tee.png").first_or_create
@@ -227,10 +242,10 @@ t_tshirt.update_attributes(
   style: 'Kids T-Shirt',
   gender: 'Kids',
   price: 17,
-  sizes: %w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y),
   weight: 136,
 )
 t_tshirt.add_tags(["Onesie","Kids T-Shirt"])
+t_tshirt.add_sizes(%w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y))
 ClothingColor.where(clothing: t_tshirt, color: heather_gray, image: "Kids-Grey-Toddler-Tee.png").first_or_create
 ClothingColor.where(clothing: t_tshirt, color: red, image: "Kids-Red-Toddler-Tee.png").first_or_create
 ClothingColor.where(clothing: t_tshirt, color: white, image: "Kids-White-Toddler-Tee.png").first_or_create
@@ -243,11 +258,11 @@ y_hoodie.update_attributes(
   style: 'Youth Hoodie',
   gender: 'Kids',
   price: 35,
-  sizes: ["S","M","L","XL"],
   weight: 908,
   extension: 'Winter'
 )
 y_hoodie.add_tags(["Youth Hoodie"])
+y_hoodie.add_sizes(["S","M","L","XL"])
 ClothingColor.where(clothing: y_hoodie, color: gray, image: "UNISEX-GREY-CHAMPION-HOODIE.png").first_or_create
 
 m_vneck = Clothing.where(
@@ -258,10 +273,10 @@ m_vneck.update_attributes(
   style: "V-Neck",
   gender: 'Male',
   price: 27,
-  sizes: ["XS", "S","M","L","XL", "XXL"],
   weight: 318,
 )
 m_vneck.add_tags(["T-Shirt", "V-Neck", "Tank Top"])
+m_vneck.add_sizes(["XS","S","M","L","XL","XXL"])
 ClothingColor.where(clothing: m_vneck, color: eco_black, image: "Men-Eco-Black-V-Neck.png").first_or_create
 ClothingColor.where(clothing: m_vneck, color: eco_green, image: "Men-Eco-Green-V-Neck.png").first_or_create
 ClothingColor.where(clothing: m_vneck, color: eco_red, image: "Men-Eco-Red-V-Neck.png").first_or_create
@@ -278,10 +293,10 @@ w_vneck.update_attributes(
   style: "V-Neck",
   gender: 'Women',
   price: 27,
-  sizes: ["S","M","L","XL", "XXL"],
   weight: 318,
 )
 w_vneck.add_tags(["T-Shirt", "V-Neck", "Tank Top"])
+w_vneck.add_sizes(["S","M","L","XL","XXL"])
 ClothingColor.where(clothing: w_vneck, color: white, image: "Women-White-V-Neck.png").first_or_create
 ClothingColor.where(clothing: w_vneck, color: red, image: "Women-Red-V-Neck.png").first_or_create
 ClothingColor.where(clothing: w_vneck, color: baby_blue, image: "Women-Lt-Blue-V-Neck.png").first_or_create
@@ -295,10 +310,10 @@ m_tank.update_attributes(
   style: "Tank Top",
   gender: 'Male',
   price: 27,
-  sizes: ["XS","S","M","L","XL"],
   weight: 318,
 )
 m_tank.add_tags(["T-Shirt","V-Neck","Tank Top"])
+m_tank.add_sizes(["XS","S","M","L","XL"])
 ClothingColor.where(clothing: m_tank, color: athletic_gray, image: "Men-Grey-Tank-Top.png").first_or_create
 ClothingColor.where(clothing: m_tank, color: athletic_blue, image: "Men-Eco-Royal-Tank-Top.png").first_or_create
 
@@ -310,9 +325,9 @@ w_tank.update_attributes(
   style: "Tank Top",
   gender: 'Women',
   price: 27,
-  sizes: ["S","M","L","XL"],
   weight: 318,
 )
+w_tank.add_sizes(["S","M","L","XL"])
 w_tank.add_tags(["T-Shirt", "V-Neck", "Tank Top"])
 ClothingColor.where(clothing: w_tank, color: eco_black, image: "Women-Eco-Black-Tank-Top.png").first_or_create
 ClothingColor.where(clothing: w_tank, color: eco_purple, image: "Women-Purple-Tank-Top.png").first_or_create
@@ -331,10 +346,10 @@ onesie.update_attributes(
   style: "Onesie",
   gender: 'Kids',
   price: 17,
-  sizes: %w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y),
   weight: 136,
 )
 onesie.add_tags(["Onesie","Kids T-Shirt"])
+onesie.add_sizes(%w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y))
 ClothingColor.where(clothing: onesie, color: white, image: "Kids-White-Onesie.png").first_or_create
 ClothingColor.where(clothing: onesie, color: heather_gray, image: "Kids-Grey-Onesie.png").first_or_create
 ClothingColor.where(clothing: onesie, color: red, image: "Kids-Red-Onesie.png").first_or_create
