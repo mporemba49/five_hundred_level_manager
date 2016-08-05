@@ -5,10 +5,11 @@
   </head>
   <body>
     <% if @missing_files.any? %>
-      ul Missing Designs
+      <ul> Missing Designs
         <% @missing_files.each do |file| %>
-          li <%= file %>
+          <li><%= file %></li>
         <% end %>
+      </ul>
     <% end %>
   </body>
 </html>
