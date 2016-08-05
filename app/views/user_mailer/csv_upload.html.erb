@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <% if @missing_files.any? %>
+      ul Missing Designs
+        <% @missing_files.each do |file| %>
+          li <%= file %>
+        <% end %>
+    <% end %>
+  </body>
+</html>
