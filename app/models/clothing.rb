@@ -36,7 +36,8 @@ class Clothing < ApplicationRecord
   end
 
   def image_url_builder(url_design, sub_dir, image)
-    [url_design, extension, sub_dir, image].compact.join("/")
+    ext = extension != "" ? extension.capitalize : nil
+    [url_design, ext, sub_dir, image].compact.join("/")
   end
 
   def handle
