@@ -83,7 +83,7 @@ class InputEntry
     # Check that there is a match for this design, else report ERR and return empty string
     set = title_team_players.select { |a,b,c| a.title == title }.first
     if title_team_player && title_team_player.player
-      @player = title_team_player.player
+      @player = TeamPlayer.where(team: @team, player: title_team_player.player).first_or_create
     else
       STDERR.puts "No Player for '#{handle}'"
       @player = ""

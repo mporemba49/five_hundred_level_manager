@@ -139,6 +139,7 @@ class Clothing < ApplicationRecord
         size_style_color_sku(size, clothing_color),
         "XX-XX",
         @entry.team.id_string,
+        @entry.player.sku
       ].join("-")
     ]
   end
