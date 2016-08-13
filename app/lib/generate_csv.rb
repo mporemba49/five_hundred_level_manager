@@ -21,15 +21,21 @@ class GenerateCsv
       end
 
       last_style = ''
+      line_success = false
       entry.clothing.each do |clothing_item|
         clothing_item.entry = entry
-        first_line = clothing_item.handle != last_style
+        first_line = clothing_item.handle != last_style || !line_success
         last_style = clothing_item.handle 
         shuffled_colors = clothing_item.clothing_colors.shuffle
         shuffled_colors.each_with_index do |clothing_color, index|
           test_line = clothing_item.csv_lines_for_color(clothing_color, first_line && index == 0)
-          output_csv_lines += test_line if test_line
+          if test_line
+            line_success = true
+            output_csv_lines += test_line
+          end
         end
+
+        line_success = false
       end
     end
 

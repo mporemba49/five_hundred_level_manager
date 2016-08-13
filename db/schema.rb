@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160806005343) do
+ActiveRecord::Schema.define(version: 20160812234730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,17 @@ ActiveRecord::Schema.define(version: 20160806005343) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  end
+
+  create_table "team_player_designs", force: :cascade do |t|
+    t.integer  "team_player_id",             null: false
+    t.string   "artist",                     null: false
+    t.string   "name",                       null: false
+    t.integer  "sku",            default: 1, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["team_player_id", "artist", "name"], name: "team_player_lookup", unique: true, using: :btree
+    t.index ["team_player_id", "sku"], name: "index_team_player_designs_on_team_player_id_and_sku", unique: true, using: :btree
   end
 
   create_table "team_players", force: :cascade do |t|
