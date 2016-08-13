@@ -20,7 +20,7 @@ class ReservedDesign < ApplicationRecord
   def generate_sku
     unless design_sku
       last_sku = ReservedDesign.pluck(:design_sku).last
-      self.design_sku = last_sku.next
+      self.design_sku = last_sku ? last_sku.next : ENV['MINIMUM_SKU'].to_i
     end
   end
 end
