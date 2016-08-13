@@ -3,7 +3,7 @@ class TeamPlayer < ApplicationRecord
   validates_presence_of :team, :player, :sku
   validates_uniqueness_of :team, scope: [:sku]
 
-  before_save :generate_sku
+  before_create :generate_sku
 
   def to_s
     player
@@ -12,10 +12,8 @@ class TeamPlayer < ApplicationRecord
   private
 
   def generate_sku
-    unless self.valid?
-      until self.valid?
-        self.sku = TeamPlayer.where(team: self.team).pluck(:sku).last.next
-      end
+    until self.valid?
+      self.sku = TeamPlayer.where(team: self.team).pluck(:sku).last.next
     end
   end
 end

@@ -58,6 +58,10 @@ class InputEntry
     @title_team_player ||= title_team_players.select { |ttp| ttp.title == @title }.first
   end
 
+  def design
+    ''
+  end
+
   def league
     return @league if @league
 
