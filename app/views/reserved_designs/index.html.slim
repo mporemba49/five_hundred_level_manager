@@ -1,0 +1,19 @@
+h1 Reserved Designs
+
+p
+  = link_to 'New Reserved Design', new_reserved_design_path
+
+- if @reserved_designs.any?
+  table
+    tr
+      td Artist
+      td Design Name
+      td Design Sku
+      - @reserved_designs.each do |design|
+        tr
+          td = design.artist.capitalize
+          td = design.snippet.capitalize
+          td = design.design_sku
+          td = link_to 'Edit', edit_reserveddesign_path(design)
+- else
+    | No Reserved Designs Exist

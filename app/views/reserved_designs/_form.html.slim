@@ -1,0 +1,11 @@
+.formset
+  = f.label :artist
+  = f.text_field :artist
+.formset
+  = f.label :snippet, 'Design Snippet'
+  = f.text_field :snippet
+.formset
+  = f.label :design_sku, 'SKU (optional)'
+  = f.number_field :design_sku
+.formset
+  = f.submit
