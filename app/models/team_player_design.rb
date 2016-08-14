@@ -3,6 +3,10 @@ class TeamPlayerDesign < ApplicationRecord
   validates_presence_of :team_player_id, :name, :artist
   before_validation(on: :create) { set_sku }
 
+  def readable_sku
+    sku.to_s.rjust(2,'0')
+  end
+
   private
 
   def set_sku

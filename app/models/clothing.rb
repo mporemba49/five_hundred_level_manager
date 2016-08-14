@@ -140,7 +140,7 @@ class Clothing < ApplicationRecord
         "XX-XX",
         @entry.team.id_string,
         @entry.player.sku,
-        @entry.design.sku
+        @entry.design.readable_sku
       ].join("-")
     ]
   end
