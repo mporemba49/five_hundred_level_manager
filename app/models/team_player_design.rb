@@ -6,8 +6,18 @@ class TeamPlayerDesign < ApplicationRecord
   private
 
   def set_sku
-    until self.valid?
-      self.sku = TeamPlayerDesign.where(team_player: self.team_player).where("sku < 89").pluck(:sku).last.next
+    if artist && name
+      reserved_designs = ReservedDesign.where(artist: artist)
+      reserved_designs.each do |reserved_design|
+        if name.include?(reserved_design.snippet)
+          self.sku = reserved_design.design_sku and return
+        end
+      end
     end
+
+    latest_sku = TeamPlayerDesign.where(team_player: self.team_player)
+                                 .where("sku < ?",  ENV['MINIMUM_SKU'])
+                                 .pluck(:sku).last
+    self.sku = latest_sku.next if latest_sku
   end
 end

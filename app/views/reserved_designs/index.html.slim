@@ -11,9 +11,9 @@ p
       td Design Sku
       - @reserved_designs.each do |design|
         tr
-          td = design.artist.capitalize
-          td = design.snippet.capitalize
+          td = design.artist.titleize
+          td = design.snippet.titleize
           td = design.design_sku
-          td = link_to 'Edit', edit_reserveddesign_path(design)
+          td = link_to 'Edit', edit_reserved_design_path(design)
 - else
     | No Reserved Designs Exist

@@ -59,7 +59,7 @@ class InputEntry
   end
 
   def design
-    ''
+    @player.designs.where(artist: @artist.downcase, name: @title.downcase).first_or_create
   end
 
   def league
