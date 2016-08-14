@@ -1,7 +1,7 @@
 class TeamPlayerDesign < ApplicationRecord
   belongs_to :team_player
   validates_presence_of :team_player_id, :name, :artist
-  before_create :set_sku
+  before_validation(on: :create) { set_sku }
 
   private
 
@@ -15,8 +15,8 @@ class TeamPlayerDesign < ApplicationRecord
       end
     end
 
-    latest_sku = TeamPlayerDesign.where(team_player: self.team_player)
-                                 .where("sku < ?",  ENV['MINIMUM_SKU'])
+    latest_sku = TeamPlayerDesign.unscoped.where(team_player: self.team_player)
+                                 .where("sku < ?",  ENV['MINIMUM_SKU'].to_i)
                                  .pluck(:sku).last
     self.sku = latest_sku.next if latest_sku
   end

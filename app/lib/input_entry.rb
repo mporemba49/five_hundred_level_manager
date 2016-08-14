@@ -59,41 +59,34 @@ class InputEntry
   end
 
   def design
-    @player.designs.where(artist: @artist.downcase, name: @title.downcase).first_or_create
+    player.designs.where(artist: @artist.downcase, name: @title.downcase).first_or_create
   end
 
   def league
-    return @league if @league
-
-    @league = if title_team_player && title_team_player.league
-      title_team_player.league 
-    else
-      STDERR.puts "No League for '#{@handle}'"
-      ""
-    end
+    @league ||= if title_team_player && title_team_player.league
+                  title_team_player.league
+                else
+                  STDERR.puts "No League for '#{@handle}'"
+                  nil
+                end
   end
 
   def team
-    return @team if @team
-    @team = if title_team_player && title_team_player.team
-      Team.where(name: title_team_player.team, league: title_team_player.league).first_or_create
-    else
-      STDERR.puts "No Team for '#{@handle}'"
-    end
+    @team ||= if title_team_player && title_team_player.team
+                Team.where(name: title_team_player.team, league: title_team_player.league).first_or_create
+              else
+                STDERR.puts "No Team for '#{@handle}'"
+                nil
+              end
   end
 
   def player
-    return @player if @player
-    # Check that there is a match for this design, else report ERR and return empty string
-    set = title_team_players.select { |a,b,c| a.title == title }.first
-    if title_team_player && title_team_player.player
-      @player = TeamPlayer.where(team: @team, player: title_team_player.player).first_or_create
-    else
-      STDERR.puts "No Player for '#{handle}'"
-      @player = ""
-    end
-
-    @player
+    @player ||= if title_team_player && title_team_player.player
+                  TeamPlayer.where(team_id: @team.id, player: title_team_player.player).first_or_create!
+                else
+                  STDERR.puts "No Player for '#{handle}'"
+                  nil
+                end
   end
 
   def gender
