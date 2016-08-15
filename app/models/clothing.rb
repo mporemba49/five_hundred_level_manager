@@ -106,6 +106,7 @@ class Clothing < ApplicationRecord
     columns += variants_data + image_data(image_url, clothing_color)
     columns += first_line ? first_line_entries(image_url) : later_line_entries(image_url)
     columns += full_sku(size.sku, clothing_color)
+    columns << @entry.title if first_line
   end
 
   def first_line_entries(image_url)
