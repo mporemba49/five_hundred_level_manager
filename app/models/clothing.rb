@@ -143,8 +143,9 @@ class Clothing < ApplicationRecord
         "XX-XX",
         @entry.team.id_string,
         @entry.player.sku,
-        @entry.design.readable_sku
-      ].join("-")
+        @entry.design.readable_sku,
+        @royalty_sku
+      ].compact.join("-")
     ]
   end
 
@@ -152,7 +153,8 @@ class Clothing < ApplicationRecord
     @valid_colors ||= Hash[colors.map{ |color, image_url| !@entry.url_string_for_product(self, image_url).nil? ? [color, image_url] : nil }.compact]
   end
 
-  def csv_lines_for_color(clothing_color, first_line)
+  def csv_lines_for_color(clothing_color, first_line, royalty_sku)
+    @royalty_sku = royalty_sku
     lines = []
     image_url = @entry.url_string_for_clothing(self, clothing_color.image)
     return false unless image_url

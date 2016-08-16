@@ -44,4 +44,7 @@ table
   .fieldset
     = label_tag :input
     = file_field_tag :input
-  = submit_tag "Download CSV"
+  .fieldset
+    = label_tag :royalty_sku, "Royalty SKU (optional)"
+    = text_field_tag :royalty_sku
+  = submit_tag "Email CSV"
