@@ -3,6 +3,7 @@ class ReservedDesign < ApplicationRecord
   before_create :generate_sku
   before_validation :standardize_fields
   validate :minimum_sku
+  validates_uniqueness_of :design_sku
 
   private
 
@@ -19,8 +20,9 @@ class ReservedDesign < ApplicationRecord
 
   def generate_sku
     unless design_sku
-      last_sku = ReservedDesign.pluck(:design_sku).last
-      self.design_sku = last_sku ? last_sku.next : ENV['MINIMUM_SKU'].to_i
+      possible_ids = (ENV['MINIMUM_SKU'].to_i..99).to_a
+      used_ids = ReservedDesign.pluck(:design_sku)
+      self.design_sku = (possible_ids - used_ids).first
     end
   end
 end

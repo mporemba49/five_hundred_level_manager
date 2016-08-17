@@ -1,3 +1,5 @@
+- if @reserved_design.errors.any?
+  | #{@reserved_design.errors.full_messages.to_sentence}
 .formset
   = f.label :artist
   = f.text_field :artist
@@ -5,7 +7,7 @@
   = f.label :snippet, 'Design Snippet'
   = f.text_field :snippet
 .formset
-  = f.label :design_sku, 'SKU (optional)'
+  = f.label :design_sku, "SKU (optional: minimum #{ENV['MINIMUM_SKU']})"
   = f.number_field :design_sku
 .formset
   = f.submit
