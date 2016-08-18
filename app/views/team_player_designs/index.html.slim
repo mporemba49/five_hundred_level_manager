@@ -1,0 +1,16 @@
+table
+  tr
+    th League
+    th Team
+    th Player
+    th Player SKU
+    th Design
+    th Design SKU
+  - @team_player_designs.each do |team_player_design|
+    tr
+      td = team_player_design.team.league
+      td = team_player_design.team.name
+      td = team_player_design.team_player.player
+      td = team_player_design.team_player.sku
+      td = team_player_design.name
+      td = team_player_design.readable_sku

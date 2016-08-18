@@ -1,5 +1,6 @@
 class TeamPlayerDesign < ApplicationRecord
   belongs_to :team_player
+  has_one :team, through: :team_player
   validates_presence_of :team_player_id, :name, :artist
   before_validation(on: :create) { set_sku }
 

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :colors
   resources :sizes
   resources :reserved_designs
-  resources :team_players
+  resources :team_player_designs
 
   resources :clothing do
     resources :tags
