@@ -32,6 +32,7 @@ table
   tr
     td Colors
     td = @clothing.colors.map(&:name).join(", ")
+    td = link_to 'Edit', clothing_clothing_colors_path(@clothing)
   tr
     td Tags
     td = @clothing.tags.map(&:name).join(", ")

@@ -1,9 +1,9 @@
 class Clothing < ApplicationRecord
   before_save :set_handle_extension
   attr_accessor :entry
-  has_many :clothing_colors, join_table: 'clothing_colors'
-  has_many :clothing_tags, join_table: 'clothing_tags'
-  has_many :clothing_sizes, join_table: 'clothing_sizes'
+  has_many :clothing_colors, dependent: :destroy
+  has_many :clothing_tags, dependent: :destroy
+  has_many :clothing_sizes, dependent: :destroy
   validates_uniqueness_of :sku, blank: true
 
   PUBLISHED = "TRUE"

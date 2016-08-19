@@ -11,9 +11,10 @@ Rails.application.routes.draw do
   resources :team_player_designs
 
   resources :clothing do
-    resources :tags
-    resources :colors
+    get '/clothing_colors', to: 'clothing_colors#edit'
+    put '/clothing_colors', to: 'clothing_colors#update'
     post 'toggle_active', to: 'clothing#toggle_active'
+    resources :tags
   end
 
   root to: 'sessions#login'

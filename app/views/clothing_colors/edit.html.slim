@@ -1,0 +1,11 @@
+h1
+  | Edit #{@clothing.base_name} Colors
+
+= form_tag clothing_clothing_colors_path, method: 'PUT' do
+  table
+    - @selections.each do |selection|
+      tr
+        td = selection[:name]
+        td 
+          = text_field_tag "colors[][#{selection[:id]}]", selection[:image]
+  = submit_tag "Update Colors"
