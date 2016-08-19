@@ -34,6 +34,16 @@ class ColorsController < ApplicationController
     end
   end
 
+  def destroy
+    @color = Color.find(params[:id])
+    if @color.delete
+      flash[:notice] = 'Color deleted'
+    else
+      flash[:error] = 'Color not deleted'
+    end
+    redirect_to colors_path
+  end
+
   private
 
   def color_params

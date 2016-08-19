@@ -9,3 +9,5 @@ table
       td = color.name
       td = color.sku
       td = link_to "Edit", edit_color_path(color)
+      td = form_tag color_path(color), method: 'DELETE', data: { confirm: "This will delete #{color.name} colors for all clothing styles" }
+          = submit_tag "Delete"
