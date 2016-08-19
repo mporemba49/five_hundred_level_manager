@@ -1,7 +1,9 @@
+= link_to 'New Color', new_color_path
+
 table
   tr
-    td Color
-    td SKU
+    th Color
+    th SKU
   - @colors.each do |color|
     tr
       td = color.name

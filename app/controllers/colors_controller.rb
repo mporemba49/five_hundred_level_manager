@@ -1,6 +1,22 @@
 class ColorsController < ApplicationController
   def index
-    @colors = Color.all
+    @colors = Color.order(:name)
+  end
+
+  def new
+    @color = Color.new
+  end
+
+  def create
+    @color = Color.new(color_params)
+
+    if @color.save
+      flash[:notice] = "Color saved"
+      redirect_to colors_path
+    else
+      flash[:error] = "Color was not saved"
+      render :new
+    end
   end
 
   def edit
