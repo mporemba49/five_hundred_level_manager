@@ -21,7 +21,8 @@ table
       td = clothing.sizes.pluck(:name).join(', ')
       td = clothing.weight
       td = clothing.sku
-      td = link_to 'Edit', edit_clothing_path(clothing)
+      td = link_to 'Edit Clothing', edit_clothing_path(clothing)
+      td = link_to 'Edit Colors', clothing_clothing_colors_path(clothing)
   - if @clothing.inactive.any?
     tr
       td Inactive Clothing

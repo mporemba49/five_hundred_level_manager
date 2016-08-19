@@ -2,6 +2,7 @@ table
   tr
     th League
     th Team
+    th Team SKU
     th Player
     th Player SKU
     th Design
@@ -10,6 +11,7 @@ table
     tr
       td = team_player_design.team.league
       td = team_player_design.team.name
+      td = team_player_design.team.id_string
       td = team_player_design.team_player.player
       td = team_player_design.team_player.sku
       td = team_player_design.name
