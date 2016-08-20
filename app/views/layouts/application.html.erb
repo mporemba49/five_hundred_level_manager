@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <header>
+    <nav id="navbar" class="navbar navbar-default">
       <% if !!session[:user_id] %>
         <%= link_to 'Clothing', clothing_index_path %>
         <%= link_to 'Colors', colors_path %>
@@ -19,16 +19,17 @@
         <%= form_tag logout_path, method: 'GET' do %>
           <%= submit_tag "Log Out", class: 'log-out' %>
         <% end %>
-      <% else %>
       <% end %>
-    </header>
-    <% [:notice, :error].each do |flash_type| %>
-      <% if flash[flash_type] %>
-        <div class="<%= flash_type %>">
-          <%= flash[flash_type] %>
-        </div>
+    </nav>
+    <div class="container">
+      <% [:notice, :error].each do |flash_type| %>
+        <% if flash[flash_type] %>
+          <div class="<%= flash_type %>">
+            <%= flash[flash_type] %>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
-    <%= yield %>
+      <%= yield %>
+    </div>
   </body>
 </html>
