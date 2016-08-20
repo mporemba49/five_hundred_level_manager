@@ -24,6 +24,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
 end
+gem 'bootstrap', '~> 4.0.0.alpha3.1'
 
 group :development do
   gem 'web-console'
