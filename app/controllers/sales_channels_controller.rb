@@ -24,7 +24,7 @@ class SalesChannelsController < ApplicationController
   end
 
   def create
-    @sales_channel = SalesChannel.new(royalty_params)
+    @sales_channel = SalesChannel.new(sales_channel_params)
 
     if @sales_channel.save
       flash[:notice] = "Sales Channel Saved"
