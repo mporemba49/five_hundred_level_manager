@@ -369,3 +369,21 @@ onesie.add_sizes(%w(2T 4-5Y 6-7Y 8Y 10-12Y 14-16Y))
 ClothingColor.where(clothing: onesie, color: white, image: "Kids-White-Onesie.png").first_or_create
 ClothingColor.where(clothing: onesie, color: heather_gray, image: "Kids-Grey-Onesie.png").first_or_create
 ClothingColor.where(clothing: onesie, color: red, image: "Kids-Red-Onesie.png").first_or_create
+
+# Sales Channels
+shopify = SalesChannel.where(name: 'Shopify', sku: 'SH').first_or_initialize
+shopify.update_attributes(percentage: 5)
+amazon = SalesChannel.where(name: 'Amazon', sku: 'AZ').first_or_initialize
+amazon.update_attributes(percentage: 10)
+storefront = SalesChannel.where(name: 'Storefront', sku: 'ST').first_or_initialize
+storefront.update_attributes(percentage: 4)
+etsy = SalesChannel.where(name: 'Etsy', sku: 'ET').first_or_initialize
+etsy.update_attributes(percentage: 3)
+
+# Royalties
+mlb = Royalty.where(league: 'MLB', code: 'B').first_or_initialize
+mlb.update_attributes(percentage: 1)
+nba = Royalty.where(league: 'NBA', code: 'A').first_or_initialize
+nba.update_attributes(percentage: 2)
+nfl = Royalty.where(league: 'NFL', code: 'L').first_or_initialize
+nfl.update_attributes(percentage: 5)

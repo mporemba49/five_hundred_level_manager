@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823002618) do
+ActiveRecord::Schema.define(version: 20160823015146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,10 +76,22 @@ ActiveRecord::Schema.define(version: 20160823002618) do
 
   create_table "royalties", force: :cascade do |t|
     t.string   "code",       null: false
-    t.string   "agreement"
+    t.string   "league",     null: false
+    t.decimal  "percentage", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_royalties_on_code", unique: true, using: :btree
+    t.index ["league"], name: "index_royalties_on_league", unique: true, using: :btree
+  end
+
+  create_table "sales_channels", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "sku",        null: false
+    t.decimal  "percentage", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_sales_channels_on_name", unique: true, using: :btree
+    t.index ["sku"], name: "index_sales_channels_on_sku", unique: true, using: :btree
   end
 
   create_table "sizes", force: :cascade do |t|

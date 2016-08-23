@@ -1,0 +1,17 @@
+h1 Royalties
+= link_to 'New Royalty', new_royalty_path
+table
+  tr
+    th Code
+    th League
+    th Percentage (%)
+    - if @royalties.any?
+      - @royalties.each do |royalty|
+        tr
+          td = royalty.code
+          td = royalty.league
+          td = royalty.percentage
+          td = link_to 'Edit', edit_royalty_path(royalty)
+    - else
+      tr
+        td No Royalties Available

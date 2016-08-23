@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#logout'
   post '/confirm_login', to: 'sessions#confirm_login'
 
+  resources :sales_channels
   resources :colors
   resources :sizes
   resources :royalties

@@ -1,0 +1,10 @@
+.fieldset
+  = f.label :code
+  = f.text_field :code
+.fieldset
+  = f.label :league
+  = f.text_field :league
+.fieldset
+  = f.label :percentage
+  = f.number_field :percentage, step: 0.5
+= f.submit

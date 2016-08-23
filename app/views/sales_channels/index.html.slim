@@ -1,0 +1,17 @@
+h1 Sales Channels
+= link_to 'New Sales Channel', new_sales_channel_path
+table
+  tr
+    th Name
+    th SKU
+    th Percentage (%)
+    - if @sales_channels.any?
+      - @sales_channels.each do |sales_channel|
+        tr
+          td = sales_channel.name
+          td = sales_channel.sku
+          td = sales_channel.percentage
+          td = link_to 'Edit', edit_sales_channel_path(sales_channel)
+    - else
+      tr
+        td No Sales Channels Available

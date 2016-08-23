@@ -12,6 +12,6 @@ class Color < ApplicationRecord
 
   def format
     self.name = name.capitalize
-    self.sku = sku.upcase
+    self.sku = sku.upcase if self.sku
   end
 end
