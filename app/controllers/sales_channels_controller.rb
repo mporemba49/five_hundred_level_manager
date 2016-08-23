@@ -14,7 +14,7 @@ class SalesChannelsController < ApplicationController
   def update
     @sales_channel = SalesChannel.find(params[:id])
 
-    if @sales_channel.update_attributes(royalty_params)
+    if @sales_channel.update_attributes(sales_channel_params)
       flash[:notice] = "SalesChannel Updated"
       redirect_to sales_channels_path
     else
