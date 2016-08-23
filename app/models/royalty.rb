@@ -1,0 +1,2 @@
+class Royalty < ApplicationRecord
+end
