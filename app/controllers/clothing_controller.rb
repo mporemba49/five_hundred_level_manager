@@ -3,6 +3,7 @@ class ClothingController < ApplicationController
 
   def index
     @clothing = Clothing.unscoped.order(active: :desc, gender: :asc, base_name: :asc).all
+    @sales_channels = SalesChannel.all
   end
 
   def new

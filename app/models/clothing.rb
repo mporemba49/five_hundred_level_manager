@@ -144,17 +144,25 @@ class Clothing < ApplicationRecord
         @entry.team.id_string,
         @entry.player.sku,
         @entry.design.readable_sku,
-        @royalty_sku
+        royalty_sku
       ].compact.join("-")
     ]
+  end
+
+  def royalty_sku
+    if @sales_channel
+      royalty = Royalty.find_by_league(@entry.league)
+      royalty_code = royalty ? royalty.code : ''
+      return royalty_code + @sales_channel.sku
+    end
   end
 
   def valid_colors
     @valid_colors ||= Hash[colors.map{ |color, image_url| !@entry.url_string_for_product(self, image_url).nil? ? [color, image_url] : nil }.compact]
   end
 
-  def csv_lines_for_color(clothing_color, first_line, royalty_sku)
-    @royalty_sku = royalty_sku
+  def csv_lines_for_color(clothing_color, first_line, sales_channel_id)
+    @sales_channel = SalesChannel.find_by_id(sales_channel_id)
     lines = []
     image_url = @entry.url_string_for_clothing(self, clothing_color.image)
     return false unless image_url

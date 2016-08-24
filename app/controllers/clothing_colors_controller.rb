@@ -2,6 +2,7 @@ class ClothingColorsController < ApplicationController
   def edit
     @clothing = Clothing.includes(:clothing_colors).find(params[:clothing_id])
     @selections = Color.all.map{ |color| { id: color.id, name: color.name } }
+    @sales_channels = SalesChannel.all
     @clothing.clothing_colors.each do |clothing_color|
       @selections.find{ |s| s[:id] == clothing_color.color_id }[:image] = clothing_color.image
     end

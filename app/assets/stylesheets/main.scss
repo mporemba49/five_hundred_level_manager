@@ -2,3 +2,19 @@ nav form {
   width: 80px;
   display: inline-block;
 }
+
+div.error {
+  background-color: #FF4045;
+  color: black;
+  width: 50%;
+  padding: 3px;
+  border-radius: 3px;
+}
+
+div.notice {
+  background-color: #45FF76;
+  color: black;
+  width: 50%;
+  padding: 3px;
+  border-radius: 3px;
+}
