@@ -4,6 +4,7 @@ class InputEntry
   attr_reader :handle, :title, :artist, :extension, :title_team_player, :title_team_players
   FORMATTED_GENDER = { "Women" => "Women", "Womens" => "Women", "Mens" => "Men",
                        "Male" => "Men", "Kids" => "Kids" }
+  LEAGUE_SPORT = { 'MLB' => 'Baseball', 'NFL' => 'Football', 'NBA' => 'Basketball', 'NHL' => 'Hockey' }
 
   def initialize(row, title_team_players)
     @title_team_players = title_team_players
@@ -60,17 +61,16 @@ class InputEntry
     @title_team_player ||= title_team_players.select { |ttp| ttp.title == @title }.first
   end
 
+  def city
+    @city ||= title_team_player.city
+  end
+
   def design
     player.designs.where(artist: @artist.downcase, name: @title.downcase).first_or_create
   end
 
   def league
-    @league ||= if title_team_player && title_team_player.league
-                  title_team_player.league
-                else
-                  STDERR.puts "No League for '#{@handle}'"
-                  nil
-                end
+    @league ||= title_team_player.league
   end
 
   def team
@@ -117,11 +117,15 @@ class InputEntry
 
   def tags(clothing, published, first_line)
     if first_line
+      sport = LEAGUE_SPORT[league.upcase]
       item_tags = [
         "player=#{player}",
         "gender=#{clothing.gender.downcase}",
         "style=#{clothing.style_tag}",
-        "v=#{ENV['500_LEVEL_VERSION']}"
+        "v=#{ENV['500_LEVEL_VERSION']}",
+        "team=#{team.name}",
+        "city=#{city}",
+        "sport=#{sport}"
       ].join(',')
 
       [title, nil, artist, clothing.clothing_type, item_tags, published]
