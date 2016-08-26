@@ -107,6 +107,10 @@ class InputEntry
     "MISSING \"/#{league}/#{team}/#{title}#{extension}/\" "
   end
 
+  def missing_clothing_error(clothing)
+    "MISSING \'/#{league}/#{team}/#{title}#{extension}/\ - #{clothing.base_name}'"
+  end
+
   def clothing
     @clothing ||= if gender == "Mens"
       Clothing.where(gender: ['Male', 'Kids']).includes(clothing_colors: [:color]).includes(:tags)
