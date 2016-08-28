@@ -1,6 +1,6 @@
 class Clothing < ApplicationRecord
   before_save :set_handle_extension
-  attr_accessor :entry
+  attr_accessor :entry, :sales_channel_id
   has_many :clothing_colors, dependent: :destroy
   has_many :clothing_tags, dependent: :destroy
   has_many :clothing_sizes, dependent: :destroy
@@ -149,20 +149,24 @@ class Clothing < ApplicationRecord
     ]
   end
 
+  def royalty
+    @royalty ||= Royalty.find_by_league(@entry.league)
+  end
+
   def royalty_sku
-    if @sales_channel
-      royalty = Royalty.find_by_league(@entry.league)
-      royalty_code = royalty ? royalty.code : ''
-      return royalty_code + @sales_channel.sku
-    end
+    royalty_code = royalty ? royalty.code : ''
+    return royalty_code + sales_channel.sku
   end
 
   def valid_colors
     @valid_colors ||= Hash[colors.map{ |color, image_url| !@entry.url_string_for_product(self, image_url).nil? ? [color, image_url] : nil }.compact]
   end
 
-  def csv_lines_for_color(clothing_color, first_line, sales_channel_id)
-    @sales_channel = SalesChannel.find_by_id(sales_channel_id)
+  def sales_channel
+    @sales_channel ||= SalesChannel.find_by_id(sales_channel_id)
+  end
+
+  def csv_lines_for_color(clothing_color, first_line)
     lines = []
     image_url = @entry.url_string_for_clothing(self, clothing_color.image)
     return false unless image_url

@@ -12,7 +12,8 @@ class InputEntry
     @title = row[1].gsub("\"","").gsub("'","")
     @artist = row[3]
     @extension = ""
-    @design = TeamPlayerDesign.includes(team_player: [:team]).where(artist: @artist.downcase, name: @title.downcase).first
+    @design = TeamPlayerDesign.includes(team_player: [:team])
+      .where(artist: @artist.downcase, name: @title.downcase).first
   end
 
   def url_string_for_clothing(clothing, image)
