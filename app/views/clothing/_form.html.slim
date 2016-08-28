@@ -18,33 +18,13 @@
   = f.label :price, "Price (USD)"
   = f.number_field :price
 .fieldset
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('XS') }, 'XS'
-  = f.label :sizes_s, 'XS'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('S') }, 'S'
-  = f.label :sizes_s, 'S'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('M') }, 'M', nil
-  = f.label :sizes_m, 'M'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('L') }, 'L', nil
-  = f.label :sizes_l, 'L'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('XL') }, 'XL', nil
-  = f.label :sizes_xl, 'XL'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('XXL') }, 'XXL', nil
-  = f.label :sizes_xxl, 'XXL'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('XXXL') }, 'XXXL', nil
-  = f.label :sizes_xxxl, 'XXXL'
+  - Size.adults.each do |size|
+    = f.check_box :sizes, { multiple: true, checked: @sizes.include?(size.name) }, size.name
+    = f.label size.name.to_sym, size.name
   br
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('2T') }, '2T', nil
-  = f.label :sizes_2t, '2T'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('4-5Y') }, '4-5Y', nil
-  = f.label :sizes_4_5y, '4-5Y'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('6-7Y') }, '6-7Y', nil
-  = f.label :sizes_6_7y, '6-7Y'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('8Y') }, '8Y', nil
-  = f.label :sizes_8y, '8Y'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('10-12Y') }, '10-12Y', nil
-  = f.label :sizes_10_12y, '10-12Y'
-  = f.check_box :sizes, { multiple: true, checked: @sizes.include?('14-16Y') }, '14-16Y', nil
-  = f.label :sizes_14_16y, '14-16Y'
+  - Size.kids.each do |size|
+    = f.check_box :sizes, { multiple: true, checked: @sizes.include?(size.name) }, size.name
+    = f.label size.name.to_sym, size.name
 .fieldset
   = f.label :weight
   = f.number_field :weight

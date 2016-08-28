@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160827202028) do
+ActiveRecord::Schema.define(version: 20160828231241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,10 +95,12 @@ ActiveRecord::Schema.define(version: 20160827202028) do
   end
 
   create_table "sizes", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "sku",        null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",                       null: false
+    t.string   "sku",                        null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "is_kids",    default: false, null: false
+    t.index ["is_kids"], name: "index_sizes_on_is_kids", using: :btree
     t.index ["name"], name: "index_sizes_on_name", unique: true, using: :btree
   end
 

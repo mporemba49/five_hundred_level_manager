@@ -47,12 +47,16 @@ Size.where(name: 'L', sku: 'LG').first_or_create
 Size.where(name: 'XL', sku: 'XL').first_or_create
 Size.where(name: 'XXL', sku: '2X').first_or_create
 Size.where(name: 'XXXL', sku: '3X').first_or_create
-Size.where(name: '2T', sku: '2T').first_or_create
-Size.where(name: '4-5Y', sku: '5Y').first_or_create
-Size.where(name: '6-7Y', sku: '7Y').first_or_create
-Size.where(name: '8Y', sku: '8Y').first_or_create
-Size.where(name: '10-12Y', sku: 'PT').first_or_create #Pre-Teen
-Size.where(name: '14-16Y', sku: 'TN').first_or_create #Teen
+Size.where(name: '2T', sku: '2T', is_kids: true).first_or_create
+Size.where(name: '4-5Y', sku: '5Y', is_kids: true).first_or_create
+Size.where(name: '6-7Y', sku: '7Y', is_kids: true).first_or_create
+Size.where(name: '8Y', sku: '8Y', is_kids: true).first_or_create
+Size.where(name: '10-12Y', sku: 'PT', is_kids: true).first_or_create #Pre-Teen
+Size.where(name: '14-16Y', sku: 'TN', is_kids: true).first_or_create #Teen
+Size.where(name: '3-6M', sku: 'TH', is_kids: true).first_or_create
+Size.where(name: '6-12M', sku: 'SX', is_kids: true).first_or_create
+Size.where(name: '12-18M', sku: 'TW', is_kids: true).first_or_create
+Size.where(name: '18-24M', sku: 'EI', is_kids: true).first_or_create
 
 mens_hoodie = Clothing.where(
   base_name: 'Mens Hoodie'
