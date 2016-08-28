@@ -1,17 +1,18 @@
 require 'uri'
 
 class InputEntry
-  attr_reader :handle, :title, :artist, :extension, :title_team_player, :title_team_players
+  attr_reader :handle, :title, :artist, :extension, :design
+
   FORMATTED_GENDER = { "Women" => "Women", "Womens" => "Women", "Mens" => "Men",
                        "Male" => "Men", "Kids" => "Kids" }
   LEAGUE_SPORT = { 'MLB' => 'Baseball', 'NFL' => 'Football', 'NBA' => 'Basketball', 'NHL' => 'Hockey' }
 
-  def initialize(row, title_team_players)
-    @title_team_players = title_team_players
+  def initialize(row)
     @handle = row[0]
-    @title = row[1].gsub("\"","").gsub("'","")
-    @artist = row[3]
+    @title = row[1].gsub("\"","").gsub("'","").downcase
+    @artist = row[3].downcase
     @extension = ""
+    @design = TeamPlayerDesign.includes(team_player: [:team]).where(artist: @artist, name: @title).first
   end
 
   def url_string_for_clothing(clothing, image)
@@ -57,38 +58,20 @@ class InputEntry
     @url_design
   end
 
-  def title_team_player
-    @title_team_player ||= title_team_players.select { |ttp| ttp.title == @title }.first
-  end
-
   def city
-    @city ||= title_team_player.city
-  end
-
-  def design
-    player.designs.where(artist: @artist.downcase, name: @title.downcase).first_or_create
+    @city ||= @design.team.city
   end
 
   def league
-    @league ||= title_team_player.league
+    @league ||= @design.team.league
   end
 
   def team
-    @team ||= if title_team_player && title_team_player.team
-                Team.where(name: title_team_player.team, league: title_team_player.league).first_or_create
-              else
-                STDERR.puts "No Team for '#{@handle}'"
-                nil
-              end
+    @team ||= @design.team
   end
 
   def player
-    @player ||= if title_team_player && title_team_player.player
-                  TeamPlayer.where(team_id: @team.id, player: title_team_player.player).first_or_create!
-                else
-                  STDERR.puts "No Player for '#{handle}'"
-                  nil
-                end
+    @player ||= @design.team_player
   end
 
   def gender
@@ -121,7 +104,7 @@ class InputEntry
 
   def tags(clothing, published, first_line)
     if first_line
-      sport = LEAGUE_SPORT[league.upcase]
+      sport = LEAGUE_SPORT[league]
       item_tags = [
         "player=#{player}",
         "gender=#{clothing.gender.downcase}",
