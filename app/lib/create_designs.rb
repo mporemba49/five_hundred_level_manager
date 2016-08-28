@@ -15,7 +15,7 @@ class CreateDesigns
     team = row[1].strip.titleize
     player = row[2].strip.titleize
     league = row[3].strip.upcase
-    city = row[4].strip.titleize
+    city = row[4].strip
     artist = row[5].strip.downcase
 
     team = create_team(team, league, city)
