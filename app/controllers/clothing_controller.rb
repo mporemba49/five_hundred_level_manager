@@ -2,7 +2,7 @@ class ClothingController < ApplicationController
   before_action :require_login
 
   def index
-    @clothing = Clothing.unscoped.order(active: :desc, gender: :asc, base_name: :asc).all
+    @clothing = Clothing.unscoped.includes(:sizes).order(active: :desc, gender: :asc, base_name: :asc).all
     @sales_channels = SalesChannel.all
   end
 

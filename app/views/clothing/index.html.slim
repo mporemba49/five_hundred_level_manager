@@ -18,7 +18,7 @@ table
       td = clothing.style
       td = clothing.gender
       td = clothing.price
-      td = clothing.sizes.pluck(:name).join(', ')
+      td = clothing.sizes.map(&:name).join(', ')
       td = clothing.weight
       td = clothing.sku
       td = link_to 'Edit Clothing', edit_clothing_path(clothing)
