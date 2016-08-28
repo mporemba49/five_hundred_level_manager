@@ -6,11 +6,13 @@ class GenerateCsv
   def self.call(title_team_player_path, input, sales_channel_id)
     output_csv_lines = [HEADER]
     missing_files = []
+    sales_channel = SalesChannel.find_by_id(sales_channel_id)
 
     CreateDesigns.call(title_team_player_path)
 
     CSV.foreach(input, col_sep: ",", encoding: "ISO8859-1") do |row|
       entry = InputEntry.new(row)
+      royalty = Royalty.find_by_league(entry.league)
 
       if entry.missing_image_design_url?
         missing_files << entry.missing_design_url_error
@@ -19,15 +21,16 @@ class GenerateCsv
 
       last_style = ''
       line_success = false
+
       entry.clothing.each do |clothing_item|
         clothing_item.entry = entry
-        clothing_item.sales_channel_id = sales_channel_id
+        clothing_item.royalty_sku = royalty.code + sales_channel.sku
 
         first_line = clothing_item.handle != last_style || !line_success
         last_style = clothing_item.handle
 
         shuffled_colors = clothing_item.clothing_colors.shuffle
-        shuffled_colors.each_with_index do |clothing_color, index|
+        shuffled_colors.each do |clothing_color|
           test_line = clothing_item.csv_lines_for_color(clothing_color, !line_success)
           if test_line
             line_success = true

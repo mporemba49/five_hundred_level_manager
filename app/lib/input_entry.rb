@@ -97,9 +97,9 @@ class InputEntry
 
   def clothing
     @clothing ||= if gender == "Mens"
-      Clothing.where(gender: ['Male', 'Kids']).includes(clothing_colors: [:color]).includes(:tags)
+      Clothing.where(gender: ['Male', 'Kids']).includes(clothing_colors: [:color]).includes(:tags, :sizes)
     else
-      Clothing.where(gender: 'Women').includes(clothing_colors: [:color]).includes(:tags)
+      Clothing.where(gender: 'Women').includes(clothing_colors: [:color]).includes(:tags, :sizes)
     end
   end
 

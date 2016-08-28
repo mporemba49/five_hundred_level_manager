@@ -1,11 +1,19 @@
 class Clothing < ApplicationRecord
   before_save :set_handle_extension
-  attr_accessor :entry, :sales_channel_id
+  attr_accessor :entry, :royalty_sku
+
   has_many :clothing_colors, dependent: :destroy
   has_many :clothing_tags, dependent: :destroy
   has_many :clothing_sizes, dependent: :destroy
-  validates_uniqueness_of :sku, blank: true
+  has_many :tags, through: :clothing_tags
+  has_many :colors, through: :clothing_colors
+  has_many :sizes, through: :clothing_sizes
 
+  scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
+  default_scope { where(active: true) }
+
+  validates_uniqueness_of :sku, blank: true
   PUBLISHED = "TRUE"
   VARIANT_INVENTORY_QTY = "1"
   VARIANT_INVENTORY_POLICY = "deny"
@@ -13,12 +21,6 @@ class Clothing < ApplicationRecord
   VARIANT_REQUIRES_SHIPPING = "TRUE"
   VARIANT_TAXABLE = "FALSE"
   GIFT_CARD = "FALSE"
-  has_and_belongs_to_many :tags, join_table: :clothing_tags
-  has_and_belongs_to_many :colors, join_table: :clothing_colors
-  has_and_belongs_to_many :sizes, join_table: :clothing_sizes
-  scope :active, -> { where(active: true) }
-  scope :inactive, -> { where(active: false) }
-  default_scope { where(active: true) }
 
   def add_sizes(sizes)
     clothing_sizes.where.not(size_id: Size.where(name: sizes)).destroy_all
@@ -149,21 +151,8 @@ class Clothing < ApplicationRecord
     ]
   end
 
-  def royalty
-    @royalty ||= Royalty.find_by_league(@entry.league)
-  end
-
-  def royalty_sku
-    royalty_code = royalty ? royalty.code : ''
-    return royalty_code + sales_channel.sku
-  end
-
   def valid_colors
     @valid_colors ||= Hash[colors.map{ |color, image_url| !@entry.url_string_for_product(self, image_url).nil? ? [color, image_url] : nil }.compact]
-  end
-
-  def sales_channel
-    @sales_channel ||= SalesChannel.find_by_id(sales_channel_id)
   end
 
   def csv_lines_for_color(clothing_color, first_line)
