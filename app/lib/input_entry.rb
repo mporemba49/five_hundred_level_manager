@@ -9,10 +9,10 @@ class InputEntry
 
   def initialize(row)
     @handle = row[0]
-    @title = row[1].gsub("\"","").gsub("'","").downcase
-    @artist = row[3].downcase
+    @title = row[1].gsub("\"","").gsub("'","")
+    @artist = row[3]
     @extension = ""
-    @design = TeamPlayerDesign.includes(team_player: [:team]).where(artist: @artist, name: @title).first
+    @design = TeamPlayerDesign.includes(team_player: [:team]).where(artist: @artist.downcase, name: @title.downcase).first
   end
 
   def url_string_for_clothing(clothing, image)
