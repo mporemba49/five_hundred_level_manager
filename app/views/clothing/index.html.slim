@@ -1,25 +1,21 @@
 = link_to 'New Clothing', new_clothing_path
 table
   tr 
-    td Base Name
-    td Type
-    td Style
-    td Gender
-    td Price
-    td Sizes
-    td Weight
-    td SKU
+    th Base Name
+    th Style
+    th Gender
+    th Price
+    th Sizes
+    th SKU
   tr
     td Active Clothing
   - @clothing.active.each do |clothing|
     tr
       td = link_to clothing.base_name, clothing_path(clothing)
-      td = clothing.clothing_type
       td = clothing.style
       td = clothing.gender
       td = clothing.price
       td = clothing.sizes.map(&:name).join(', ')
-      td = clothing.weight
       td = clothing.sku
       td = link_to 'Edit Clothing', edit_clothing_path(clothing)
       td = link_to 'Edit Colors', clothing_clothing_colors_path(clothing)
@@ -29,16 +25,15 @@ table
       - @clothing.inactive.each do |clothing|
         tr
           td = link_to clothing.base_name, clothing_path(clothing)
-          td = clothing.clothing_type
           td = clothing.style
           td = clothing.gender
           td = clothing.price
           td = clothing.sizes.pluck(:name).join(', ')
-          td = clothing.weight
           td = clothing.sku
           td = link_to 'Edit', edit_clothing_path(clothing)
 
-= form_tag create_csv_path, multipart: true do |f|
+= form_tag create_csv_path, multipart: true, id: 'csv_upload' do |f|
+  h4 Upload CSVs
   .fieldset
     = label_tag :title_team_player
     = file_field_tag :title_team_player

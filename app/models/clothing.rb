@@ -151,10 +151,6 @@ class Clothing < ApplicationRecord
     ]
   end
 
-  def valid_colors
-    @valid_colors ||= Hash[colors.map{ |color, image_url| !@entry.url_string_for_product(self, image_url).nil? ? [color, image_url] : nil }.compact]
-  end
-
   def csv_lines_for_color(clothing_color, first_line)
     lines = []
     image_url = @entry.url_string_for_clothing(self, clothing_color.image)

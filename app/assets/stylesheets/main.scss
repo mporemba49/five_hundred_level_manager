@@ -18,3 +18,26 @@ div.notice {
   padding: 3px;
   border-radius: 3px;
 }
+
+form#csv_upload {
+  width: 50%;
+  margin-top: 8px;
+  .fieldset {
+    label { width: 25%; }
+    input { width: 40%; }
+  }
+}
+
+@media (max-width: 1225px) {
+  form#csv_upload {
+    width: 50%;
+    margin-top: 8px;
+    .fieldset {
+      margin-bottom: 4px;
+      label {
+        width: 100%;
+      }
+      input { width: 100%; }
+    }
+  }
+}
