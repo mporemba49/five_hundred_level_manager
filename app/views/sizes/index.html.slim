@@ -1,11 +1,13 @@
 = link_to "New Size", new_size_path
 table
   tr
-    td Size
-    td SKU
+    th Size
+    th SKU
+    th Kids Size
   - @sizes.each do |size|
     tr
       td = size.name
       td = size.sku
-      td = link_to "Edit", edit_size_path(size)
-      td = link_to "Delete", size_path(size), method: "DELETE"
+      td = size.is_kids ? "&#10004;".html_safe : ''
+      td = link_to "&#9998;".html_safe, edit_size_path(size)
+      td = link_to "&#10007;".html_safe, size_path(size), method: "DELETE", data:{ confirm: "Are you sure you want to delete?" }
