@@ -1,2 +1,0 @@
-class Hoodie < Clothing
-end
