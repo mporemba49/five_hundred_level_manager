@@ -21,6 +21,7 @@ class Clothing < ApplicationRecord
   VARIANT_REQUIRES_SHIPPING = "TRUE"
   VARIANT_TAXABLE = "FALSE"
   GIFT_CARD = "FALSE"
+  CLOTHING_SKU = "C"
 
   def add_sizes(sizes)
     clothing_sizes.where.not(size_id: Size.where(name: sizes)).destroy_all
@@ -141,8 +142,9 @@ class Clothing < ApplicationRecord
     [
       [
         ENV['UPLOAD_VERSION'],
+        CLOTHING_SKU,
         size_style_color_sku(size, clothing_color),
-        "XX-XX",
+        "XX",
         @entry.team.id_string,
         @entry.player.sku,
         @entry.design.readable_sku,
