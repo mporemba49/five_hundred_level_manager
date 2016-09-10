@@ -1,0 +1,18 @@
+h1 Teams
+table
+  tr
+    th League
+    th Name
+    th City
+    th Royalty (%)
+    - if @teams.any?
+      - @teams.each do |team|
+        tr
+          td = team.league
+          td = team.name
+          td = team.city
+          td = team.royalty
+          td = link_to 'Edit Royalty', edit_team_path(team)
+    - else
+      tr
+        td No Teams Available

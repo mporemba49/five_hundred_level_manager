@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :sales_channels
   resources :colors
+  resources :teams
   resources :sizes
   resources :royalties
   resources :reserved_designs

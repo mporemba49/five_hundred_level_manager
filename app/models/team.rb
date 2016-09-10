@@ -1,4 +1,5 @@
 class Team < ApplicationRecord
+  default_scope { order(:league, :name) }
 
   def to_s
     name

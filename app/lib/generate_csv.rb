@@ -19,6 +19,11 @@ class GenerateCsv
         next
       end
 
+      if !royalty
+        missing_files << entry.missing_royalty_error
+        next
+      end
+
       last_style = ''
       line_success = false
 

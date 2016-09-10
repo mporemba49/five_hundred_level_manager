@@ -95,6 +95,10 @@ class InputEntry
     "MISSING \'/#{league}/#{team}/#{title}#{extension}/\ - #{clothing.base_name}'"
   end
 
+  def missing_royalty_error
+    "MISSING \'/#{league}/#{team}/#{title}#{extension}/\ - League Royalty'"
+  end
+
   def clothing
     @clothing ||= if gender == "Mens"
       Clothing.where(gender: ['Male', 'Kids']).includes(clothing_colors: [:color]).includes(:tags, :sizes)
