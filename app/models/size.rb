@@ -5,4 +5,5 @@ class Size < ApplicationRecord
 
   scope :kids, -> { where(is_kids: true) }
   scope :adults, -> { where(is_kids: false) }
+  default_scope { order(:is_kids, :name) }
 end
