@@ -7,10 +7,10 @@ class InputEntry
                        "Male" => "Men", "Kids" => "Kids" }
   LEAGUE_SPORT = { 'MLB' => 'Baseball', 'NFL' => 'Football', 'NBA' => 'Basketball', 'NHL' => 'Hockey' }
 
-  def initialize(row)
-    @handle = row[0]
-    @title = row[1].gsub("\"","").gsub("'","")
-    @artist = row[3]
+  def initialize(handle, title, artist)
+    @handle = handle
+    @title = title
+    @artist = artist
     @extension = ""
     @design = TeamPlayerDesign.includes(team_player: [:team])
       .where(artist: @artist.downcase, name: @title.downcase).first
