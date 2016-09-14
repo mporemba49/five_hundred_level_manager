@@ -38,9 +38,6 @@ table
     = label_tag :title_team_player
     = file_field_tag :title_team_player
   .fieldset
-    = label_tag :input
-    = file_field_tag :input
-  .fieldset
     = label_tag :sales_channel, "Sales Channel"
     = select_tag 'sales_channel', options_from_collection_for_select(@sales_channels, 'id', 'name')
   = submit_tag "Email CSV"
