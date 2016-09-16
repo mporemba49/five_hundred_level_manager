@@ -3,7 +3,7 @@
   = f.text_field :base_name, placeholder: 'Mens Hoodie'
 .fieldset
   = f.label :clothing_type
-  = f.select :clothing_type, ["T-Shirt", "Long Sleeve", "Onesie"]
+  = f.select :clothing_type, ["T-Shirt", "Long Sleeve", "Onesie"], value: clothing.clothing_type
 .fieldset
   = f.label :style
   = f.text_field :style, placeholder: 'Mens Hoodie', value: clothing.style
