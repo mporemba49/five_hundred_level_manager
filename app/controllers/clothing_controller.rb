@@ -34,9 +34,12 @@ class ClothingController < ApplicationController
   end
 
   def create
+    sizes = params[:clothing].delete(:sizes)
+    @sizes = sizes.reject { |size| size == "0" }
     @clothing = Clothing.new(clothing_params)
 
     if @clothing.save
+      @clothing.add_sizes(@sizes)
       redirect_to clothing_path(@clothing)
     else
       render :new
