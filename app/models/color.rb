@@ -11,7 +11,7 @@ class Color < ApplicationRecord
   private
 
   def format
-    self.name = name.capitalize
+    self.name = name.split(' ').map(&:capitalize).join(' ')
     self.sku = sku.upcase if self.sku
   end
 end
