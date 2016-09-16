@@ -14,6 +14,9 @@ class Clothing < ApplicationRecord
   default_scope { where(active: true) }
 
   validates_uniqueness_of :sku, blank: true
+  validates_presence_of :base_name, :clothing_type, :style,
+                        :gender, :price, :weight, :sku
+            
   PUBLISHED = "TRUE"
   VARIANT_INVENTORY_QTY = "1"
   VARIANT_INVENTORY_POLICY = "deny"

@@ -39,9 +39,11 @@ class ClothingController < ApplicationController
     @clothing = Clothing.new(clothing_params)
 
     if @clothing.save
+      flash[:notice] = "New Clothing Saved"
       @clothing.add_sizes(@sizes)
       redirect_to clothing_path(@clothing)
     else
+      flash[:error] = "Clothing Not Saved"
       render :new
     end
   end

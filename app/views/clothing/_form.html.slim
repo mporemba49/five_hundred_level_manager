@@ -1,3 +1,8 @@
+- if clothing.errors.any?
+  ul
+    | Errors
+    - clothing.errors.full_messages.each do |e|
+      li = e
 .fieldset
   = f.label :base_name, "Type"
   = f.text_field :base_name, placeholder: 'Mens Hoodie'
