@@ -47,7 +47,11 @@ class Clothing < ApplicationRecord
   end
 
   def handle
-    @entry.handle + handle_extension.downcase + "-" + style.parameterize
+    returned_handle = @entry.handle
+    returned_handle << handle_extension.downcase if handle_extension != '-'
+    returned_handle << '-'
+    returned_handle << style.parameterize
+    returned_handle
   end
 
   def entry_tags(first_line)
