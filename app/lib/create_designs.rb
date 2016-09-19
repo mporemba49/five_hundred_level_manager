@@ -12,8 +12,8 @@ class CreateDesigns
 
   def self.create_records(row)
     title = row[0].strip.downcase
-    team = row[1].strip.titleize
-    player = row[2].strip.titleize
+    team = row[1].strip
+    player = row[2].strip
     league = row[3].strip.upcase
     city = row[4].strip
     artist = row[5].strip.downcase

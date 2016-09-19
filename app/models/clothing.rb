@@ -75,7 +75,9 @@ class Clothing < ApplicationRecord
   end
 
   def variants_data
-    [nil, weight,nil,VARIANT_INVENTORY_QTY,VARIANT_INVENTORY_POLICY,FULFILLMENT_SVC, price, nil, VARIANT_REQUIRES_SHIPPING, VARIANT_TAXABLE,nil]
+    [weight, nil, VARIANT_INVENTORY_QTY, VARIANT_INVENTORY_POLICY,
+     FULFILLMENT_SVC, price, nil, VARIANT_REQUIRES_SHIPPING,
+     VARIANT_TAXABLE,nil]
   end
 
   def img_alt_text(color)
@@ -110,9 +112,9 @@ class Clothing < ApplicationRecord
     columns = [handle] 
     columns += entry_tags(first_line)
     columns += options_data(clothing_color, size.name)
+    columns += full_sku(size.sku, clothing_color)
     columns += variants_data + image_data(image_url, clothing_color)
     columns += first_line ? first_line_entries(image_url) : later_line_entries(image_url)
-    columns += full_sku(size.sku, clothing_color)
     columns += [@entry.title] if first_line
 
     columns

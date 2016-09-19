@@ -24,7 +24,7 @@ class InputEntry
 
       if matching_object
         test_url = ENV['IMAGE_ROOT'] + matching_object.key
-        return "http://migildi.com/500level/png2jpg.php?i=#{URI.escape(test_url)}"
+        return URI.escape(test_url)
       end
     end
 
