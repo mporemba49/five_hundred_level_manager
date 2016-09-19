@@ -2,9 +2,6 @@ require 'uri'
 
 class InputEntry
   attr_reader :handle, :title, :artist, :extension, :design
-
-  FORMATTED_GENDER = { "Women" => "Women", "Womens" => "Women", "Mens" => "Men",
-                       "Male" => "Men", "Kids" => "Kids" }
   LEAGUE_SPORT = { 'MLB' => 'Baseball', 'NFL' => 'Football', 'NBA' => 'Basketball', 'NHL' => 'Hockey' }
 
   def initialize(handle, title, artist)
@@ -79,10 +76,6 @@ class InputEntry
     @gender ||= @handle[-2..-1] == "-1" ? "Womens" : "Mens"
   end
 
-  def formatted_gender(gender)
-    FORMATTED_GENDER[gender]
-  end
-
   def missing_image_design_url?
     !url_design
   end
@@ -101,7 +94,7 @@ class InputEntry
 
   def clothing
     @clothing ||= if gender == "Mens"
-      Clothing.where(gender: ['Male', 'Kids']).includes(clothing_colors: [:color]).includes(:tags, :sizes)
+      Clothing.where(gender: ['Men', 'Kids']).includes(clothing_colors: [:color]).includes(:tags, :sizes)
     else
       Clothing.where(gender: 'Women').includes(clothing_colors: [:color]).includes(:tags, :sizes)
     end

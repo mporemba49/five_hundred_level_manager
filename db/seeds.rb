@@ -64,7 +64,7 @@ mens_hoodie = Clothing.where(
 mens_hoodie.update_attributes(
   clothing_type: 'Long Sleeve',
   style: 'Mens Hoodie',
-  gender: 'Male',
+  gender: 'Men',
   price: 45,
   weight: 908,
   sku: 'MNH',
@@ -85,7 +85,7 @@ zip_hoodie = Clothing.where(
 zip_hoodie.update_attributes(
   clothing_type: 'Long Sleeve',
   style: 'Zip Hoodie',
-  gender: 'Male',
+  gender: 'Men',
   price: 50,
   weight: 908,
   sku: 'ZPH',
@@ -106,7 +106,7 @@ lace_hoodie = Clothing.where(
 lace_hoodie.update_attributes(
   clothing_type: 'Long Sleeve',
   style: 'Lace Hoodie',
-  gender: 'Male',
+  gender: 'Men',
   price: 50,
   weight: 908,
   sku: 'LCH',
@@ -126,7 +126,7 @@ crew_sweatshirt = Clothing.where(
 crew_sweatshirt.update_attributes(
   clothing_type: 'Long Sleeve',
   style: 'Crew Sweatshirt',
-  gender: 'Male',
+  gender: 'Men',
   price: 45,
   weight: 454,
   sku: 'CRW',
@@ -146,7 +146,7 @@ long_sleeve = Clothing.where(
 long_sleeve.update_attributes(
   clothing_type: 'Long Sleeve',
   style: 'Long Sleeve',
-  gender: 'Male',
+  gender: 'Men',
   price: 32,
   weight: 227,
   sku: 'MLS',
@@ -203,7 +203,7 @@ m_tshirt = Clothing.where(
 m_tshirt.update_attributes(
   clothing_type: 'T-Shirt',
   style: 'T-Shirt',
-  gender: 'Male',
+  gender: 'Men',
   price: 27,
   sku: 'MNT',
   weight: 318,
@@ -286,7 +286,7 @@ m_vneck = Clothing.where(
 m_vneck.update_attributes(
   clothing_type: 'T-Shirt',
   style: "V-Neck",
-  gender: 'Male',
+  gender: 'Men',
   sku: 'MVN',
   price: 27,
   weight: 318,
@@ -325,7 +325,7 @@ m_tank = Clothing.where(
 m_tank.update_attributes(
   clothing_type: 'T-Shirt',
   style: "Tank Top",
-  gender: 'Male',
+  gender: 'Men',
   price: 27,
   sku: 'MTK',
   weight: 318,

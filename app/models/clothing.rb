@@ -58,7 +58,7 @@ class Clothing < ApplicationRecord
   def style_tag
     if (style.split(' ') & %w(Mens Womens Kids)).empty?
       case gender
-      when 'Male'
+      when 'Men'
         return "Mens #{style}"
       when 'Women'
         return "Womens #{style}"
@@ -83,7 +83,7 @@ class Clothing < ApplicationRecord
   def img_alt_text(color)
     gender_prefix = ''
     case gender
-    when 'Male'
+    when 'Men'
       gender_prefix = "Mens " unless style.include?('Mens')
     when 'Women'
       gender_prefix = "Womens " unless style.include?('Womens')
