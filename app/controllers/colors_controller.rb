@@ -36,7 +36,7 @@ class ColorsController < ApplicationController
 
   def destroy
     @color = Color.find(params[:id])
-    if @color.delete
+    if @color.destroy
       flash[:notice] = 'Color deleted'
     else
       flash[:error] = 'Color not deleted'
