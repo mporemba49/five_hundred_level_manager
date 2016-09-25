@@ -1,7 +1,7 @@
 h1
   | Edit #{@clothing.base_name} Colors
 
-= form_tag clothing_clothing_colors_path, method: 'PUT' do
+= form_tag clothing_clothing_colors_path, method: 'PUT', id: 'edit_cc' do
   table
     - @selections.each do |selection|
       tr

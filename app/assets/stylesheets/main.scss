@@ -19,6 +19,12 @@ div.notice {
   border-radius: 3px;
 }
 
+#edit_cc {
+  width: 50%;
+  td { width: 45% }
+  input[type=text] { width: 300px }
+}
+
 form{
   width: 50%;
   .radios, .checkboxes {
