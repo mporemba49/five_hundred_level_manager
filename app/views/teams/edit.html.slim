@@ -2,7 +2,8 @@ h1
   | Edit Team Royalty - #{@team.name} (#{@team.league})
 
 = form_for @team do |f|
-  = f.label :royalty, "Royalty (%)"
-  = f.number_field :royalty, step: 0.5
+  .fieldset
+    = f.label :royalty, "Royalty (%)"
+    = f.number_field :royalty, step: 0.5
   br
   = f.submit

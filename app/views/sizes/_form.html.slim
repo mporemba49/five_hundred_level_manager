@@ -8,7 +8,7 @@
   .fieldset
     = f.label :ordinal
     = f.number_field :ordinal
-  .fieldset
-    = f.label :is_kids, "Kids Size"
+  .checkboxes
     = f.check_box :is_kids
+    = f.label :is_kids, "Kids Size"
   = f.submit

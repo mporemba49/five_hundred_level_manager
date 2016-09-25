@@ -12,7 +12,7 @@
 .fieldset
   = f.label :style
   = f.text_field :style, placeholder: 'Mens Hoodie', value: clothing.style
-.fieldset
+.radios
   = f.radio_button :gender, "Men", checked: true
   = f.label :gender_men, "Men"
   = f.radio_button :gender, "Women"
@@ -22,7 +22,7 @@
 .fieldset
   = f.label :price, "Price (USD)"
   = f.number_field :price
-.fieldset
+.checkboxes
   - Size.adults.each do |size|
     = f.check_box :sizes, { multiple: true, checked: @sizes.include?(size.name) }, size.name
     = f.label size.name.to_sym, size.name
@@ -36,7 +36,7 @@
 .fieldset
   = f.label :sku
   = f.text_field :sku
-.fieldset
+.radios
   = f.label :extension, "Winter?"
   = f.radio_button :extension, "WINTER", checked: clothing.extension.include?("WINTER")
   = f.label :extension_yes, "Yes"

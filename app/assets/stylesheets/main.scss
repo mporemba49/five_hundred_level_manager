@@ -19,7 +19,24 @@ div.notice {
   border-radius: 3px;
 }
 
-form {
+form{
+  width: 50%;
+  .radios, .checkboxes {
+    label { margin: 0 4px }
+  }
+
+  .fieldset {
+    label { width: 25%; }
+    input { width: 40%; }
+  }
+
+  .long-fieldset {
+    label { width: 40%; }
+    input { width: 40%; }
+  }
+}
+
+form#csv_upload {
   width: 50%;
   margin-top: 8px;
   .fieldset {
