@@ -47,6 +47,6 @@ class SizesController < ApplicationController
   private
 
   def sizes_params
-    params.require(:size).permit(:name, :sku, :is_kids)
+    params.require(:size).permit(:name, :sku, :is_kids, :ordinal)
   end
 end
