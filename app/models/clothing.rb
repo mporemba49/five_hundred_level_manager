@@ -48,6 +48,7 @@ class Clothing < ApplicationRecord
 
   def handle
     return_handle = @entry.handle + handle_extension.downcase + "-" + style.parameterize
+    return_handle.gsub!("men-s","mens")
     return_handle.gsub("--","-")
   end
 
@@ -56,7 +57,7 @@ class Clothing < ApplicationRecord
   end
 
   def style_tag
-    if (style.split(' ') & %w(Mens Womens Kids)).empty?
+    if (style.split(' ') & %w(Mens Men's Womens Women's Kids)).empty?
       case gender
       when 'Men'
         return "Mens #{style}"
