@@ -57,12 +57,12 @@ class Clothing < ApplicationRecord
   end
 
   def style_tag
-    if (style.split(' ') & %w(Mens Men's Womens Women's Kids)).empty?
+    if (style.split(' ') & %w(Men's Women's Kids)).empty?
       case gender
       when 'Men'
-        return "Mens #{style}"
+        return "Men's #{style}"
       when 'Women'
-        return "Womens #{style}"
+        return "Women's #{style}"
       when 'Kids'
         return "Kids #{style}"
       end
