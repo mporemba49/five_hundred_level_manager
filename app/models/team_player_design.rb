@@ -20,7 +20,7 @@ class TeamPlayerDesign < ApplicationRecord
       end
     end
 
-    available_skus = (0...ENV['MINIMUM_SKU'].to_i).to_a
+    available_skus = (1...ENV['MINIMUM_SKU'].to_i).to_a
     used_skus = TeamPlayerDesign.unscoped.where(team_player: self.team_player).pluck(:sku)
     self.sku = (available_skus - used_skus).first
   end
