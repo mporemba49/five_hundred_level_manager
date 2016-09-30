@@ -16,4 +16,6 @@ table
       td = team_player_design.team_player.sku
       td = team_player_design.name
       td = team_player_design.readable_sku
-      td = link_to "&#10007;".html_safe, team_player_design_path(team_player_design), method: "DELETE", data:{ confirm: "Are you sure you want to permanently delete this design?" }
+      td
+        = form_tag team_player_design_path(team_player_design), method: 'DELETE' do
+          = submit_tag "Delete", data: { confirm: 'Are you sure you want to delete this design?' }

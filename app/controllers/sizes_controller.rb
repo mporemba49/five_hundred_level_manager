@@ -3,6 +3,10 @@ class SizesController < ApplicationController
     @sizes = Size.all
   end
 
+  def show
+    @size = Size.find(params[:id])
+  end
+
   def edit
     @size = Size.find(params[:id])
   end
