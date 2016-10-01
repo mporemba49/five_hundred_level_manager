@@ -14,41 +14,39 @@ class GenerateCsv
       handle = row['Handle']
       title = row['Title'].gsub("\"","").gsub("'","").strip
       artist = row['Artist'].strip
-      ['', '-1'].each do |ext|
-        entry = InputEntry.new(handle + ext, title, artist)
-        royalty = Royalty.find_by_league(entry.league)
+      entry = InputEntry.new(handle, title, artist)
+      royalty = Royalty.find_by_league(entry.league)
 
-        if entry.missing_image_design_url?
-          missing_files << entry.missing_design_url_error
-          next
-        end
+      if entry.missing_image_design_url?
+        missing_files << entry.missing_design_url_error
+        next
+      end
 
-        if !royalty
-          missing_files << entry.missing_royalty_error
-          next
-        end
+      if !royalty
+        missing_files << entry.missing_royalty_error
+        next
+      end
 
-        last_style = ''
-        line_success = false
+      last_style = ''
+      line_success = false
 
-        entry.clothing.each do |clothing_item|
-          clothing_item.entry = entry
-          clothing_item.royalty_sku = royalty.code + sales_channel.sku
+      entry.clothing.each do |clothing_item|
+        clothing_item.entry = entry
+        clothing_item.royalty_sku = royalty.code + sales_channel.sku
 
-          first_line = clothing_item.handle != last_style || !line_success
-          last_style = clothing_item.handle
+        first_line = clothing_item.handle != last_style || !line_success
+        last_style = clothing_item.handle
 
-          shuffled_colors = clothing_item.clothing_colors.shuffle
-          shuffled_colors.each do |clothing_color|
-            test_line = clothing_item.csv_lines_for_color(clothing_color, !line_success)
-            if test_line
-              line_success = true
-              output_csv_lines += test_line
-            end
+        shuffled_colors = clothing_item.clothing_colors.shuffle
+        shuffled_colors.each do |clothing_color|
+          test_line = clothing_item.csv_lines_for_color(clothing_color, !line_success)
+          if test_line
+            line_success = true
+            output_csv_lines += test_line
           end
-          missing_files << entry.missing_clothing_error(clothing_item) unless line_success
-          line_success = false
         end
+        missing_files << entry.missing_clothing_error(clothing_item) unless line_success
+        line_success = false
       end
     end
 

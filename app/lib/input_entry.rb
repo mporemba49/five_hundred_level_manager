@@ -1,15 +1,15 @@
 require 'uri'
 
 class InputEntry
-  attr_reader :handle, :title, :artist, :extension, :design
+  attr_reader :handle, :title, :artist,:design
 
   def initialize(handle, title, artist)
     @handle = handle
     @title = title
     @artist = artist
-    @extension = ""
     @design = TeamPlayerDesign.includes(team_player: [:team])
-      .where(artist: @artist.downcase, name: @title.downcase).first
+                              .where(artist: @artist.downcase,
+                                     name: @title.downcase).first
   end
 
   def url_string_for_clothing(clothing, image)
@@ -28,10 +28,7 @@ class InputEntry
   end
 
   def search_sub_dirs
-    @search_sub_dirs ||= if gender == "Mens"
-      ["","MEN","Men","Unisex","KIDS","Kids"]
-    else
-      ["women","WOMEN","Women","","Unisex","MEN","Men"]
+      ["","MEN","Men","Unisex","KIDS","Kids", "women","WOMEN","Women"]
     end
   end
 
@@ -71,32 +68,24 @@ class InputEntry
     @player ||= @design.team_player
   end
 
-  def gender
-    @gender ||= @handle[-2..-1] == "-1" ? "Womens" : "Mens"
-  end
-
   def missing_image_design_url?
     !url_design
   end
 
   def missing_design_url_error
-    "MISSING \"/#{league}/#{team}/#{title}#{extension}/\" "
+    "MISSING \"/#{league}/#{team}/#{title}/\" "
   end
 
   def missing_clothing_error(clothing)
-    "MISSING \'/#{league}/#{team}/#{title}#{extension}/\ - #{clothing.base_name}'"
+    "MISSING \'/#{league}/#{team}/#{title}/\ - #{clothing.base_name}'"
   end
 
   def missing_royalty_error
-    "MISSING \'/#{league}/#{team}/#{title}#{extension}/\ - League Royalty'"
+    "MISSING \'/#{league}/#{team}/#{title}/\ - League Royalty'"
   end
 
   def clothing
-    @clothing ||= if gender == "Mens"
-      Clothing.where(gender: ['Men', 'Kids']).includes(clothing_colors: [:color]).includes(:tags, :sizes)
-    else
-      Clothing.where(gender: 'Women').includes(clothing_colors: [:color]).includes(:tags, :sizes)
-    end
+    Clothing.includes(clothing_colors: [:color]).includes(:tags, :sizes)
   end
 
   def league_sport(league)
