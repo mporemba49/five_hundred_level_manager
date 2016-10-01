@@ -2,7 +2,6 @@ require 'uri'
 
 class InputEntry
   attr_reader :handle, :title, :artist, :extension, :design
-  LEAGUE_SPORT = { 'MLB' => 'Baseball', 'NFL' => 'Football', 'NBA' => 'Basketball', 'NHL' => 'Hockey' }
 
   def initialize(handle, title, artist)
     @handle = handle
@@ -100,9 +99,15 @@ class InputEntry
     end
   end
 
+  def league_sport(league)
+    sports = { 'MLB' => 'Baseball', 'NFL' => 'Football',
+               'NBA' => 'Basketball', 'NHL' => 'Hockey' }
+    sports[league]
+  end
+
   def tags(clothing, published, first_line)
     if first_line
-      sport = LEAGUE_SPORT[league]
+      sport = league_sport(league)
       item_tags = [
         "player=#{player}",
         "gender=#{clothing.gender.downcase}",

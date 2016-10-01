@@ -12,8 +12,8 @@ class GenerateCsv
 
     CSV.foreach(title_team_player_path, headers: true) do |row|
       handle = row['Handle']
-      title = row['Title'].gsub("\"","").gsub("'","")
-      artist = row['Artist']
+      title = row['Title'].gsub("\"","").gsub("'","").strip
+      artist = row['Artist'].strip
       ['', '-1'].each do |ext|
         entry = InputEntry.new(handle + ext, title, artist)
         royalty = Royalty.find_by_league(entry.league)
