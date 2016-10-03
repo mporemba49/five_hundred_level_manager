@@ -5,22 +5,18 @@ class UserMailer < ApplicationMailer
   end
 
   def csv_upload(email, title_team_player, sales_channel_id)
-    begin
-      title_team_player_path = Downloader.call(title_team_player)
+    title_team_player_path = Downloader.call(title_team_player)
 
-      csv_lines, @missing_files = GenerateCsv.call(title_team_player_path, sales_channel_id)
-      if csv_lines
-        returned_csv = CSV.generate(headers: true) do |csv|
-          csv_lines.each do |line|
-            csv << line
-          end
+    csv_lines, @missing_files = GenerateCsv.call(title_team_player_path, sales_channel_id)
+    if csv_lines
+      returned_csv = CSV.generate(headers: true) do |csv|
+        csv_lines.each do |line|
+          csv << line
         end
-        attachments["shopify_upload.csv"] =  returned_csv
       end
-
-      mail(to: email, subject: "500 Level | CSV Download")
+      attachments["shopify_upload.csv"] =  returned_csv
     end
-  rescue => error
-    self.alert_error(email, error)
+
+    mail(to: email, subject: "500 Level | CSV Download")
   end
 end
