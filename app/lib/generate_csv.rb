@@ -12,6 +12,7 @@ class GenerateCsv
 
     CSV.foreach(title_team_player_path, headers: true) do |row|
       handle = row['Handle']
+      next if handle.blank?
       title = row['Title'].gsub("\"","").gsub("'","").strip
       artist = row['Artist'].strip
       entry = InputEntry.new(handle, title, artist)

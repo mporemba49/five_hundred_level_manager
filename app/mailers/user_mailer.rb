@@ -16,7 +16,6 @@ class UserMailer < ApplicationMailer
       end
       attachments["shopify_upload.csv"] =  returned_csv
     end
-
     mail(to: email, subject: "500 Level | CSV Download")
   end
 end
