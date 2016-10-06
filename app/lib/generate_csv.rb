@@ -10,7 +10,7 @@ class GenerateCsv
 
     CreateDesigns.call(title_team_player_path)
 
-    CSV.foreach(title_team_player_path, headers: true) do |row|
+    CSV.foreach(title_team_player_path, encoding: "ISO8859-1", headers: true) do |row|
       handle = row['Handle']
       next if handle.blank?
       title = row['Title'].gsub("\"","").gsub("'","").strip
