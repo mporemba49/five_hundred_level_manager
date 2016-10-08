@@ -28,7 +28,7 @@ class InputEntry
   end
 
   def search_sub_dirs
-    ["","MEN","Men","Unisex","KIDS","Kids", "women","WOMEN","Women"]
+    ["Men","Women","Kids","","MEN","Unisex","KIDS", "women","WOMEN"]
   end
 
   def default_folder
