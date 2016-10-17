@@ -13,7 +13,7 @@ class GenerateCsv
     CSV.foreach(title_team_player_path, encoding: "ISO8859-1", headers: true) do |row|
       handle = row['Handle']
       next if handle.blank?
-      title = row['Title'].gsub("\"","").gsub("'","").strip
+      title = row['Title'].strip
       artist = row['Artist'].strip
       entry = InputEntry.new(handle, title, artist)
       royalty = Royalty.find_by_league(entry.league)
