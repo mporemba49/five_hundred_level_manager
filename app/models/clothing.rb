@@ -165,8 +165,12 @@ class Clothing < ApplicationRecord
     image_url = @entry.url_string_for_clothing(self, clothing_color.image)
     return false unless image_url
 
+    if id == 22
+      Rails.logger.info(sizes.to_sql)
+      Rails.logger.info(sizes.first.name)
+      Rails.logger.info(sizes.last.name)
+    end
     sizes.each do |size|
-      Rails.logger.info("#{style} - #{size.name}")
       lines << csv_line_for_size_and_color(size, clothing_color, image_url, first_line)
       first_line = false if first_line
     end
