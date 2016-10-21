@@ -1,6 +1,6 @@
 class TeamPlayer < ApplicationRecord
   belongs_to :team
-  has_many :designs, class_name: 'TeamPlayerDesign'
+  has_many :designs, class_name: 'TeamPlayerDesign', dependent: :destroy
   validates_presence_of :team, :player, :sku
   validates_uniqueness_of :team, scope: [:sku]
 

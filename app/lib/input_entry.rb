@@ -7,6 +7,7 @@ class InputEntry
     @handle = handle
     @title = title
     @artist = artist
+    Rails.logger.info("#{handle}, #{title}, #{artist}")
     @design = TeamPlayerDesign.includes(team_player: [:team])
                               .where(artist: @artist.downcase,
                                      name: @title.downcase).first
