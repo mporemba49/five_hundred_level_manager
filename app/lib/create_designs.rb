@@ -35,7 +35,9 @@ class CreateDesigns
 
   def self.create_team(team, league, city)
     team = Team.where(name: team, league: league).first_or_initialize
-    team.update_attribute(:city, city) unless team.city == city
+    team.city = city unless team.city == city
+    team.id = Team.maximum(:id).next unless team.persisted?
+    team.save if team.city_changed?
     team
   end
 end
