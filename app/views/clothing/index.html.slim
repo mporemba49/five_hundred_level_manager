@@ -40,4 +40,7 @@ table
   .fieldset
     = label_tag :sales_channel, "Sales Channel"
     = select_tag 'sales_channel', options_from_collection_for_select(@sales_channels, 'id', 'name')
+  .fieldset
+    = label_tag :only_designs, "Only Designs"
+    = check_box_tag :only_designs, "Only Designs"
   = submit_tag "Email CSV"

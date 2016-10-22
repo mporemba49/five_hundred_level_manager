@@ -24,7 +24,9 @@ class CreateDesigns
   end
 
   def self.create_design(team_player, title, artist)
-    TeamPlayerDesign.where(team_player: team_player, artist: artist, name: title).first_or_create
+    TeamPlayerDesign.where(team_player: team_player,
+                           artist: artist,
+                           name: title).first_or_create
   end
 
   def self.create_team_player(team, player)
