@@ -19,6 +19,7 @@
         <%= link_to 'Teams', teams_path %>
         <%= link_to 'Royalties', royalties_path %>
         <%= link_to 'Sales Channels', sales_channels_path %>
+        <%= link_to 'Kill Jobs', kill_jobs_path, method: 'POST' %>
         <%= form_tag logout_path, method: 'GET' do %>
           <%= submit_tag "Log Out", class: 'log-out' %>
         <% end %>

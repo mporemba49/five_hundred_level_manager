@@ -1,4 +1,10 @@
 class PagesController < ApplicationController
+  def kill_jobs
+    Sidekiq.redis {|r| r.flushall }
+    flash[:notice] = "All jobs cleared"
+    redirect_to clothing_index_path
+  end
+
   def create_csv
     if !params[:title_team_player].blank?
       sales_channel_id = params[:sales_channel]
