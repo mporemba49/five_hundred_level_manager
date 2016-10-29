@@ -3,5 +3,6 @@ class SendCsvJob < ApplicationJob
 
   def perform(email, title_team_player, sales_channel_id)
     UserMailer.csv_upload(email, title_team_player, sales_channel_id).deliver_now
+    GC.start
   end
 end
