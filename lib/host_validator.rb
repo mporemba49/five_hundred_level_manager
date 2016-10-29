@@ -15,7 +15,7 @@ class HostValidator < AwsParent
       contents = page.contents
       contents.each do |aws_object|
         league_and_team = aws_object.key.split('/')[0..1]
-        objs << page.contents if league_and_teams.include?(league_and_team)
+        objs << aws_object if league_and_teams.include?(league_and_team)
       end
     end
 
