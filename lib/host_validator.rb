@@ -1,5 +1,6 @@
 class HostValidator < AwsParent
   attr_reader :validator
+  attr_accessor :league_and_teams
 
   def initialize
     super
@@ -10,8 +11,12 @@ class HostValidator < AwsParent
     return @objects if @objects
 
     objs = []
-     @validator.list_objects(bucket: ENV['BUCKET_NAME']).each do |response|
-      objs += response.contents
+    @validator.list_objects(bucket: ENV['BUCKET_NAME']).each do |page|
+      contents = page.contents
+      contents.each do |aws_object|
+        league_and_team = aws_object.key.split('/')[0..1]
+        objs << aws_object if league_and_teams.include?(league_and_team)
+      end
     end
 
     @objects = objs

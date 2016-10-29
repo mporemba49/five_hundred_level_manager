@@ -2,12 +2,16 @@ require 'csv'
 
 class CreateDesigns
   def self.call(title_team_player_path)
+    league_team = []
     CSV.foreach(title_team_player_path, encoding: "ISO8859-1", headers: true) do |row|
       begin
+        league_team << [row[3], row[1]]
         create_records(row)
       rescue
       end
     end
+    league_team.uniq!
+    return league_team
   end
 
   def self.create_records(row)

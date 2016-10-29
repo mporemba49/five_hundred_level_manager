@@ -43,10 +43,10 @@ class InputEntry
   def url_design
     return @url_design if @url_design
 
-    if Validator.valid_folder?(default_folder)
-      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title}"
-    elsif Validator.valid_folder?(folder_with_artist)
+    if Validator.valid_folder?(folder_with_artist)
       @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title} (#{@artist})"
+    elsif Validator.valid_folder?(default_folder)
+      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title}"
     end
 
     @url_design
