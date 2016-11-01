@@ -96,7 +96,7 @@ class InputEntry
 
   def tags(clothing, published, first_line)
     if first_line
-      sport = league_sport(league)
+      sport = league_sport(league) || league
       item_tags = [
         "player=#{player}",
         "gender=#{clothing.gender.downcase}",
