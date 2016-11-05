@@ -1,11 +1,16 @@
 class HostValidator < AwsParent
   attr_reader :validator
   attr_accessor :league_and_teams
-  attr_writer :objects
 
   def initialize
     super
     @validator = Aws::S3::Client.new
+  end
+
+  def reset
+    @objects = nil
+    @paths = nil
+    GC.start
   end
 
   def objects

@@ -15,7 +15,6 @@ class UserMailer < ApplicationMailer
       end
       attachments["shopify_upload.csv"] =  returned_csv
     end
-    Validator.objects = nil
     mail(to: email, subject: "500 Level | CSV Download")
   end
 end
