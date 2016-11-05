@@ -1,6 +1,7 @@
 class HostValidator < AwsParent
   attr_reader :validator
   attr_accessor :league_and_teams
+  attr_writer :objects
 
   def initialize
     super

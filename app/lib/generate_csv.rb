@@ -9,7 +9,6 @@ class GenerateCsv
     sales_channel = SalesChannel.find_by_id(sales_channel_id)
     league_and_teams = CreateDesigns.call(title_team_player_path)
     Validator.league_and_teams = league_and_teams
-    puts Validator.league_and_teams 
 
     CSV.foreach(title_team_player_path, encoding: "ISO8859-1", headers: true) do |row|
       handle = row['Handle']
