@@ -8,6 +8,5 @@ class Royalty < ApplicationRecord
 
   def set_fields
     self.code = code.upcase
-    self.league = league.upcase
   end
 end
