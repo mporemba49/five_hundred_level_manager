@@ -11,6 +11,8 @@ class CreateDesigns
       end
     end
     league_team.uniq!
+    puts 'league_team'
+    puts league_team
     return league_team
   end
 
