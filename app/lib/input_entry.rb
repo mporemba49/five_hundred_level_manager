@@ -21,8 +21,7 @@ class InputEntry
   def url_string_for_clothing(clothing, image)
     search_sub_dirs.each do |sub_dir|
       test_url = clothing.image_url_builder(url_design, sub_dir, image)
-      Rails.logger.info(test_url)
-      rootless_url = test_url.gsub(/.*\/#{league}/,league)
+      rootless_url = test_url.gsub(ENV['IMAGE_ROOT'],'')
       matching_object = Validator.objects.select { |object| object.key.downcase == rootless_url.downcase }.first
 
       if matching_object
