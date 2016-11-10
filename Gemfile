@@ -25,6 +25,7 @@ group :development, :test do
   gem 'binding_of_caller'
 end
 gem 'bootstrap', '~> 4.0.0.alpha3.1'
+gem 'will_paginate', '~> 3.1.0'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

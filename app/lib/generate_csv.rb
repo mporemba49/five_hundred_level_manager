@@ -12,6 +12,7 @@ class GenerateCsv
 
     CSV.foreach(title_team_player_path, encoding: "ISO8859-1", headers: true) do |row|
       handle = row['Handle']
+      Rails.logger.info(handle)
       next if handle.blank?
       entry = InputEntry.new(row)
       royalty = Royalty.find_by_league(entry.league)

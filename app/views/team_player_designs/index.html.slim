@@ -19,3 +19,4 @@ table
       td
         = form_tag team_player_design_path(team_player_design), method: 'DELETE' do
           = submit_tag "Delete", data: { confirm: 'Are you sure you want to delete this design?' }
+= will_paginate @team_player_designs
