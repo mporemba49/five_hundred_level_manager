@@ -3,14 +3,19 @@ require 'uri'
 class InputEntry
   attr_reader :handle, :title, :artist,:design
 
-  def initialize(handle, title, artist)
-    @handle = handle
-    @title = title
-    @artist = artist
-    Rails.logger.info("ENTRY: #{handle}, #{title}, #{artist}")
-    @design = TeamPlayerDesign.includes(team_player: [:team])
-                              .where(artist: @artist.downcase,
-                                     name: @title.downcase).first
+  def initialize(design={})
+    team = design['Team'].strip
+    player = design['Player'].strip
+    league = design['League'].strip
+    @handle = design['Handle']
+    @title = design['Title'].strip
+    @artist = design['Artist'].strip
+    Rails.logger.info("ENTRY: #{league}, #{handle}, #{title}, #{artist}")
+    @design = Team.find_by(name: team, league: league)
+                  .team_players.find_by_player(player)
+                  .designs.includes(team_player: [:team])
+                  .find_by(artist: @artist.downcase,
+                           name: @title.downcase)
   end
 
   def url_string_for_clothing(clothing, image)

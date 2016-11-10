@@ -1,5 +1,7 @@
 class Team < ApplicationRecord
   default_scope { order(:league, :name) }
+  has_many :team_players
+  has_many :team_player_designs, through: :team_players
 
   def to_s
     name
