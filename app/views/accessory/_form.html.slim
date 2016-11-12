@@ -1,0 +1,25 @@
+- if accessory.errors.any?
+  ul
+    | Errors
+    - accessory.errors.full_messages.each do |e|
+      li = e
+.fieldset
+  = f.label :base_name, "Type"
+  = f.text_field :base_name, placeholder: 'Mens Hoodie'
+.fieldset
+  = f.label :style
+  = f.text_field :style, placeholder: 'Mens Hoodie', value: accessory.style
+.fieldset
+  = f.label :price, "Price (USD)"
+  = f.number_field :price
+.checkboxes
+  - Size.all.each do |size|
+    = f.check_box :sizes, { multiple: true, checked: @sizes.include?(size.name) }, size.name
+    = f.label size.name.to_sym, size.name
+.fieldset
+  = f.label :weight
+  = f.number_field :weight
+.fieldset
+  = f.label :sku
+  = f.text_field :sku
+= f.submit

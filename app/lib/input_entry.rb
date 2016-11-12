@@ -76,8 +76,8 @@ class InputEntry
     "MISSING \"/#{league}/#{team}/#{title}/\" "
   end
 
-  def missing_clothing_error(clothing)
-    "MISSING \'/#{league}/#{team}/#{title}/\ - #{clothing.base_name}'"
+  def missing_item_error(item)
+    "MISSING \'/#{league}/#{team}/#{title}/\ - #{item.base_name}'"
   end
 
   def missing_royalty_error

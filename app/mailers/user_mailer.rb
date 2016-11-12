@@ -1,7 +1,7 @@
 class UserMailer < ApplicationMailer
   def alert_error(email, error)
     @error = error
-    mail(to: [email, "nicholas.lee.3@gmail.com"], subject: "500 Level | Upload Error")
+    mail(to: [email, "braden.mugg@gmail.com"], subject: "500 Level | Upload Error")
   end
 
   def csv_upload(email, title_team_player, sales_channel_id)

@@ -46,7 +46,25 @@ class GenerateCsv
             output_csv_lines += test_line
           end
         end
-        missing_files << entry.missing_clothing_error(clothing_item) unless line_success
+        missing_files << entry.missing_item_error(clothing_item) unless line_success
+        line_success = false
+      end
+      entry.accessory.each do |accessory_item|
+        accessory_item.entry = entry
+        accessory_item.royalty_sku = royalty.code + sales_channel.sku
+
+        first_line = accessory_item.handle != last_style || !line_success
+        last_style = accessory_item.handle
+
+        shuffled_colors = accessory_item.accessory_colors.shuffle
+        shuffled_colors.each do |accessory_color|
+          test_line = accessory_item.csv_lines_for_color(accessory_color, !line_success)
+          if test_line
+            line_success = true
+            output_csv_lines += test_line
+          end
+        end
+        missing_files << entry.missing_clothing_error(accessory_item) unless line_success
         line_success = false
       end
     end

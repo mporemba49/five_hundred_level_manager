@@ -1,0 +1,32 @@
+= link_to "Edit #{@accessory.base_name}", edit_accessory_path(@accessory)
+br
+= link_to "#{@accessory.active ? 'Deactivate' : 'Activate'}  #{@accessory.base_name}", accessory_toggle_active_path(@accessory), method: 'POST'
+table
+  tr
+    td Base Name
+    td = @accessory.base_name
+  tr
+    td Style
+    td = @accessory.style
+  tr
+    td Price
+    td = @accessory.price
+  tr
+    td Sizes
+    td = @accessory.sizes.pluck(:name).join(', ')
+  tr
+    td Weight
+    td = @accessory.weight
+  tr
+    td Active
+    td = @accessory.active
+  tr
+    td SKU
+    td = @accessory.sku
+  tr
+    td Colors
+    td = @accessory.colors.map(&:name).join(", ")
+    td = link_to 'Edit', accessory_accessory_colors_path(@accessory)
+  tr
+    td Tags
+    td = @accessory.tags.map(&:name).join(", ")
