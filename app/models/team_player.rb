@@ -3,6 +3,7 @@ class TeamPlayer < ApplicationRecord
   has_many :designs, class_name: 'TeamPlayerDesign', dependent: :destroy
   validates_presence_of :team, :player, :sku
   validates_uniqueness_of :team, scope: [:sku]
+  default_scope { order(:player) }
 
   before_validation(on: :create) do
     latest_sku = TeamPlayer.where(team: self.team).maximum(:sku)
