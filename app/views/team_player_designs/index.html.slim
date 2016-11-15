@@ -1,3 +1,4 @@
+= render partial: '/shared/search_form', locals: { klass: TeamPlayerDesign }
 table
   tr
     th League
@@ -5,7 +6,7 @@ table
     th Team SKU
     th Player
     th Player SKU
-    th Design
+    th Design Name
     th Design SKU
   - @team_player_designs.each do |team_player_design|
     tr

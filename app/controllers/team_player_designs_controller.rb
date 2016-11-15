@@ -1,7 +1,10 @@
 class TeamPlayerDesignsController < ApplicationController
   def index
+
+    filter_q, filter_requests = filter_index(TeamPlayerDesign)
     @team_player_designs = TeamPlayerDesign.includes(:team, :team_player)
       .order('teams.league, teams.name, team_players.player')
+      .where(filter_q, *filter_requests)
       .paginate(page: params[:page])
   end
 

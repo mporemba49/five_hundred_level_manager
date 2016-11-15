@@ -1,0 +1,22 @@
+= form_tag '', method: :get, class: 'search-filter' do
+  - klass.search_fields.each do |field_symbol|
+    - if field_symbol.to_s.ends_with? '_id'
+      .form-group
+        = label_tag field_symbol
+        = select_tag field_symbol, options_from_collection_for_select(field_symbol[0..-4].to_s.gsub('_',' ').titleize.gsub(' ','').constantize.all, 'id', 'to_s', params[field_symbol]), include_blank: "Select #{field_symbol.to_s.gsub("_"," ").capitalize[0..-4]}", class: "form-control"
+    - elsif klass.columns_hash[field_symbol.to_s].type == :integer
+      .form-group
+        = select_tag "#{field_symbol}_gle", options_for_select(["Equals", "Greater than", "Less than"], params["#{field_symbol}_gle"])
+        = label_tag field_symbol
+        = number_field_tag field_symbol, params[field_symbol], class: "form-control"
+    - elsif klass.columns_hash[field_symbol.to_s].type == :datetime
+      .form-group
+        = label_tag field_symbol
+        = text_field_tag "#{field_symbol}_gte", params["#{field_symbol}_gte"], placeholder: "mm/dd/yyyy", class: "form-control"
+        |&nbsp;-&nbsp;
+        = text_field_tag "#{field_symbol}_lte", params["#{field_symbol}_lte"], placeholder: "mm/dd/yyyy", class: "form-control"
+    - else
+      .form-group
+        = label_tag field_symbol
+        = text_field_tag field_symbol, params[field_symbol], class: "form-control"
+  = submit_tag 'Filter'

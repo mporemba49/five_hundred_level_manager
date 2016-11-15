@@ -5,6 +5,10 @@ class TeamPlayerDesign < ApplicationRecord
   validates_uniqueness_of :team_player_id, scope: [:name, :artist]
   before_validation(on: :create) { set_sku }
 
+  def self.search_fields
+    [:team_player_id, :name, :artist]
+  end
+
   def readable_sku
     sku.to_s.rjust(2,'0')
   end
