@@ -10,21 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110214924) do
+ActiveRecord::Schema.define(version: 20161118031742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accessories", force: :cascade do |t|
-    t.string   "base_name",                 null: false
-    t.string   "style",                     null: false
-    t.integer  "price",                     null: false
-    t.text     "sizes",      default: [],   null: false, array: true
-    t.integer  "weight",                    null: false
-    t.boolean  "active",     default: true, null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "base_name",                       null: false
+    t.string   "style",                           null: false
+    t.integer  "price",                           null: false
+    t.text     "sizes",            default: [],   null: false, array: true
+    t.integer  "weight",                          null: false
+    t.boolean  "active",           default: true, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "sku"
+    t.string   "accessory_type"
+    t.string   "extension"
+    t.string   "handle_extension"
+    t.string   "gender"
+    t.index ["accessory_type"], name: "index_accessories_on_accessory_type", using: :btree
     t.index ["active"], name: "index_accessories_on_active", using: :btree
     t.index ["base_name"], name: "index_accessories_on_base_name", unique: true, using: :btree
   end
@@ -43,6 +48,8 @@ ActiveRecord::Schema.define(version: 20161110214924) do
   create_table "accessory_sizes", force: :cascade do |t|
     t.integer "accessory_id", null: false
     t.integer "size_id",      null: false
+    t.integer "price"
+    t.integer "weight"
     t.index ["accessory_id"], name: "index_accessory_sizes_on_accessory_id", using: :btree
     t.index ["size_id"], name: "index_accessory_sizes_on_size_id", using: :btree
   end

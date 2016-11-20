@@ -64,7 +64,7 @@ class GenerateCsv
             output_csv_lines += test_line
           end
         end
-        missing_files << entry.missing_clothing_error(accessory_item) unless line_success
+        missing_files << entry.missing_item_error(accessory_item) unless line_success
         line_success = false
       end
     end

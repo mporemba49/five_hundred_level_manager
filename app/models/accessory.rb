@@ -1,4 +1,5 @@
 class Accessory < ApplicationRecord
+  before_save :set_handle_extension
   attr_accessor :entry, :royalty_sku
 
   has_many :accessory_colors, dependent: :destroy
@@ -13,8 +14,8 @@ class Accessory < ApplicationRecord
   default_scope { where(active: true) }
 
   validates_uniqueness_of :sku, blank: true
-  validates_presence_of :base_name, :style,
-                        :price, :weight, :sku
+  validates_presence_of :base_name, :accessory_type, :style,
+                        :gender, :price, :weight, :sku
             
   PUBLISHED = "TRUE"
   VARIANT_INVENTORY_QTY = "1"
@@ -56,7 +57,20 @@ class Accessory < ApplicationRecord
   end
 
   def style_tag
-    return style
+    if (style.split(' ') & %w(Men's Women's Kids)).empty?
+      case gender
+      when 'Men'
+        return "Men's #{style}"
+      when 'Women'
+        return "Women's #{style}"
+      when 'Kids'
+        return "Kids #{style}"
+      when 'Accessory'
+        return style
+      end
+    else
+      return style
+    end
   end
 
   def options_data(color, size)
@@ -70,7 +84,16 @@ class Accessory < ApplicationRecord
   end
 
   def img_alt_text(color)
-    style + " " + color
+    gender_prefix = ''
+    case gender
+    when 'Men'
+      gender_prefix = "Mens " unless style.include?('Mens')
+    when 'Women'
+      gender_prefix = "Womens " unless style.include?('Womens')
+    when 'Kids'
+      gender_prefix = "Kids " unless style.include?('Kids')
+    end
+    gender_prefix + style + " " + color
   end
 
   def image_data(image_url, color)
@@ -128,7 +151,7 @@ class Accessory < ApplicationRecord
     [
       [
         ENV['UPLOAD_VERSION'],
-        CLOTHING_SKU,
+        PILLOW_SKU,
         size_style_color_sku(size, accessory_color),
         "XX",
         @entry.team.id_string,
@@ -141,7 +164,7 @@ class Accessory < ApplicationRecord
 
   def csv_lines_for_color(accessory_color, first_line)
     lines = []
-    image_url = @entry.url_string_for_accessory(self, accessory_color.image)
+    image_url = @entry.url_string_for_item(self, accessory_color.image)
     return false unless image_url
 
     sizes.reload.each do |size|
@@ -150,6 +173,14 @@ class Accessory < ApplicationRecord
     end
 
     lines
+  end
+
+  private
+
+  def set_handle_extension
+    self.handle_extension = ""
+    self.handle_extension = '-kids' if gender == 'Kids'
+    self.handle_extension += "-#{extension.upcase}" if extension
   end
 
 end

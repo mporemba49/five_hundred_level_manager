@@ -9,14 +9,15 @@ table
     td Style
     td = @accessory.style
   tr
-    td Price
-    td = @accessory.price
+    td Prices
+    td = @accessory.accessory_sizes.pluck(:price).join(', ')
   tr
     td Sizes
     td = @accessory.sizes.pluck(:name).join(', ')
+    td = link_to 'Edit', accessory_accessory_sizes_path(@accessory)
   tr
-    td Weight
-    td = @accessory.weight
+    td Weights
+    td = @accessory.accessory_sizes.pluck(:weight).join(', ')
   tr
     td Active
     td = @accessory.active

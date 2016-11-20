@@ -8,6 +8,7 @@ class AccessoryColorsController < ApplicationController
   end
 
   def update
+
     @accessory = Accessory.includes(:accessory_colors).find(params[:accessory_id])
     updated_colors = color_params.keep_if { |key, value| value != "" }
     AccessoryColor.where(accessory: @accessory).where.not(color_id: updated_colors.keys).destroy_all

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   resources :accessory do
     get '/accessory_colors', to: 'accessory_colors#edit'
     put '/accessory_colors', to: 'accessory_colors#update'
+    get '/accessory_sizes', to: 'accessory_sizes#edit'
+    put '/accessory_sizes', to: 'accessory_sizes#update'
     post 'toggle_active', to: 'accessory#toggle_active'
     resources :tags
   end

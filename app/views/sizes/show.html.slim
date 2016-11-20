@@ -1,0 +1,20 @@
+table
+  tr
+    td Name
+    td = @size.name
+  tr
+    td Sku
+    td = @size.sku
+  tr
+    td Is Kids?
+    td = @size.is_kids ? "&#10004;".html_safe : ''
+  tr
+    td Ordinal
+    td = @size.ordinal
+  tr
+    td Edit
+    td = link_to "&#9998;".html_safe, edit_size_path(@size)
+  tr
+    td
+      = form_tag size_path(@size), method: 'DELETE' do
+      = submit_tag "Delete", data: { confirm: 'Are you sure you want to delete this size?' }

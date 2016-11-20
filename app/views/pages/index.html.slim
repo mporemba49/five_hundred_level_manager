@@ -46,6 +46,7 @@ table
     tr
       td = link_to accessory.base_name, accessory_path(accessory)
       td = accessory.style
+      td = accessory.gender
       td = accessory.price
       td = accessory.sizes.map(&:name).join(', ')
       td = accessory.sku
@@ -58,6 +59,7 @@ table
         tr
           td = link_to accessory.base_name, accessory_path(accessory)
           td = accessory.style
+          td = accessory.gender
           td = accessory.price
           td = accessory.sizes
           td = accessory.sku

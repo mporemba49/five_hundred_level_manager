@@ -162,7 +162,7 @@ class Clothing < ApplicationRecord
 
   def csv_lines_for_color(clothing_color, first_line)
     lines = []
-    image_url = @entry.url_string_for_clothing(self, clothing_color.image)
+    image_url = @entry.url_string_for_item(self, clothing_color.image)
     return false unless image_url
 
     sizes.reload.each do |size|

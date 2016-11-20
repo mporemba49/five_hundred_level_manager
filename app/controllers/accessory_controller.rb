@@ -2,7 +2,7 @@ class AccessoryController < ApplicationController
   before_action :require_login
 
   def index
-    @accessory = Accessory.unscoped.includes(:sizes).joins(:sizes)
+    @accessory = Accessory.unscoped.includes(:sizes, :accessory_sizes).joins(:sizes)
                         .order(active: :desc, base_name: :asc)
                         .order("sizes.ordinal")
                         .all
@@ -15,7 +15,7 @@ class AccessoryController < ApplicationController
   end
 
   def show
-    @accessory = Accessory.unscoped.includes(:colors, :tags, :sizes).find(params[:id])
+    @accessory = Accessory.unscoped.includes(:colors, :tags, :sizes, :accessory_sizes).find(params[:id])
   end
 
   def edit
