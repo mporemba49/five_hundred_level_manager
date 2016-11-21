@@ -14,21 +14,17 @@
   = f.text_field :style, placeholder: 'Mens Hoodie', value: accessory.style
 .radios
   = f.radio_button :gender, "Accessory", checked: true
+  = f.label :gender_accessory, "Accessory"
+  = f.radio_button :gender, "Men"
   = f.label :gender_men, "Men"
   = f.radio_button :gender, "Women"
   = f.label :gender_women, "Women"
   = f.radio_button :gender, "Kids"
   = f.label :gender_kids, "Kids"
-.fieldset
-  = f.label :price, "Price (USD)"
-  = f.number_field :price
 .checkboxes
   - Size.all.each do |size|
     = f.check_box :sizes, { multiple: true, checked: @sizes.include?(size.name) }, size.name
     = f.label size.name.to_sym, size.name
-.fieldset
-  = f.label :weight
-  = f.number_field :weight
 .fieldset
   = f.label :sku
   = f.text_field :sku

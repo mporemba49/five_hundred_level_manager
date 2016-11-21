@@ -37,7 +37,7 @@ table
   tr 
     th Base Name
     th Style
-    th Price
+    th Prices
     th Sizes
     th SKU
   tr
@@ -47,11 +47,12 @@ table
       td = link_to accessory.base_name, accessory_path(accessory)
       td = accessory.style
       td = accessory.gender
-      td = accessory.price
+      td = accessory.accessory_sizes.map(&:price).join(', ')
       td = accessory.sizes.map(&:name).join(', ')
       td = accessory.sku
       td = link_to 'Edit Accessory', edit_accessory_path(accessory)
       td = link_to 'Edit Colors', accessory_accessory_colors_path(accessory)
+      td = link_to 'Edit Sizes', accessory_accessory_sizes_path(accessory)
   - if @accessory.inactive.any?
     tr
       td Inactive Accessory
@@ -60,8 +61,8 @@ table
           td = link_to accessory.base_name, accessory_path(accessory)
           td = accessory.style
           td = accessory.gender
-          td = accessory.price
-          td = accessory.sizes
+          td = accessory.accessory_sizes.map(&:price).join(', ')
+          td = accessory.sizes.map(&:name).join(', ')
           td = accessory.sku
           td = link_to 'Edit', edit_accessory_path(accessory)
 

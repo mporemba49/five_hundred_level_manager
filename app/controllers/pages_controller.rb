@@ -5,7 +5,7 @@ class PagesController < ApplicationController
                         .order(active: :desc, gender: :asc, base_name: :asc)
                         .order("sizes.is_kids, sizes.ordinal")
                         .all
-    @accessory = Accessory.unscoped.includes(:sizes).joins(:sizes)
+    @accessory = Accessory.unscoped.includes(:accessory_sizes, :sizes).joins(:sizes)
                         .order(active: :desc, base_name: :asc)
                         .order("sizes.ordinal")
                         .all

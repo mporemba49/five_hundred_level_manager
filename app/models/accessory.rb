@@ -15,7 +15,7 @@ class Accessory < ApplicationRecord
 
   validates_uniqueness_of :sku, blank: true
   validates_presence_of :base_name, :accessory_type, :style,
-                        :gender, :price, :weight, :sku
+                        :gender, :sku
             
   PUBLISHED = "TRUE"
   VARIANT_INVENTORY_QTY = "1"
@@ -77,9 +77,9 @@ class Accessory < ApplicationRecord
     ["Style", style_tag, "Color", color.color_name, "Size", size]
   end
 
-  def variants_data
-    [weight, nil, VARIANT_INVENTORY_QTY, VARIANT_INVENTORY_POLICY,
-     FULFILLMENT_SVC, price, nil, VARIANT_REQUIRES_SHIPPING,
+  def variants_data(accessory_size)
+    [accessory_size.weight, nil, VARIANT_INVENTORY_QTY, VARIANT_INVENTORY_POLICY,
+     FULFILLMENT_SVC, accessory_size.price, nil, VARIANT_REQUIRES_SHIPPING,
      VARIANT_TAXABLE,nil]
   end
 
@@ -111,12 +111,12 @@ class Accessory < ApplicationRecord
     description
   end
 
-  def csv_line_for_size_and_color(size, accessory_color, image_url, first_line)
+  def csv_line_for_size_and_color(size, accessory_color, accessory_size, image_url, first_line)
     columns = [handle] 
     columns += entry_tags(first_line)
     columns += options_data(accessory_color, size.name)
     columns += full_sku(size.sku, accessory_color)
-    columns += variants_data + image_data(image_url, accessory_color)
+    columns += variants_data(accessory_size) + image_data(image_url, accessory_color)
     columns += first_line ? first_line_entries(image_url) : later_line_entries(image_url)
     columns += [@entry.title] if first_line
 
@@ -168,7 +168,8 @@ class Accessory < ApplicationRecord
     return false unless image_url
 
     sizes.reload.each do |size|
-      lines << csv_line_for_size_and_color(size, accessory_color, image_url, first_line)
+      accessory_size = AccessorySize.where(accessory_id: self.id, size_id: size.id).first
+      lines << csv_line_for_size_and_color(size, accessory_color, accessory_size, image_url, first_line)
       first_line = false if first_line
     end
 
