@@ -5,16 +5,16 @@
       li = e
 .fieldset
   = f.label :base_name, "Type"
-  = f.text_field :base_name, placeholder: 'Mens Hoodie'
+  = f.text_field :base_name, placeholder: 'Pillow'
 .fieldset
   = f.label :accessory_type
-  = f.select :accessory_type, ["Pillow", "iPhone Case", "Shower Curtain"], value: accessory.accessory_type
+  = f.select :accessory_type, ["Pillow", "Blanket"], value: accessory.accessory_type
 .fieldset
   = f.label :style
-  = f.text_field :style, placeholder: 'Mens Hoodie', value: accessory.style
+  = f.text_field :style, placeholder: 'Pillow', value: accessory.style
 .radios
-  = f.radio_button :gender, "Accessory", checked: true
-  = f.label :gender_accessory, "Accessory"
+  = f.radio_button :gender, "Accessories", checked: true
+  = f.label :gender_accessories, "Accessories"
   = f.radio_button :gender, "Men"
   = f.label :gender_men, "Men"
   = f.radio_button :gender, "Women"

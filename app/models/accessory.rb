@@ -25,6 +25,7 @@ class Accessory < ApplicationRecord
   VARIANT_TAXABLE = "FALSE"
   GIFT_CARD = "FALSE"
   PILLOW_SKU = "P"
+  BLANKET_SKU = "B"
 
   def add_sizes(sizes)
     accessory_sizes.where.not(size_id: Size.where(name: sizes)).destroy_all
@@ -151,7 +152,7 @@ class Accessory < ApplicationRecord
     [
       [
         ENV['UPLOAD_VERSION'],
-        PILLOW_SKU,
+        check_sku,
         size_style_color_sku(size, accessory_color),
         "XX",
         @entry.team.id_string,
@@ -184,4 +185,12 @@ class Accessory < ApplicationRecord
     self.handle_extension += "-#{extension.upcase}" if extension
   end
 
+  def check_sku
+    case self.accessory_type
+    when 'Pillow'
+      return PILLOW_SKU
+    when 'Blanket'
+      return BLANKET_SKU
+    end
+  end
 end
