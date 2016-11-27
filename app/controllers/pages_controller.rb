@@ -26,8 +26,8 @@ class PagesController < ApplicationController
         flash[:notice] = "Design records have been created"
       else
         uploaded_ttp_path = Uploader.call(params[:title_team_player].path)
-        UserMailer.csv_upload(User.find(session[:user_id]).email,
-                                 uploaded_ttp_path, sales_channel_id).deliver_now
+        SendCsvJob.perform_later(User.find(session[:user_id]).email,
+                                 uploaded_ttp_path, sales_channel_id)
         flash[:notice] = "An email with CSV attached will be sent soon"
       end
     else
