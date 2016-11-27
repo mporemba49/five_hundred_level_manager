@@ -66,7 +66,7 @@ class Accessory < ApplicationRecord
         return "Women's #{style}"
       when 'Kids'
         return "Kids #{style}"
-      when 'Accessory'
+      when 'Accessories'
         return style
       end
     else
