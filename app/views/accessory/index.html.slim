@@ -1,0 +1,47 @@
+= link_to 'New Accessory', new_accessory_path
+table
+  tr 
+    th Base Name
+    th Style
+    th Gender
+    th Prices
+    th Sizes
+    th SKU
+  tr
+    td Active Accessory
+  - @accessory.active.each do |accessory|
+    tr
+      td = link_to accessory.base_name, accessory_path(accessory)
+      td = accessory.style
+      td = accessory.gender
+      td = accessory.accessory_sizes.map(&:price).join(', ')
+      td = accessory.sizes.map(&:name).join(', ')
+      td = accessory.sku
+      td = link_to 'Edit Accessory', edit_accessory_path(accessory)
+      td = link_to 'Edit Colors', accessory_accessory_colors_path(accessory)
+      td = link_to 'Edit Sizes', accessory_accessory_sizes_path(accessory)
+  - if @accessory.inactive.any?
+    tr
+      td Inactive Accessory
+      - @accessory.inactive.each do |accessory|
+        tr
+          td = link_to accessory.base_name, accessory_path(accessory)
+          td = accessory.style
+          td = accessory.gender
+          td = accessory.price
+          td = accessory.sizes
+          td = accessory.sku
+          td = link_to 'Edit', edit_accessory_path(accessory)
+
+= form_tag create_csv_path, multipart: true, id: 'csv_upload' do |f|
+  h4 Upload CSVs
+  .fieldset
+    = label_tag :title_team_player
+    = file_field_tag :title_team_player
+  .fieldset
+    = label_tag :sales_channel, "Sales Channel"
+    = select_tag 'sales_channel', options_from_collection_for_select(@sales_channels, 'id', 'name')
+  .fieldset
+    = label_tag :only_designs, "Only Designs"
+    = check_box_tag :only_designs, "Only Designs"
+  = submit_tag "Email CSV"

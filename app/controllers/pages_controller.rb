@@ -1,8 +1,21 @@
 class PagesController < ApplicationController
+  
+  def index
+    @clothing = Clothing.unscoped.includes(:sizes).joins(:sizes)
+                        .order(active: :desc, gender: :asc, base_name: :asc)
+                        .order("sizes.is_kids, sizes.ordinal")
+                        .all
+    @accessory = Accessory.unscoped.includes(:accessory_sizes, :sizes).joins(:sizes)
+                        .order(active: :desc, base_name: :asc)
+                        .order("sizes.ordinal")
+                        .all
+    @sales_channels = SalesChannel.all
+  end
+
   def kill_jobs
     Sidekiq.redis {|r| r.flushall }
     flash[:notice] = "All jobs cleared"
-    redirect_to clothing_index_path
+    redirect_to pages_index_path
   end
 
   def create_csv
@@ -20,6 +33,6 @@ class PagesController < ApplicationController
     else
       flash[:error] = "Input File and TitleTeamPlayer File Required"
     end
-    redirect_to clothing_index_path
+    redirect_to pages_index_path
   end
 end

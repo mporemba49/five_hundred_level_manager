@@ -1,0 +1,8 @@
+UPLOAD_BUCKET: '500-level-test'
+EMAIL_USER: 'braden.mugg@gmail.com'
+ACCESS_KEY_ID: 'AKIAJZIKKM6BMGEZMVAQ'
+SECRET_KEY: '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'
+BUCKET_NAME: '500-level-test'
+MINIMUM_SKU: '60'
+IMAGE_ROOT: 'https://s3.amazonaws.com/500-level-test/'
+UPLOAD_VERSION: 'A'

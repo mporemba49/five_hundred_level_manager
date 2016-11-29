@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def login
-    redirect_to clothing_index_path if session[:user_id]
+    redirect_to pages_index_path if session[:user_id]
     @user = User.new
   end
 
@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     @user = User.find_by_email(params[:email])
     if @user && @user.password == params[:password]
       session[:user_id] = @user.id
-      redirect_to clothing_index_path
+      redirect_to pages_index_path
     else
       flash[:error] = "Invalid Email/Password"
       redirect_to login_path

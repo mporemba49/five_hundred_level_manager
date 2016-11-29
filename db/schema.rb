@@ -10,10 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160925153156) do
+ActiveRecord::Schema.define(version: 20161127022738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accessories", force: :cascade do |t|
+    t.string   "base_name",                       null: false
+    t.string   "style",                           null: false
+    t.boolean  "active",           default: true, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "sku"
+    t.string   "accessory_type"
+    t.string   "extension",        default: ""
+    t.string   "handle_extension"
+    t.string   "gender"
+    t.index ["accessory_type"], name: "index_accessories_on_accessory_type", using: :btree
+    t.index ["active"], name: "index_accessories_on_active", using: :btree
+    t.index ["base_name"], name: "index_accessories_on_base_name", unique: true, using: :btree
+  end
+
+  create_table "accessory_colors", force: :cascade do |t|
+    t.integer  "accessory_id",                null: false
+    t.integer  "color_id",                    null: false
+    t.string   "image",                       null: false
+    t.boolean  "active",       default: true, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["accessory_id", "color_id"], name: "index_accessory_colors_on_accessory_id_and_color_id", unique: true, using: :btree
+    t.index ["active"], name: "index_accessory_colors_on_active", using: :btree
+  end
+
+  create_table "accessory_sizes", force: :cascade do |t|
+    t.integer "accessory_id", null: false
+    t.integer "size_id",      null: false
+    t.integer "price"
+    t.integer "weight"
+    t.index ["accessory_id"], name: "index_accessory_sizes_on_accessory_id", using: :btree
+    t.index ["size_id"], name: "index_accessory_sizes_on_size_id", using: :btree
+  end
+
+  create_table "accessory_tags", force: :cascade do |t|
+    t.integer "accessory_id"
+    t.integer "tag_id"
+    t.index ["accessory_id", "tag_id"], name: "index_accessory_tags_on_accessory_id_and_tag_id", unique: true, using: :btree
+  end
 
   create_table "clothing_colors", force: :cascade do |t|
     t.integer  "clothing_id",                null: false

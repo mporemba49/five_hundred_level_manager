@@ -1,0 +1,13 @@
+h1
+  | Edit #{@accessory.base_name} Sizes
+= form_tag accessory_accessory_sizes_path, method: 'PUT', id: 'edit_as' do
+  - @accessory.accessory_sizes.each do |accessory|
+  
+    tr
+      td = accessory.size.name
+      td = "Price"
+      td = number_field_tag "size_1[][price #{accessory.id}]"
+      td = "Weight"
+      td = number_field_tag "size_2[][weight #{accessory.id}]"
+  
+  = submit_tag "Update Sizes"

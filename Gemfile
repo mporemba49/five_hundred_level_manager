@@ -23,6 +23,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'figaro'
+  gem 'mailcatcher'
 end
 gem 'bootstrap', '~> 4.0.0.alpha3.1'
 gem 'will_paginate', '~> 3.1.0'

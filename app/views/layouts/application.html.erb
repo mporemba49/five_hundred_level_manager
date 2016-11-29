@@ -11,7 +11,7 @@
   <body>
     <nav id="navbar" class="navbar navbar-default">
       <% if !!session[:user_id] %>
-        <%= link_to 'Clothing', clothing_index_path %>
+        <%= link_to 'Index', pages_index_path %>
         <%= link_to 'Colors', colors_path %>
         <%= link_to 'Sizes', sizes_path %>
         <%= link_to 'Reserved Designs', reserved_designs_path %>

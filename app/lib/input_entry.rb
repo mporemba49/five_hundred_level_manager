@@ -18,9 +18,9 @@ class InputEntry
                            name: @title.downcase)
   end
 
-  def url_string_for_clothing(clothing, image)
+  def url_string_for_item(item, image)
     search_sub_dirs.each do |sub_dir|
-      test_url = clothing.image_url_builder(url_design, sub_dir, image)
+      test_url = item.image_url_builder(url_design, sub_dir, image)
       rootless_url = test_url.gsub(ENV['IMAGE_ROOT'],'')
       matching_object = Validator.objects.select { |object| object.key.downcase == rootless_url.downcase }.first
 
@@ -34,7 +34,7 @@ class InputEntry
   end
 
   def search_sub_dirs
-    ["Men","Women","Kids","","MEN","Unisex","KIDS", "women","WOMEN"]
+    ["Men","Women","Kids","","MEN","Unisex","KIDS","women","WOMEN","Accessories"]
   end
 
   def default_folder
@@ -81,8 +81,8 @@ class InputEntry
     "MISSING \"/#{league}/#{team}/#{title}/\" "
   end
 
-  def missing_clothing_error(clothing)
-    "MISSING \'/#{league}/#{team}/#{title}/\ - #{clothing.base_name}'"
+  def missing_item_error(item)
+    "MISSING \'/#{league}/#{team}/#{title}/\ - #{item.base_name}'"
   end
 
   def missing_royalty_error
@@ -93,26 +93,35 @@ class InputEntry
     Clothing.includes(clothing_colors: [:color]).includes(:tags, :sizes)
   end
 
+  def accessory
+    Accessory.includes(accessory_colors: [:color]).includes(:tags, :sizes)
+  end
+
   def league_sport(league)
     sports = { 'MLB' => 'Baseball', 'NFL' => 'Football',
                'NBA' => 'Basketball', 'NHL' => 'Hockey' }
     sports[league]
   end
 
-  def tags(clothing, published, first_line)
+  def tags(item, published, first_line)
     if first_line
       sport = league_sport(league) || league
       item_tags = [
         "player=#{player}",
-        "gender=#{clothing.gender.downcase}",
-        "style=#{clothing.style_tag}",
+        "gender=#{item.gender.downcase}",
+        "style=#{item.style_tag}",
         "v=#{ENV['500_LEVEL_VERSION']}",
         "team=#{team.name}",
         "city=#{city}",
         "sport=#{sport}"
       ].join(',')
+      if item.respond_to?(:clothing_type)
+        item_type = item.clothing_type
+      else
+        item_type = item.accessory_type
+      end
 
-      [title, nil, artist, clothing.clothing_type, item_tags, published]
+      [title, nil, artist, item_type, item_tags, published]
     else
       [nil,nil,nil,nil,nil,nil]
     end

@@ -1,21 +1,21 @@
-class Clothing < ApplicationRecord
+class Accessory < ApplicationRecord
   before_save :set_handle_extension
   attr_accessor :entry, :royalty_sku
 
-  has_many :clothing_colors, dependent: :destroy
-  has_many :clothing_tags, dependent: :destroy
-  has_many :clothing_sizes, dependent: :destroy
-  has_many :tags, through: :clothing_tags
-  has_many :colors, through: :clothing_colors
-  has_many :sizes, through: :clothing_sizes
+  has_many :accessory_colors, dependent: :destroy
+  has_many :accessory_tags, dependent: :destroy
+  has_many :accessory_sizes, dependent: :destroy
+  has_many :tags, through: :accessory_tags
+  has_many :colors, through: :accessory_colors
+  has_many :sizes, through: :accessory_sizes
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
   default_scope { where(active: true) }
 
   validates_uniqueness_of :sku, blank: true
-  validates_presence_of :base_name, :clothing_type, :style,
-                        :gender, :price, :weight, :sku
+  validates_presence_of :base_name, :accessory_type, :style,
+                        :gender, :sku
             
   PUBLISHED = "TRUE"
   VARIANT_INVENTORY_QTY = "1"
@@ -24,20 +24,21 @@ class Clothing < ApplicationRecord
   VARIANT_REQUIRES_SHIPPING = "TRUE"
   VARIANT_TAXABLE = "FALSE"
   GIFT_CARD = "FALSE"
-  CLOTHING_SKU = "C"
+  PILLOW_SKU = "P"
+  BLANKET_SKU = "B"
 
   def add_sizes(sizes)
-    clothing_sizes.where.not(size_id: Size.where(name: sizes)).destroy_all
+    accessory_sizes.where.not(size_id: Size.where(name: sizes)).destroy_all
     sizes.each do |size|
       size_record = Size.find_by_name(size)
-      ClothingSize.where(clothing: self, size: size_record).first_or_create if size_record
+      AccessorySize.where(accessory: self, size: size_record).first_or_create if size_record
     end
   end
 
   def add_tags(tags)
     tags.each do |tag|
       tag_record = Tag.where(name: tag).first_or_create
-      ClothingTag.where(clothing: self, tag: tag_record).first_or_create
+      AccessoryTag.where(accessory: self, tag: tag_record).first_or_create
     end
   end
 
@@ -65,6 +66,8 @@ class Clothing < ApplicationRecord
         return "Women's #{style}"
       when 'Kids'
         return "Kids #{style}"
+      when 'Accessories'
+        return style
       end
     else
       return style
@@ -75,9 +78,9 @@ class Clothing < ApplicationRecord
     ["Style", style_tag, "Color", color.color_name, "Size", size]
   end
 
-  def variants_data
-    [weight, nil, VARIANT_INVENTORY_QTY, VARIANT_INVENTORY_POLICY,
-     FULFILLMENT_SVC, price, nil, VARIANT_REQUIRES_SHIPPING,
+  def variants_data(accessory_size)
+    [accessory_size.weight, nil, VARIANT_INVENTORY_QTY, VARIANT_INVENTORY_POLICY,
+     FULFILLMENT_SVC, accessory_size.price, nil, VARIANT_REQUIRES_SHIPPING,
      VARIANT_TAXABLE,nil]
   end
 
@@ -109,12 +112,12 @@ class Clothing < ApplicationRecord
     description
   end
 
-  def csv_line_for_size_and_color(size, clothing_color, image_url, first_line)
+  def csv_line_for_size_and_color(size, accessory_color, accessory_size, image_url, first_line)
     columns = [handle] 
     columns += entry_tags(first_line)
-    columns += options_data(clothing_color, size.name)
-    columns += full_sku(size.sku, clothing_color)
-    columns += variants_data + image_data(image_url, clothing_color)
+    columns += options_data(accessory_color, size.name)
+    columns += full_sku(size.sku, accessory_color)
+    columns += variants_data(accessory_size) + image_data(image_url, accessory_color)
     columns += first_line ? first_line_entries(image_url) : later_line_entries(image_url)
     columns += [@entry.title] if first_line
 
@@ -141,16 +144,16 @@ class Clothing < ApplicationRecord
     csv_line
   end
 
-  def size_style_color_sku(size, clothing_color)
-    [size, sku, clothing_color.color.sku].join('')
+  def size_style_color_sku(size, accessory_color)
+    [size, sku, accessory_color.color.sku].join('')
   end
 
-  def full_sku(size, clothing_color)
+  def full_sku(size, accessory_color)
     [
       [
         ENV['UPLOAD_VERSION'],
-        CLOTHING_SKU,
-        size_style_color_sku(size, clothing_color),
+        check_sku,
+        size_style_color_sku(size, accessory_color),
         "XX",
         @entry.team.id_string,
         @entry.player.sku,
@@ -160,13 +163,14 @@ class Clothing < ApplicationRecord
     ]
   end
 
-  def csv_lines_for_color(clothing_color, first_line)
+  def csv_lines_for_color(accessory_color, first_line)
     lines = []
-    image_url = @entry.url_string_for_item(self, clothing_color.image)
+    image_url = @entry.url_string_for_item(self, accessory_color.image)
     return false unless image_url
 
     sizes.reload.each do |size|
-      lines << csv_line_for_size_and_color(size, clothing_color, image_url, first_line)
+      accessory_size = AccessorySize.where(accessory_id: self.id, size_id: size.id).first
+      lines << csv_line_for_size_and_color(size, accessory_color, accessory_size, image_url, first_line)
       first_line = false if first_line
     end
 
@@ -179,5 +183,14 @@ class Clothing < ApplicationRecord
     self.handle_extension = ""
     self.handle_extension = '-kids' if gender == 'Kids'
     self.handle_extension += "-#{extension.upcase}" if extension
+  end
+
+  def check_sku
+    case self.accessory_type
+    when 'Pillow'
+      return PILLOW_SKU
+    when 'Blanket'
+      return BLANKET_SKU
+    end
   end
 end
