@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161127022738) do
+ActiveRecord::Schema.define(version: 20161201205053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20161127022738) do
     t.string   "extension",        default: ""
     t.string   "handle_extension"
     t.string   "gender"
+    t.string   "product_sku"
     t.index ["accessory_type"], name: "index_accessories_on_accessory_type", using: :btree
     t.index ["active"], name: "index_accessories_on_active", using: :btree
     t.index ["base_name"], name: "index_accessories_on_base_name", unique: true, using: :btree

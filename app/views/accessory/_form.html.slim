@@ -8,7 +8,10 @@
   = f.text_field :base_name, placeholder: 'Pillow'
 .fieldset
   = f.label :accessory_type
-  = f.select :accessory_type, ["Pillow", "Blanket"], value: accessory.accessory_type
+  = f.text_field :accessory_type, placeholder: 'Pillow', value: accessory.accessory_type
+.fieldset
+  = f.label :product_sku
+  = f.text_field :product_sku, placeholder: 'P', value: accessory.product_sku
 .fieldset
   = f.label :style
   = f.text_field :style, placeholder: 'Pillow', value: accessory.style

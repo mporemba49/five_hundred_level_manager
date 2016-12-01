@@ -15,7 +15,7 @@ class Accessory < ApplicationRecord
 
   validates_uniqueness_of :sku, blank: true
   validates_presence_of :base_name, :accessory_type, :style,
-                        :gender, :sku
+                        :gender, :sku, :product_sku
             
   PUBLISHED = "TRUE"
   VARIANT_INVENTORY_QTY = "1"
@@ -152,7 +152,7 @@ class Accessory < ApplicationRecord
     [
       [
         ENV['UPLOAD_VERSION'],
-        check_sku,
+        self.product_sku,
         size_style_color_sku(size, accessory_color),
         "XX",
         @entry.team.id_string,
@@ -185,12 +185,4 @@ class Accessory < ApplicationRecord
     self.handle_extension += "-#{extension.upcase}" if extension
   end
 
-  def check_sku
-    case self.accessory_type
-    when 'Pillow'
-      return PILLOW_SKU
-    when 'Blanket'
-      return BLANKET_SKU
-    end
-  end
 end

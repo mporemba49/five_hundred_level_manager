@@ -62,7 +62,7 @@ class AccessoryController < ApplicationController
 
   def accessory_params
     params.require(:accessory).permit(:base_name, :accessory_type, :style,
-                                      :extension, :gender,
+                                      :extension, :gender, :product_sku,
                                       :handle_extension, :sku, sizes: [])
   end
 
