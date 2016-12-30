@@ -124,22 +124,22 @@ class Accessory < ApplicationRecord
     columns
   end
 
-  def first_line_entries(image_url)
+  def first_line_entries(image_url, accessory_size)
     csv_line = [GIFT_CARD, nil, nil, nil, nil]
     csv_line << seo_title
     csv_line << seo_description
     9.times { csv_line << nil }
     csv_line << image_url
-    csv_line << nil
+    csv_line << accessory_size.weight
 
     csv_line
   end
 
-  def later_line_entries(image_url)
+  def later_line_entries(image_url, accessory_size)
     csv_line = []
     16.times { csv_line << nil }
     csv_line << image_url
-    csv_line << nil
+    csv_line << accessory_size.weight
 
     csv_line
   end

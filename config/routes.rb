@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   resources :clothing do
     get '/clothing_colors', to: 'clothing_colors#edit'
     put '/clothing_colors', to: 'clothing_colors#update'
+    get '/clothing_sizes', to: 'clothing_sizes#edit'
+    put '/clothing_sizes', to: 'clothing_sizes#update'
     post 'toggle_active', to: 'clothing#toggle_active'
     resources :tags
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201205053) do
+ActiveRecord::Schema.define(version: 20161230175131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20161201205053) do
   create_table "clothing_sizes", force: :cascade do |t|
     t.integer "clothing_id", null: false
     t.integer "size_id",     null: false
+    t.integer "weight"
     t.index ["clothing_id", "size_id"], name: "index_clothing_sizes_on_clothing_id_and_size_id", unique: true, using: :btree
     t.index ["size_id"], name: "index_clothing_sizes_on_size_id", using: :btree
   end

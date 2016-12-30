@@ -19,6 +19,7 @@ table
       td = clothing.sku
       td = link_to 'Edit Clothing', edit_clothing_path(clothing)
       td = link_to 'Edit Colors', clothing_clothing_colors_path(clothing)
+      td = link_to 'Edit Sizes', clothing_clothing_sizes_path(clothing)
   - if @clothing.inactive.any?
     tr
       td Inactive Clothing

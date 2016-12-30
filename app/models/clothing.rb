@@ -75,8 +75,8 @@ class Clothing < ApplicationRecord
     ["Style", style_tag, "Color", color.color_name, "Size", size]
   end
 
-  def variants_data
-    [weight, nil, VARIANT_INVENTORY_QTY, VARIANT_INVENTORY_POLICY,
+  def variants_data(clothing_size)
+    [clothing_size.weight, nil, VARIANT_INVENTORY_QTY, VARIANT_INVENTORY_POLICY,
      FULFILLMENT_SVC, price, nil, VARIANT_REQUIRES_SHIPPING,
      VARIANT_TAXABLE,nil]
   end
@@ -109,34 +109,34 @@ class Clothing < ApplicationRecord
     description
   end
 
-  def csv_line_for_size_and_color(size, clothing_color, image_url, first_line)
+  def csv_line_for_size_and_color(size, clothing_color, clothing_size, image_url, first_line)
     columns = [handle] 
     columns += entry_tags(first_line)
     columns += options_data(clothing_color, size.name)
     columns += full_sku(size.sku, clothing_color)
-    columns += variants_data + image_data(image_url, clothing_color)
-    columns += first_line ? first_line_entries(image_url) : later_line_entries(image_url)
+    columns += variants_data(clothing_size) + image_data(image_url, clothing_color)
+    columns += first_line ? first_line_entries(image_url, clothing_size) : later_line_entries(image_url, clothing_size)
     columns += [@entry.title] if first_line
 
     columns
   end
 
-  def first_line_entries(image_url)
+  def first_line_entries(image_url, clothing_size)
     csv_line = [GIFT_CARD, nil, nil, nil, nil]
     csv_line << seo_title
     csv_line << seo_description
     9.times { csv_line << nil }
     csv_line << image_url
-    csv_line << nil
+    csv_line << clothing_size.weight * 0.035274
 
     csv_line
   end
 
-  def later_line_entries(image_url)
+  def later_line_entries(image_url, clothing_size)
     csv_line = []
     16.times { csv_line << nil }
     csv_line << image_url
-    csv_line << nil
+    csv_line << clothing_size.weight * 0.035274
 
     csv_line
   end
@@ -166,7 +166,8 @@ class Clothing < ApplicationRecord
     return false unless image_url
 
     sizes.reload.each do |size|
-      lines << csv_line_for_size_and_color(size, clothing_color, image_url, first_line)
+      clothing_size = ClothingSize.where(clothing_id: self.id, size_id: size.id).first
+      lines << csv_line_for_size_and_color(size, clothing_color, clothing_size, image_url, first_line)
       first_line = false if first_line
     end
 

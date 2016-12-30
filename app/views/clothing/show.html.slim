@@ -21,8 +21,8 @@ table
     td Sizes
     td = @clothing.sizes.pluck(:name).join(', ')
   tr
-    td Weight
-    td = @clothing.weight
+    td Weights
+    td = @clothing.clothing_sizes.pluck(:weight).join(', ')
   tr
     td Active
     td = @clothing.active
