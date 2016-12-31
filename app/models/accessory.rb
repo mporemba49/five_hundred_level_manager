@@ -118,7 +118,7 @@ class Accessory < ApplicationRecord
     columns += options_data(accessory_color, size.name)
     columns += full_sku(size.sku, accessory_color)
     columns += variants_data(accessory_size) + image_data(image_url, accessory_color)
-    columns += first_line ? first_line_entries(image_url) : later_line_entries(image_url)
+    columns += first_line ? first_line_entries(image_url, accessory_size) : later_line_entries(image_url, accessory_size)
     columns += [@entry.title] if first_line
 
     columns
@@ -130,7 +130,7 @@ class Accessory < ApplicationRecord
     csv_line << seo_description
     9.times { csv_line << nil }
     csv_line << image_url
-    csv_line << accessory_size.weight
+    csv_line << accessory_size.weight * 0.035274
 
     csv_line
   end
@@ -139,7 +139,7 @@ class Accessory < ApplicationRecord
     csv_line = []
     16.times { csv_line << nil }
     csv_line << image_url
-    csv_line << accessory_size.weight
+    csv_line << accessory_size.weight  * 0.035274
 
     csv_line
   end
