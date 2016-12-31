@@ -130,7 +130,7 @@ class Accessory < ApplicationRecord
     csv_line << seo_description
     9.times { csv_line << nil }
     csv_line << image_url
-    csv_line << accessory_size.weight * 0.035274
+    csv_line << (accessory_size.weight  * 0.035274).round(1)
 
     csv_line
   end
@@ -139,7 +139,7 @@ class Accessory < ApplicationRecord
     csv_line = []
     16.times { csv_line << nil }
     csv_line << image_url
-    csv_line << accessory_size.weight  * 0.035274
+    csv_line << (accessory_size.weight  * 0.035274).round(1)
 
     csv_line
   end
