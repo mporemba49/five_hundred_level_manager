@@ -23,6 +23,7 @@ table
   tr
     td Weights
     td = @clothing.clothing_sizes.pluck(:weight).join(', ')
+    td = link_to 'Edit', clothing_clothing_sizes_path(@clothing)
   tr
     td Active
     td = @clothing.active
