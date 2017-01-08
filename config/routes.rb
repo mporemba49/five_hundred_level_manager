@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   post '/create_csv', to: 'pages#create_csv'
   post '/kill_jobs', to: 'pages#kill_jobs'
+  post '/sku_csv', to: 'pages#sku_csv'
   get  'pages/index', to: 'pages#index'
   get '/login', to: 'sessions#login'
   get '/logout', to: 'sessions#logout'

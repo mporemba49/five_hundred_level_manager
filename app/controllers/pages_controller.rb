@@ -18,6 +18,12 @@ class PagesController < ApplicationController
     redirect_to pages_index_path
   end
 
+  def sku_csv
+    BuildSkuCsvJob.perform_later(User.find(session[:user_id]).email)
+    flash[:notice] = "An email with CSV attached will be sent soon"
+    redirect_to pages_index_path
+  end
+
   def create_csv
     if !params[:title_team_player].blank?
       sales_channel_id = params[:sales_channel]

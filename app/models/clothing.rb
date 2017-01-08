@@ -26,6 +26,10 @@ class Clothing < ApplicationRecord
   GIFT_CARD = "FALSE"
   CLOTHING_SKU = "C"
 
+  def clothing_sku
+    CLOTHING_SKU
+  end
+
   def add_sizes(sizes)
     clothing_sizes.where.not(size_id: Size.where(name: sizes)).destroy_all
     sizes.each do |size|
