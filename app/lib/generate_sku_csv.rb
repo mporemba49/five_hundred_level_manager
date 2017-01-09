@@ -8,8 +8,9 @@ class GenerateSkuCsv
     output_csv_lines = [HEADER]
     clothings = Clothing.unscoped.all.includes(clothing_colors: [:color], clothing_sizes: [:size])
     players = TeamPlayer.all.includes(:designs, :team)
+    royalties = Royalty.all.to_a
     players.each do |player|
-      royalty = Royalty.where(league: player.team.league).first
+      royalty = royalties.select { |royalty| royalty.league == player.team.league}
       designs = player.designs
       designs.each do |design|
         clothings.each do |clothing|
@@ -35,12 +36,12 @@ class GenerateSkuCsv
         end
       end
     end
-        clothings = nil
-        colors = nil
-        sizes = nil
-        GC.start
+    clothings = nil
+    colors = nil
+    sizes = nil
+    GC.start
     players.each do |player|
-      royalty = Royalty.where(league: player.team.league).first
+      royalty = royalties.select { |royalty| royalty.league == player.team.league}
       designs = player.designs
       designs.each do |design|
         accessories = Accessory.unscoped.all.includes(accessory_colors: [:color], accessory_sizes: [:size])
