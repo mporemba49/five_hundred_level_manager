@@ -18,7 +18,7 @@ class S3Uploader < AwsParent
     Aws.config.update({ region: 'us-west-2' })
     @s3 = Aws::S3::Resource.new
     @uploader = @s3.bucket(ENV['CSV_UPLOAD_BUCKET'])
-    file_name = "sku_file-#{Time.now.to_i}"
+    file_name = "#{ENV['BUCKET_NAME']}sku_file-#{Time.now.to_i}"
 
     obj = @uploader.object("#{file_name}.csv")
     csv_lines = GenerateSkuCsv.call
