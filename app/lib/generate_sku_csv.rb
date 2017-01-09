@@ -2,7 +2,7 @@ require 'csv'
 
 class GenerateSkuCsv
   CHANNEL = "SH"
-  HEADER = ["Full SKU", "Product", "Design", "Team", "Player", "League", "Artist", "Size", "Color"]
+  HEADER = ["Full SKU", "Design", "Team", "Player", "League", "Artist", "Size", "Color"]
 
   def self.call
     output_csv_lines = [HEADER]
@@ -19,21 +19,19 @@ class GenerateSkuCsv
           sizes = clothing.sizes
           sizes.each do |size|
             colors.each do |color|
-              sales_channels.each do |channel|
-                full_sku = 
-                  [ 
-                    ENV['UPLOAD_VERSION'],
-                    clothing.clothing_sku,
-                    size.sku + clothing.sku + color.sku,
-                    "XX",
-                    player.team.id_string,
-                    player.sku,
-                    design.readable_sku,
-                    royalty.code + CHANNEL
-                  ].join("-")
-                line = [full_sku, clothing.base_name, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
-                output_csv_lines << line
-              end
+              full_sku = 
+                [ 
+                  ENV['UPLOAD_VERSION'],
+                  clothing.clothing_sku,
+                  size.sku + clothing.sku + color.sku,
+                  "XX",
+                  player.team.id_string,
+                  player.sku,
+                  design.readable_sku,
+                  royalty.code + CHANNEL
+                ].join("-")
+              line = [full_sku, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
+              output_csv_lines << line
             end
           end
         end
@@ -51,9 +49,9 @@ class GenerateSkuCsv
                   player.team.id_string,
                   player.sku,
                   design.readable_sku,
-                  royalty.code + channel.sku
+                  royalty.code + CHANNEL
                 ].join("-")
-              line = [full_sku, accessory.base_name, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
+              line = [full_sku, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
               output_csv_lines << line
             end
           end

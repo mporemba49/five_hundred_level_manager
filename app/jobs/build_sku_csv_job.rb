@@ -1,7 +1,7 @@
 class BuildSkuCsvJob < ApplicationJob
   queue_as :default
 
-  def perform(email)
-    UserMailer.sku_csv(email).deliver_now
+  def perform
+    S3Uploader.sku_call
   end
 end

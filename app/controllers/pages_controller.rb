@@ -19,8 +19,8 @@ class PagesController < ApplicationController
   end
 
   def sku_csv
-    BuildSkuCsvJob.perform_later(User.find(session[:user_id]).email)
-    flash[:notice] = "An email with CSV attached will be sent soon"
+    BuildSkuCsvJob.perform_later
+    flash[:notice] = "A file will be uploaded to AWS S3 soon"
     redirect_to pages_index_path
   end
 

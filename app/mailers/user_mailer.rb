@@ -18,14 +18,4 @@ class UserMailer < ApplicationMailer
     mail(to: email, subject: "500 Level | CSV Download")
   end
 
-  def sku_csv(email)
-    csv_lines = GenerateSkuCsv.call
-    returned_csv = CSV.generate(headers: true) do |csv|
-      csv_lines.each do |line|
-        csv << line
-      end
-    end
-    attachments["shopify_upload.csv"] = returned_csv
-    mail(to: email, subject: "500 Level | SKU CSV File")
-  end
 end
