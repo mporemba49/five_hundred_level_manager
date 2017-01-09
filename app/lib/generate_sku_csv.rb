@@ -6,8 +6,8 @@ class GenerateSkuCsv
 
   def self.call
     output_csv_lines = [HEADER]
-    clothings = Clothing.all.includes(clothing_colors: [:color], clothing_sizes: [:size])
-    accessories = Accessory.all.includes(accessory_colors: [:color], accessory_sizes: [:size])
+    clothings = Clothing.unscoped.all.includes(clothing_colors: [:color], clothing_sizes: [:size])
+    accessories = Accessory.unscoped.all.includes(accessory_colors: [:color], accessory_sizes: [:size])
     players = TeamPlayer.all.includes(:designs, :team)
     sales_channels = SalesChannel.all
     players.each do |player|
