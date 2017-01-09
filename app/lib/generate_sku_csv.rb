@@ -33,10 +33,16 @@ class GenerateSkuCsv
             end
           end
         end
+      end
+    end
         clothings = nil
         colors = nil
         sizes = nil
         GC.start
+    players.each do |player|
+      royalty = Royalty.where(league: player.team.league).first
+      designs = player.designs
+      designs.each do |design|
         accessories = Accessory.unscoped.all.includes(accessory_colors: [:color], accessory_sizes: [:size])
         accessories.each do |accessory|
           colors = accessory.colors
