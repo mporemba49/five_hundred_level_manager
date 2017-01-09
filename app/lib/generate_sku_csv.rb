@@ -27,7 +27,7 @@ class GenerateSkuCsv
                   player.team.id_string,
                   player.sku,
                   design.readable_sku,
-                  royalty.code + CHANNEL
+                  royalty[0].code + CHANNEL
                 ].join("-")
               line = [full_sku, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
               output_csv_lines << line
@@ -59,7 +59,7 @@ class GenerateSkuCsv
                   player.team.id_string,
                   player.sku,
                   design.readable_sku,
-                  royalty.code + CHANNEL
+                  royalty[0].code + CHANNEL
                 ].join("-")
               line = [full_sku, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
               output_csv_lines << line
