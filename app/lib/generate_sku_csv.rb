@@ -7,6 +7,7 @@ class GenerateSkuCsv
 
   def self.call
     output_csv_lines = [HEADER]
+    royalties = Royalty.all.to_a
     clothings = Clothing.unscoped.pluck(:id, :sku)
     clothings.each do |clothing|
       sizes = Size.joins(:clothing_sizes).where(clothing_sizes: {clothing_id: clothing[0]}).pluck(:'sizes.sku', :'sizes.name')
@@ -18,13 +19,10 @@ class GenerateSkuCsv
     players.each do |player|
       team = Team.where(id: player[1]).pluck(:id, :league, :name)
       player << team
-      designs = TeamPlayerDesign.where(team_player_id: player[0]).pluck(:sku, :name, :artist)
-      player << designs
     end
-    royalties = Royalty.all.to_a
     players.each do |player|
       royalty = royalties.select { |royalty| royalty.league == player[4][0][1] }
-      designs = player[5]
+      designs = TeamPlayerDesign.where(team_player_id: player[0]).pluck(:sku, :name, :artist)
       designs.each do |design|
         clothings.each do |clothing|
           colors = clothing[3]
@@ -39,10 +37,10 @@ class GenerateSkuCsv
                   "XX",
                   player[4][0][0].to_s.rjust(4,'0'),
                   player[2],
-                  design[0][0].to_s.rjust(2,'0'),
+                  design[0].to_s.rjust(2,'0'),
                   royalty[0].code + CHANNEL
                 ].join("-")
-              line = [full_sku, design[0][1], player[0][4][0][2], player[3], player[0][4][0][1], players[0][5][0][2], size[0], color[1]]
+              line = [full_sku, design[1], player[0][4][0][2], player[3], player[0][4][0][1], design[2], size[0], color[1]]
               output_csv_lines << line
             end
           end
@@ -62,7 +60,7 @@ class GenerateSkuCsv
     end
     players.each do |player|
       royalty = royalties.select { |royalty| royalty.league == player[4][0][1] }
-      designs = player[5]
+      designs = TeamPlayerDesign.where(team_player_id: player[0]).pluck(:sku, :name, :artist)
       designs.each do |design|
         accessories.each do |accessory|
           colors = accessory[4]
@@ -77,10 +75,10 @@ class GenerateSkuCsv
                   "XX",
                   player[4][0][0].to_s.rjust(4,'0'),
                   player[2],
-                  design[0][0].to_s.rjust(2,'0'),
+                  design[0].to_s.rjust(2,'0'),
                   royalty[0].code + CHANNEL
                 ].join("-")
-              line = [full_sku, design[0][1], player[0][4][0][2], player[3], player[0][4][0][1], players[0][5][0][2], size[0], color[1]]
+              line = [full_sku, design[1], player[0][4][0][2], player[3], player[0][4][0][1], design[2], size[0], color[1]]
               output_csv_lines << line
             end
           end
