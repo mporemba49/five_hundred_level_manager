@@ -106,6 +106,11 @@ class InputEntry
   def tags(item, published, first_line)
     if first_line
       sport = league_sport(league) || league
+      if /\A\d+\z/.match(sport.split(' ').last)
+        sport = sport.split(' ')
+        sport.pop
+        sport = sport.join(' ')
+      end
       item_tags = [
         "player=#{player}",
         "gender=#{item.gender.downcase}",
