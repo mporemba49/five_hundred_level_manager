@@ -11,51 +11,53 @@ class GenerateSkuCsv
     clothings = Clothing.unscoped.all.includes(clothing_colors: [:color], clothing_sizes: [:size])
     accessories = Accessory.unscoped.all.includes(accessory_colors: [:color], accessory_sizes: [:size])
     players = TeamPlayer.pluck(:id, :team_id, :sku, :player)
-
-    TeamPlayer.includes(:designs, :team).find_each(batch_size: 50) do |player|
-      royalty = royalties.select { |royalty| royalty.league == player.team.league }.first
-      designs = player.designs
-      designs.each do |design|
-        clothings.each do |clothing|
-          clothing.sizes.each do |size|
-            clothing.colors.each do |color|
-              full_sku = 
-                [ 
-                  ENV['UPLOAD_VERSION'],
-                  CLOTHING_SKU,
-                  size.sku + clothing.sku + color.sku,
-                  "XX",
-                  player.team.id_string,
-                  player.sku,
-                  design.readable_sku,
-                  royalty.code + CHANNEL
-                ].join("-")
-              line = [full_sku, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
-              output_csv_lines << line
+    path = "/tmp/#{ENV['BUCKET_NAME']}sku_file-#{Time.now.to_i}"
+    File.new(path)
+    CSV.open(path, "wb") do |csv|
+      TeamPlayer.includes(:designs, :team).find_each(batch_size: 50) do |player|
+        royalty = royalties.select { |royalty| royalty.league == player.team.league }.first
+        designs = player.designs
+        designs.each do |design|
+          clothings.each do |clothing|
+            clothing.sizes.each do |size|
+              clothing.colors.each do |color|
+                full_sku = 
+                  [ 
+                    ENV['UPLOAD_VERSION'],
+                    CLOTHING_SKU,
+                    size.sku + clothing.sku + color.sku,
+                    "XX",
+                    player.team.id_string,
+                    player.sku,
+                    design.readable_sku,
+                    royalty.code + CHANNEL
+                  ].join("-")
+                line = [full_sku, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
+                csv << line
+              end
             end
           end
-        end
-        accessories.each do |accessory|
-          accessory.sizes.each do |size|
-            accessory.colors.each do |color|
-              full_sku =
-                [ 
-                  ENV['UPLOAD_VERSION'],
-                  accessory.product_sku,
-                  size.sku + accessory.sku + color.sku,
-                  "XX",
-                  player.team.id_string,
-                  player.sku,
-                  design.readable_sku,
-                  royalty.code + CHANNEL
-                ].join("-")
-              line = [full_sku, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
-              output_csv_lines << line
+          accessories.each do |accessory|
+            accessory.sizes.each do |size|
+              accessory.colors.each do |color|
+                full_sku =
+                  [ 
+                    ENV['UPLOAD_VERSION'],
+                    accessory.product_sku,
+                    size.sku + accessory.sku + color.sku,
+                    "XX",
+                    player.team.id_string,
+                    player.sku,
+                    design.readable_sku,
+                    royalty.code + CHANNEL
+                  ].join("-")
+                line = [full_sku, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
+                csv << line
+              end
             end
           end
         end
       end
-    end
-    output_csv_lines
+    sku_file_path
   end
 end

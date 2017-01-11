@@ -20,13 +20,7 @@ class S3Uploader < AwsParent
     @uploader = @s3.bucket(ENV['CSV_UPLOAD_BUCKET'])
     file_name = "#{ENV['BUCKET_NAME']}sku_file-#{Time.now.to_i}"
 
-    obj = @uploader.object("#{file_name}.csv")
-    csv_lines = GenerateSkuCsv.call
-    returned_csv = CSV.generate(headers: true) do |csv|
-      csv_lines.each do |line|
-        csv << line
-      end
-    end
-    obj.put body: returned_csv
+    sku_file_path = GenerateSkuCsv.call
+    obj = @uploader.object("#{file_name}.csv").upload_file(sku_file_path)
   end
 end
