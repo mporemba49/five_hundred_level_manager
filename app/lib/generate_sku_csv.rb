@@ -8,77 +8,48 @@ class GenerateSkuCsv
   def self.call
     output_csv_lines = [HEADER]
     royalties = Royalty.all.to_a
-    clothings = Clothing.unscoped.pluck(:id, :sku)
-    clothings.each do |clothing|
-      sizes = Size.joins(:clothing_sizes).where(clothing_sizes: {clothing_id: clothing[0]}).pluck(:'sizes.sku', :'sizes.name')
-      clothing << sizes
-      colors = Color.joins(:clothing_colors).where(clothing_colors: {clothing_id: clothing[0]}).pluck(:'colors.sku', :'colors.name')
-      clothing << colors
-    end
+    clothings = Clothing.unscoped.all.includes(clothing_colors: [:color], clothing_sizes: [:size])
+    accessories = Accessory.unscoped.all.includes(accessory_colors: [:color], accessory_sizes: [:size])
     players = TeamPlayer.pluck(:id, :team_id, :sku, :player)
-    players.each do |player|
-      team = Team.where(id: player[1]).pluck(:id, :league, :name)
-      player << team
-    end
-    players.each do |player|
-      royalty = royalties.select { |royalty| royalty.league == player[4][0][1] }
-      designs = TeamPlayerDesign.where(team_player_id: player[0]).pluck(:sku, :name, :artist)
+
+    TeamPlayer.includes(:designs, :team).find_each(batch_size: 50) do |player|
+      royalty = royalties.select { |royalty| royalty.league == player.team.league }.first
+      designs = player.designs
       designs.each do |design|
         clothings.each do |clothing|
-          colors = clothing[3]
-          sizes = clothing[2]
-          sizes.each do |size|
-            colors.each do |color|
+          clothing.sizes.each do |size|
+            clothing.colors.each do |color|
               full_sku = 
                 [ 
                   ENV['UPLOAD_VERSION'],
                   CLOTHING_SKU,
-                  size[1] + clothing[1] + color[0],
+                  size.sku + clothing.sku + color.sku,
                   "XX",
-                  player[4][0][0].to_s.rjust(4,'0'),
-                  player[2],
-                  design[0].to_s.rjust(2,'0'),
-                  royalty[0].code + CHANNEL
+                  player.team.id_string,
+                  player.sku,
+                  design.readable_sku,
+                  royalty.code + CHANNEL
                 ].join("-")
-              line = [full_sku, design[1], player[0][4][0][2], player[3], player[0][4][0][1], design[2], size[0], color[1]]
+              line = [full_sku, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
               output_csv_lines << line
             end
           end
         end
-      end
-    end
-    clothings = nil
-    colors = nil
-    sizes = nil
-    GC.start
-    accessories = Accessory.unscoped.pluck(:id, :sku, :product_sku)
-    accessories.each do |accessory|
-      sizes = Size.joins(:accessory_sizes).where(accessory_sizes: {accessory_id: accessory[0]}).pluck(:'sizes.sku', :'sizes.name')
-      accessory << sizes
-      colors = Color.joins(:accessory_colors).where(accessory_colors: {accessory_id: accessory[0]}).pluck(:'colors.sku', :'colors.name')
-      accessory << colors
-    end
-    players.each do |player|
-      royalty = royalties.select { |royalty| royalty.league == player[4][0][1] }
-      designs = TeamPlayerDesign.where(team_player_id: player[0]).pluck(:sku, :name, :artist)
-      designs.each do |design|
         accessories.each do |accessory|
-          colors = accessory[4]
-          sizes = accessory[3]
-          sizes.each do |size|
-            colors.each do |color|
+          accessory.sizes.each do |size|
+            accessory.colors.each do |color|
               full_sku =
                 [ 
                   ENV['UPLOAD_VERSION'],
-                  accessory[2],
-                  size[1] + accessory[1] + color[0],
+                  accessory.product_sku,
+                  size.sku + accessory.sku + color.sku,
                   "XX",
-                  player[4][0][0].to_s.rjust(4,'0'),
-                  player[2],
-                  design[0].to_s.rjust(2,'0'),
-                  royalty[0].code + CHANNEL
+                  player.team.id_string,
+                  player.sku,
+                  design.readable_sku,
+                  royalty.code + CHANNEL
                 ].join("-")
-              line = [full_sku, design[1], player[0][4][0][2], player[3], player[0][4][0][1], design[2], size[0], color[1]]
+              line = [full_sku, design.name, player.team.name, player.player, player.team.league, design.artist, size.name, color.name]
               output_csv_lines << line
             end
           end
