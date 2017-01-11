@@ -58,6 +58,7 @@ class GenerateSkuCsv
           end
         end
       end
+    end
     sku_file_path
   end
 end
