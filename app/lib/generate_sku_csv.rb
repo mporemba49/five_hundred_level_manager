@@ -11,7 +11,7 @@ class GenerateSkuCsv
     clothings = Clothing.unscoped.all.includes(clothing_colors: [:color], clothing_sizes: [:size])
     accessories = Accessory.unscoped.all.includes(accessory_colors: [:color], accessory_sizes: [:size])
     players = TeamPlayer.pluck(:id, :team_id, :sku, :player)
-    path = "/tmp/#{ENV['BUCKET_NAME']}sku_file-#{Time.now.to_i}"
+    path = "/tmp/#{ENV['BUCKET_NAME']}sku_file-#{Time.now.to_i.csv}"
     File.new(path)
     CSV.open(path, "wb") do |csv|
       TeamPlayer.includes(:designs, :team).find_each(batch_size: 50) do |player|
