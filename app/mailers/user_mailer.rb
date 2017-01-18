@@ -18,4 +18,20 @@ class UserMailer < ApplicationMailer
     mail(to: email, subject: "500 Level | CSV Download")
   end
 
+  def sku_upload(email, check_sku)
+    check_sku_path = Downloader.call(check_sku)
+    csv_lines = CheckSkuCsv.call(check_sku_path)
+    if csv_lines.size > 1
+      returned_csv = CSV.generate(headers: true) do |csv|
+        csv_lines.each do |line|
+          csv << line
+        end
+      end
+      attachments["returned_items.csv"] = returned_csv
+      mail(to: email, subject: "500 Level | Items In Inventory")
+    else
+      mail(to: email, subject: "500 Level | No Inventory Items Found")
+    end
+  end
+
 end

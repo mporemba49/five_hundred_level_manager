@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :require_login
   
   def index
     @clothing = Clothing.unscoped.includes(:sizes).joins(:sizes)
@@ -40,5 +41,12 @@ class PagesController < ApplicationController
       flash[:error] = "Input File and TitleTeamPlayer File Required"
     end
     redirect_to pages_index_path
+  end
+
+  def require_login
+    unless logged_in?
+      flash[:error] = "You must be logged in to access this section"
+      redirect_to login_url
+    end
   end
 end

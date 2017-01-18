@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post '/create_csv', to: 'pages#create_csv'
   post '/kill_jobs', to: 'pages#kill_jobs'
   post '/sku_csv', to: 'pages#sku_csv'
+  post '/check_sku', to: 'inventory_items#check_sku'
   get  'pages/index', to: 'pages#index'
   get '/login', to: 'sessions#login'
   get '/logout', to: 'sessions#logout'
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
   resources :royalties
   resources :reserved_designs
   resources :team_player_designs
+  resources :inventory_items
 
   resources :clothing do
     get '/clothing_colors', to: 'clothing_colors#edit'

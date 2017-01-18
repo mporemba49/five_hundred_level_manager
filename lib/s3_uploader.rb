@@ -23,4 +23,18 @@ class S3Uploader < AwsParent
     sku_file_path = GenerateSkuCsv.call
     obj = @uploader.object("#{file_name}.csv").upload_file(sku_file_path)
   end
+
+  def self.upload_incomplete(incomplete_values)
+    @s3 = Aws::S3::Resource.new
+    @uploader = @s3.bucket(ENV['CSV_UPLOAD_BUCKET'])
+    path = "/tmp/#{ENV['BUCKET_NAME']}-Missing-Lines-File-#{Time.now.to_i}.csv"
+    file_name = "#{ENV['BUCKET_NAME']}-Missing-Lines-File-#{Time.now.to_i}.csv"
+    File.new(path, "w")
+    CSV.open(path, "wb") do |csv|
+      incomplete_values.each do |line|
+        csv << line
+      end
+    end
+    obj = @uploader.object("#{file_name}").upload_file(path)
+  end
 end

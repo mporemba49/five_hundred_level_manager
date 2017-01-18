@@ -16,6 +16,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'slim-rails'
 gem 'aws-sdk'
 gem 'bcrypt'
+gem 'activerecord-import'
 group :development, :test do
   gem 'pry'
   gem 'dotenv-rails'

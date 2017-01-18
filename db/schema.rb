@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161230175131) do
+ActiveRecord::Schema.define(version: 20170117214110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,18 @@ ActiveRecord::Schema.define(version: 20161230175131) do
     t.datetime "updated_at", null: false
     t.string   "sku"
     t.index ["name"], name: "index_colors_on_name", unique: true, using: :btree
+  end
+
+  create_table "inventory_items", force: :cascade do |t|
+    t.string   "full_sku",                          null: false
+    t.string   "team_player_design_id",             null: false
+    t.integer  "team_player_id",                    null: false
+    t.string   "size_id",                           null: false
+    t.string   "color_id",                          null: false
+    t.integer  "quantity",              default: 1
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["full_sku"], name: "index_inventory_items_on_full_sku", unique: true, using: :btree
   end
 
   create_table "reserved_designs", force: :cascade do |t|
