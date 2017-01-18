@@ -15,7 +15,7 @@ table
     td Inventory Items
   - @inventory_items.each do |item|
     tr
-      td = link_to item.full_sku, inventory_item_path(item)
+      td = item.full_sku
       td = item.team_player_design.name
       td = item.team_player.team
       td = item.team_player.player
@@ -24,7 +24,6 @@ table
       td = item.size.name
       td = item.color.name
       td = item.quantity
-      td = link_to "edit", edit_inventory_item_path(item)
       td
         = form_tag inventory_item_path(item), method: 'DELETE' do
           = submit_tag "Delete", data: { confirm: 'Are you sure you want to delete this item?' }
