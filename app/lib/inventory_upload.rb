@@ -24,7 +24,7 @@ class InventoryUpload
         item = Accessory.unscoped.where(sku: line[0].split('-')[2].slice(1..3)).first || Clothing.unscoped.where(sku: line[0].split('-')[2].slice(1..3)).first
         value << item.id
         value << item.class.name
-        values << value
+        value.include?(nil) ? incomplete_values << line : values << value
       else
         player = TeamPlayer.where(player: line[1]).includes(:team).first
         design = TeamPlayerDesign.where(name: line[2].downcase).first
@@ -55,7 +55,7 @@ class InventoryUpload
           value << color.id
           value << item.id
           value << item.class.name
-          values << value
+          value.include?(nil) ? incomplete_values << line : values << value
         end
       end
     end
