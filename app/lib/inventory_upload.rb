@@ -30,7 +30,7 @@ class InventoryUpload
         design = TeamPlayerDesign.where(name: line[2].downcase).first
         size = Size.where(name: line[5].upcase).first
         color = Color.where(name: line[6]).first
-        item = Accessory.unscoped.where(style: line[4]).first || Clothing.unscoped.where(sku: line[4]).first
+        item = Accessory.unscoped.where(style: line[4]).first || Clothing.unscoped.where(style: line[4]).first
         royalty = Royalty.where(league: player.team.league).first
         if [player, design, size, color, item, royalty].include?(nil)
           incomplete_values << line
