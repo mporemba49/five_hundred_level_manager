@@ -60,7 +60,7 @@ class InventoryUpload
       end
     end
 
-    InventoryItem.import(columns, values, validate: false)
+    InventoryItem.import(columns, values, validate: false, on_duplicate_key_ignore: true)
 
     
     S3Uploader.upload_incomplete(incomplete_values) unless incomplete_values.empty?
