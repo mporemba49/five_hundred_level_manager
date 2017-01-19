@@ -15,7 +15,7 @@ class CheckSkuCsv
     skus.map! { |s| s.slice(0..-5)}
     inventory_items.each do |item|
       if skus.include?(item.full_sku.slice(0..-5))
-        output_lines << [item.full_sku, item.team_player_design.name, item.team_player.team, item.team_player.name, item.team_player.team.league, item.size.name, item.color.name]
+        output_lines << [item.full_sku, item.team_player_design.name, item.team_player.team, item.team_player.player, item.team_player.team.league, item.size.name, item.color.name]
       end
     end
     output_lines
