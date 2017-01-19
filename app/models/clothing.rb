@@ -8,6 +8,7 @@ class Clothing < ApplicationRecord
   has_many :tags, through: :clothing_tags
   has_many :colors, through: :clothing_colors
   has_many :sizes, through: :clothing_sizes
+  has_many :inventory_items, as: :producible
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }

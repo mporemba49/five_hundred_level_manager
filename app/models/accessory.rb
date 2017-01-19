@@ -8,6 +8,7 @@ class Accessory < ApplicationRecord
   has_many :tags, through: :accessory_tags
   has_many :colors, through: :accessory_colors
   has_many :sizes, through: :accessory_sizes
+  has_many :inventory_items, as: :producible
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }

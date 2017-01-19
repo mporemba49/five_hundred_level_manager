@@ -3,6 +3,8 @@ class InventoryItem < ApplicationRecord
   belongs_to :team_player
   belongs_to :size
   belongs_to :color
+  belongs_to :producible, polymorphic: true
+
   validates_presence_of :full_sku
   validates_uniqueness_of :full_sku
 
