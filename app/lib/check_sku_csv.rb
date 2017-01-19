@@ -7,7 +7,7 @@ class CheckSkuCsv
     output_lines = [HEADER]
     skus = []
     inventory_items = InventoryItem.all.includes(:team_player_design, :color, :size, team_player: [:team])
-    CSV.foreach("#{Rails.root}/tmp/new_orders.csv", encoding: "ISO8859-1", headers: false) do |row|   
+    CSV.foreach(check_sku_path, encoding: "ISO8859-1", headers: false) do |row|   
       skus << row[0]
     end
     skus.compact!
