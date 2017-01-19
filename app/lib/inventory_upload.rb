@@ -3,6 +3,7 @@ require 'open-uri'
 
 CHANNEL = "SH"
 CLOTHING_SKU = "C"
+HEADERS = ["SKU", "Player", "Design", "Team", "Apparel", "Style Size", "Color", "Location"]
 
 class InventoryUpload
   def self.call()
@@ -13,6 +14,7 @@ class InventoryUpload
     lines.shift
     values = []
     incomplete_values = []
+    incomplete_values << HEADERS
     lines.each do |line|
       if line[0]
         value = []
