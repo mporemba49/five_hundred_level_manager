@@ -19,7 +19,7 @@ class InventoryUpload
       if line[0]
         value = []
         value << line[0]
-        team = Team.where(id: line[4].to_i).first
+        team = Team.where(id: line[0].split('-')[4].to_i).first
         value << TeamPlayerDesign.where(sku: line[0].split('-')[6].to_i, team_player_id: line[0].split('-')[5].to_i).first.id
         value << team.team_players.find_by_player(line[1]).id
         value << Color.where(sku: line[0].split('-')[2].slice(4..6)).first.id
@@ -29,7 +29,7 @@ class InventoryUpload
         value << item.class.name
         value.include?(nil) ? incomplete_values << line : values << value
       else
-        team = Team.where(id: line[4].to_i).first
+        team = Team.where(name: line[3]).first
         player = team.team_players.find_by_player(line[1])
         design = TeamPlayerDesign.where(name: line[2].downcase).first
         size = Size.where(name: line[5].upcase).first
