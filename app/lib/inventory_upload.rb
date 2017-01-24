@@ -9,7 +9,7 @@ class InventoryUpload
   def self.call()
     url = "https://s3-us-west-2.amazonaws.com/500levelcsvs/returns_sample.csv"
     download = open(url)
-    columns = [:full_sku, :team_player_design_id, :team_player_id, :size_id, :color_id, :producible_id, :producible_type]
+    columns = [:full_sku, :team_player_design_id, :team_player_id, :size_id, :color_id, :producible_id, :producible_type, :location]
     lines = CSV.read(download)
     lines.shift
     values = []
@@ -27,6 +27,7 @@ class InventoryUpload
         item = Accessory.unscoped.where(sku: line[0].split('-')[2].slice(1..3)).first || Clothing.unscoped.where(sku: line[0].split('-')[2].slice(1..3)).first
         value << item.id
         value << item.class.name
+        value << line[7] || "N/A"
         value.include?(nil) ? incomplete_values << line : values << value
       else
         team = Team.where(name: line[3]).first
@@ -59,6 +60,7 @@ class InventoryUpload
           value << color.id
           value << item.id
           value << item.class.name
+          value << line[7] || "N/A"
           value.include?(nil) ? incomplete_values << line : values << value
         end
       end

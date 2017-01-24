@@ -9,6 +9,7 @@ table
     th Artist
     th Size
     th Color
+    th Location
     th Quantity
 
   tr
@@ -23,11 +24,12 @@ table
       td = item.team_player_design.artist
       td = item.size.name
       td = item.color.name
+      td = item.location
       td = item.quantity
+      td = link_to "Edit", edit_inventory_item_path(item)
       td
         = form_tag inventory_item_path(item), method: 'DELETE' do
           = submit_tag "Delete", data: { confirm: 'Are you sure you want to delete this item?' }
-= will_paginate @inventory_items
 
 = form_tag check_sku_path, multipart: true, id: 'sku_upload' do |f|
   h4 Upload SKU CSV

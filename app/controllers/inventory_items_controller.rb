@@ -8,6 +8,21 @@ class InventoryItemsController < ApplicationController
     @inventory_item = InventoryItem.new
   end
 
+  def edit
+    @inventory_item = InventoryItem.find(params[:id])
+  end
+
+  def update
+    @inventory_item = InventoryItem.find(params[:id])
+    if @inventory_item.update_attributes(item_params)
+      flash[:notice] = 'Inventory Item updated'
+      redirect_to inventory_items_path
+    else
+      flash[:error] = 'Inventory Item was not updated'
+      render :edit
+    end
+  end
+
   def create()
     @inventory_item = InventoryItem.new
     full_sku = item_params[:full_sku]
@@ -54,6 +69,6 @@ class InventoryItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:inventory_item).permit(:full_sku)
+    params.require(:inventory_item).permit(:full_sku, :location, :quantity)
   end
 end
