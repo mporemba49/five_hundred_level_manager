@@ -1,7 +1,6 @@
 class InventoryItemsController < ApplicationController
   def index
     @inventory_items = InventoryItem.all.includes(:team_player, :team_player_design, :color, :size)
-    .paginate(page: params[:page])
   end
 
   def new
