@@ -1,6 +1,7 @@
 class InventoryItemsController < ApplicationController
   def index
     @inventory_items = InventoryItem.all.includes(:team_player, :team_player_design, :color, :size)
+    @inventory_items = @inventory_items.reject { |item| item.team_player == nil || item.team_player_design == nil || item.color == nil || item.size == nil }
   end
 
   def new
