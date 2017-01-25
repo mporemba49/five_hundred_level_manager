@@ -36,10 +36,10 @@ class InventoryUpload
         size = Size.where(name: line[5].upcase).first
         color = Color.where(name: line[6]).first
         item = Accessory.unscoped.where(style: line[4]).first || Clothing.unscoped.where(style: line[4]).first
-        royalty = Royalty.where(league: player.team.league).first
-        if [player, design, size, color, item, royalty].include?(nil)
+        if [player, design, size, color, item].include?(nil)
           incomplete_values << line
         else
+          royalty = Royalty.where(league: player.team.league).first
           full_sku = 
                     [ 
                       ENV['UPLOAD_VERSION'],
