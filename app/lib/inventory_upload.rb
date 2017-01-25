@@ -10,7 +10,7 @@ class InventoryUpload
     url = "https://s3-us-west-2.amazonaws.com/500levelcsvs/returns_sample.csv"
     download = open(url)
     columns = [:full_sku, :team_player_design_id, :team_player_id, :size_id, :color_id, :producible_id, :producible_type, :location]
-    lines = CSV.read(download)
+    lines = CSV.read(download, encoding: 'iso-8859-1')
     lines.shift
     values = []
     incomplete_values = []
