@@ -31,7 +31,11 @@ class InventoryUpload
         value.include?(nil) ? incomplete_values << line : values << value
       else
         team = Team.where(name: line[3]).first
-        player = team.team_players.find_by_player(line[1])
+        if team
+          player = team.team_players.find_by_player(line[1])
+        else
+          player = nil
+        end
         design = TeamPlayerDesign.where(name: line[2].downcase).first
         size = Size.where(name: line[5].upcase).first
         color = Color.where(name: line[6]).first
