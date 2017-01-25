@@ -30,43 +30,44 @@ class InventoryUpload
         value << line[7] || "N/A"
         value.include?(nil) ? incomplete_values << line : values << value
       else
+        unless line[1...6].include?(nil)
+          team = Team.where(name: line[3]).first
+          if team
+            player = team.team_players.find_by_player(line[1])
+          else
+            player = nil
+          end
+          design = TeamPlayerDesign.where(name: line[2].downcase).first
+          size = Size.where(name: line[5].upcase).first
+          color = Color.where(name: line[6]).first
+          item = Accessory.unscoped.where(style: line[4]).first || Clothing.unscoped.where(style: line[4]).first
+          if [player, design, size, color, item].include?(nil)
+            incomplete_values << line
+          else
+            royalty = Royalty.where(league: player.team.league).first
+            full_sku = 
+                      [ 
+                        ENV['UPLOAD_VERSION'],
+                        CLOTHING_SKU,
+                        size.sku + item.sku + color.sku,
+                        "XX",
+                        player.team.id_string,
+                        player.sku,
+                        design.readable_sku,
+                        royalty.code + CHANNEL
+                      ].join("-")
 
-        team = Team.where(name: line[3]).first
-        if team
-          player = team.team_players.find_by_player(line[1])
-        else
-          player = nil
-        end
-        design = TeamPlayerDesign.where(name: line[2].downcase).first
-        size = Size.where(name: line[5].upcase).first if line[5]
-        color = Color.where(name: line[6]).first if line[6]
-        item = Accessory.unscoped.where(style: line[4]).first || Clothing.unscoped.where(style: line[4]).first
-        if [player, design, size, color, item].include?(nil)
-          incomplete_values << line
-        else
-          royalty = Royalty.where(league: player.team.league).first
-          full_sku = 
-                    [ 
-                      ENV['UPLOAD_VERSION'],
-                      CLOTHING_SKU,
-                      size.sku + item.sku + color.sku,
-                      "XX",
-                      player.team.id_string,
-                      player.sku,
-                      design.readable_sku,
-                      royalty.code + CHANNEL
-                    ].join("-")
-
-          value = []
-          value << full_sku
-          value << design.id
-          value << player.id
-          value << size.id
-          value << color.id
-          value << item.id
-          value << item.class.name
-          value << line[7] || "N/A"
-          value.include?(nil) ? incomplete_values << line : values << value
+            value = []
+            value << full_sku
+            value << design.id
+            value << player.id
+            value << size.id
+            value << color.id
+            value << item.id
+            value << item.class.name
+            value << line[7] || "N/A"
+            value.include?(nil) ? incomplete_values << line : values << value
+          end
         end
       end
     end
