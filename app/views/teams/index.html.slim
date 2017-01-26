@@ -13,6 +13,8 @@ table
           td = team.city
           td = team.royalty
           td = link_to 'Edit', edit_team_path(team)
+          td = form_tag team_path(team), method: 'DELETE', data: { confirm: "This will delete #{team.name} and all associated players and designs!" }
+            = submit_tag "Delete"
     - else
       tr
         td No Teams Available

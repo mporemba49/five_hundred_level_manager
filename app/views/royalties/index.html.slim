@@ -12,6 +12,8 @@ table
           td = royalty.league
           td = royalty.percentage
           td = link_to 'Edit', edit_royalty_path(royalty)
+          td = form_tag royalty_path(royalty), method: 'DELETE', data: { confirm: "This will delete #{royalty.league} for all designs" }
+            = submit_tag "Delete"
     - else
       tr
         td No Royalties Available

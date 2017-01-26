@@ -35,6 +35,16 @@ class RoyaltiesController < ApplicationController
     end
   end
 
+  def destroy
+    @royalty = Royalty.find(params[:id])
+    if @royalty.destroy
+      flash[:notice] = 'Royalty deleted'
+    else
+      flash[:error] = 'Royalty not deleted'
+    end
+    redirect_to royalties_path
+  end
+
   private
 
   def royalty_params
