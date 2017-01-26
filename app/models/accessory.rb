@@ -153,8 +153,7 @@ class Accessory < ApplicationRecord
     [
       [
         ENV['UPLOAD_VERSION'],
-        self.product_sku,
-        size_style_color_sku(size, accessory_color),
+        self.product_sku + size_style_color_sku(size, accessory_color),
         "XX",
         @entry.team.id_string,
         @entry.player.sku,

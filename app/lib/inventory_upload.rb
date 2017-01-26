@@ -48,8 +48,7 @@ class InventoryUpload
             full_sku = 
                       [ 
                         ENV['UPLOAD_VERSION'],
-                        CLOTHING_SKU,
-                        size.sku + item.sku + color.sku,
+                        CLOTHING_SKU + size.sku + item.sku + color.sku,
                         "XX",
                         player.team.id_string,
                         player.sku,

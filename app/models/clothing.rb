@@ -154,8 +154,7 @@ class Clothing < ApplicationRecord
     [
       [
         ENV['UPLOAD_VERSION'],
-        CLOTHING_SKU,
-        size_style_color_sku(size, clothing_color),
+        CLOTHING_SKU + size_style_color_sku(size, clothing_color),
         "XX",
         @entry.team.id_string,
         @entry.player.sku,
