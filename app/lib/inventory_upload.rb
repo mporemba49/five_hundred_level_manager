@@ -19,12 +19,12 @@ class InventoryUpload
       if line[0]
         value = []
         value << line[0]
-        team = Team.where(id: line[0].split('-')[4].to_i).first
-        value << TeamPlayerDesign.where(sku: line[0].split('-')[6].to_i, team_player_id: line[0].split('-')[5].to_i).first.id
+        team = Team.where(id: line[0].slice(15..18).to_i).first
+        value << TeamPlayerDesign.where(sku: line[0].slice(24..25).to_i, team_player_id: line[0].slice(20..22).to_i).first.id
         value << team.team_players.find_by_player(line[1]).id
-        value << Color.where(sku: line[0].split('-')[2].slice(4..6)).first.id
-        value << Size.where(sku: line[0].split('-')[2].slice(0)).first.id
-        item = Accessory.unscoped.where(sku: line[0].split('-')[2].slice(1..3)).first || Clothing.unscoped.where(sku: line[0].split('-')[2].slice(1..3)).first
+        value << Color.where(sku: line[0].slice(8..10)).first.id
+        value << Size.where(sku: line[0].slice(3..4)).first.id
+        item = Accessory.unscoped.where(sku: line[0].slice(5..7)).first || Clothing.unscoped.where(sku: line[0].slice(5..7)).first
         value << item.id
         value << item.class.name
         value << line[7] || "N/A"

@@ -27,10 +27,11 @@ class InventoryItemsController < ApplicationController
     @inventory_item = InventoryItem.new
     full_sku = item_params[:full_sku]
     @inventory_item.full_sku = full_sku
-    @inventory_item.team_player_design_id = TeamPlayerDesign.where(sku: full_sku.slice(24..25).to_i, team_player_id: full_sku.split('-')[5].to_i).first.id
+    @team = Team.where(id: full_sku.slice(15..18)).first
+    @inventory_item.team_player_design_id = TeamPlayerDesign.where(sku: full_sku.slice(24..25).to_i, team_player_id: full_sku.slice(20..22).to_i).first.id
     @inventory_item.team_player_id = TeamPlayer.where(id: full_sku.slice(20..22).to_i).first.id
     @inventory_item.color_id = Color.where(sku: full_sku.slice(8..10)).first.id
-    @inventory_item.size_id = Size.where(sku: full_sku.slice(3..4).first.id
+    @inventory_item.size_id = Size.where(sku: full_sku.slice(3..4)).first.id
     item = Accessory.unscoped.where(sku: full_sku.slice(5..7)).first || Clothing.unscoped.where(sku: full_sku.slice(5..7)).first
     inventory_item.producible_id = item.id
     inventory_item.producible_type = item.class.name
