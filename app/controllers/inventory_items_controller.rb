@@ -33,8 +33,8 @@ class InventoryItemsController < ApplicationController
     @inventory_item.color_id = Color.where(sku: full_sku.slice(8..10)).first.id
     @inventory_item.size_id = Size.where(sku: full_sku.slice(3..4)).first.id
     item = Accessory.unscoped.where(sku: full_sku.slice(5..7)).first || Clothing.unscoped.where(sku: full_sku.slice(5..7)).first
-    inventory_item.producible_id = item.id
-    inventory_item.producible_type = item.class.name
+    @inventory_item.producible_id = item.id
+    @inventory_item.producible_type = item.class.name
     if @inventory_item.save
       flash[:notice] = "Inventory Item Saved"
       redirect_to inventory_items_path
