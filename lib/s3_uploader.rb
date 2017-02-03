@@ -25,6 +25,7 @@ class S3Uploader < AwsParent
   end
 
   def self.upload_incomplete(incomplete_values)
+    Aws.config.update({ region: 'us-west-2' })
     @s3 = Aws::S3::Resource.new
     @uploader = @s3.bucket(ENV['CSV_UPLOAD_BUCKET'])
     path = "/tmp/#{ENV['BUCKET_NAME']}-Missing-Lines-File-#{Time.now.to_i}.csv"
