@@ -71,7 +71,7 @@ class InventoryUpload
         end
       end
     end
-    logger.info values
+    Rails.logger.info values
 
     InventoryItem.import(columns, values, validate: false, on_duplicate_key_ignore: true)
 
