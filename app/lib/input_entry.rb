@@ -84,11 +84,11 @@ class InputEntry
   end
 
   def missing_team_error
-    "MISSING \"/#{league}/#{team}/#{title}/\" - Team or league mismatch"
+    "MISSING #{title} - Team or league mismatch"
   end
 
   def missing_player_error
-    "MISSING \"/#{league}/#{team}/#{title}/\" - Missing player (spelling must match exactly)"
+    "MISSING #{title} - Missing player (spelling must match exactly)"
   end
 
   def missing_design_url_error
