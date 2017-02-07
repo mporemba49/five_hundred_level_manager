@@ -1,7 +1,8 @@
 class InventoryItemsController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def index
-    @inventory_items = InventoryItem.all.includes(:team_player, :team_player_design, :color, :size)
-    @inventory_items = @inventory_items.reject { |item| item.team_player == nil || item.team_player_design == nil || item.color == nil || item.size == nil }
+    @inventory_items = InventoryItem.all.order(sort_column + " " + sort_direction).includes(:team_player, :team_player_design, :color, :size)
   end
 
   def new
@@ -28,13 +29,21 @@ class InventoryItemsController < ApplicationController
     full_sku = item_params[:full_sku]
     @inventory_item.full_sku = full_sku
     @team = Team.where(id: full_sku.slice(15..18)).first
-    @inventory_item.team_player_id = @team.team_players.where(sku: full_sku.slice(20..22)).first.id
-    @inventory_item.team_player_design_id = TeamPlayerDesign.where(sku: full_sku.slice(24..25).to_i, team_player_id: @inventory_item.team_player_id).first.id
+    @player = @team.team_players.where(sku: full_sku.slice(20..22)).first
+    @design = TeamPlayerDesign.where(sku: full_sku.slice(24..25).to_i, team_player_id: @player.id).first
+    @inventory_item.team_player_id = @player.id
+    @inventory_item.team_player_design_id = @design.id
     @inventory_item.color_id = Color.where(sku: full_sku.slice(8..10)).first.id
     @inventory_item.size_id = Size.where(sku: full_sku.slice(3..4)).first.id
-    item = Accessory.unscoped.where(sku: full_sku.slice(5..7)).first || Clothing.unscoped.where(sku: full_sku.slice(5..7)).first
-    @inventory_item.producible_id = item.id
-    @inventory_item.producible_type = item.class.name
+    @item = Accessory.unscoped.where(sku: full_sku.slice(5..7)).first || Clothing.unscoped.where(sku: full_sku.slice(5..7)).first
+    @inventory_item.producible_id = @item.id
+    @inventory_item.producible_type = @item.class.name
+    @inventory_item.player = TeamPlayer.find(@inventory_item.team_player_id).player
+    @inventory_item.team = @team.name
+    @inventory_item.league = @team.league
+    @inventory_item.design = TeamPlayerDesign.find(@inventory_item.team_player_design_id).name
+    @inventory_item.product = @item.style
+    @inventory_item.artist = TeamPlayerDesign.find(@inventory_item.team_player_design_id).artist
     if @inventory_item.save
       flash[:notice] = "Inventory Item Saved"
       redirect_to inventory_items_path
@@ -72,4 +81,13 @@ class InventoryItemsController < ApplicationController
   def item_params
     params.require(:inventory_item).permit(:full_sku, :location, :quantity)
   end
+
+  def sort_column
+    InventoryItem.column_names.include?(params[:sort]) ? params[:sort] : "team_player_id"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
 end
