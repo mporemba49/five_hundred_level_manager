@@ -75,22 +75,14 @@ class InputEntry
     !url_design
   end
 
-  def missing_team?
-    !team
+  def missing_design?
+    !@design
   end
 
-  def missing_player?
-    !player
+  def missing_design_error
+    "MISSING #{title} - Team, league, or player mismatch"
   end
-
-  def missing_team_error
-    "MISSING #{title} - Team or league mismatch"
-  end
-
-  def missing_player_error
-    "MISSING #{title} - Missing player (spelling must match exactly)"
-  end
-
+  
   def missing_design_url_error
     "MISSING \"/#{league}/#{team}/#{title}/\" "
   end
