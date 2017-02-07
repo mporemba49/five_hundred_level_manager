@@ -21,16 +21,16 @@ table
     td Inventory Items
   - @inventory_items.each do |item|
     tr
-      td = item.full_sku
-      td = item.product
-      td = item.design
-      td = item.team
-      td = item.player
-      td = item.league
-      td = item.size.name
-      td = item.color.name
-      td = item.location
-      td = item.quantity
+      td = item.full_sku || ""
+      td = item.product || ""
+      td = item.design || ""
+      td = item.team || ""
+      td = item.player || ""
+      td = item.league || ""
+      td = item.size.name || ""
+      td = item.color.name || ""
+      td = item.location || ""
+      td = item.quantity || ""
       td = link_to "Edit", edit_inventory_item_path(item)
       td
         = form_tag inventory_item_path(item), method: 'DELETE' do
