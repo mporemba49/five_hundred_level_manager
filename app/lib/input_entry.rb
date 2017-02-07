@@ -12,7 +12,7 @@ class InputEntry
     @artist = design['Artist'].strip
     Rails.logger.info("ENTRY: #{league}, #{handle}, #{title}, #{artist}")
     @team = Team.find_by(name: team, league: league)
-    @player = team.team_players.find_by_player(player) if @team
+    @player = @team.team_players.find_by_player(player) if @team
     @design = @player.designs.includes(team_player: [:team]).find_by(artist: @artist.downcase, name: @title.downcase) if @player
   end
 
@@ -82,7 +82,7 @@ class InputEntry
   def missing_design_error
     "MISSING #{title} - Team, league, or player mismatch"
   end
-  
+
   def missing_design_url_error
     "MISSING \"/#{league}/#{team}/#{title}/\" "
   end
