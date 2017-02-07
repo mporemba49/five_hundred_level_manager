@@ -13,8 +13,7 @@ class InputEntry
     Rails.logger.info("ENTRY: #{league}, #{handle}, #{title}, #{artist}")
     @team = Team.find_by(name: team, league: league)
     @player = team.team_players.find_by_player(player) if @team
-    @design = @player.designs.includes(team_player: [:team]).find_by
-      (artist: @artist.downcase, name: @title.downcase) if @player
+    @design = @player.designs.includes(team_player: [:team]).find_by(artist: @artist.downcase, name: @title.downcase) if @player
   end
 
   def url_string_for_item(item, image)
