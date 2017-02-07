@@ -16,6 +16,16 @@ class GenerateCsv
       entry = InputEntry.new(row)
       royalty = Royalty.find_by_league(entry.league)
 
+      if entry.missing_team?
+        missing_files << entry.missing_team_error
+        next
+      end
+
+      if entry.missing_player?
+        missing_files << entry.missing_player_error
+        next
+      end
+      
       if entry.missing_image_design_url?
         missing_files << entry.missing_design_url_error
         next

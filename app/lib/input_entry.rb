@@ -11,11 +11,10 @@ class InputEntry
     @title = design['Title'].strip
     @artist = design['Artist'].strip
     Rails.logger.info("ENTRY: #{league}, #{handle}, #{title}, #{artist}")
-    @design = Team.find_by(name: team, league: league)
-                  .team_players.find_by_player(player)
-                  .designs.includes(team_player: [:team])
-                  .find_by(artist: @artist.downcase,
-                           name: @title.downcase)
+    @team = Team.find_by(name: team, league: league)
+    @player = team.team_players.find_by_player(player) if @team
+    @design = @player.designs.includes(team_player: [:team]).find_by
+      (artist: @artist.downcase, name: @title.downcase) if @player
   end
 
   def url_string_for_item(item, image)
@@ -75,6 +74,22 @@ class InputEntry
 
   def missing_image_design_url?
     !url_design
+  end
+
+  def missing_team?
+    !team
+  end
+
+  def missing_player?
+    !player
+  end
+
+  def missing_team_error
+    "MISSING \"/#{league}/#{team}/#{title}/\" - Team or league mismatch"
+  end
+
+  def missing_player_error
+    "MISSING \"/#{league}/#{team}/#{title}/\" - Missing player (spelling must match exactly)"
   end
 
   def missing_design_url_error
