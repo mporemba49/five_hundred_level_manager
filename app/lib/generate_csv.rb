@@ -14,7 +14,6 @@ class GenerateCsv
       handle = row['Handle']
       next if handle.blank?
       entry = InputEntry.new(row)
-      royalty = Royalty.find_by_league(entry.league)
 
       if entry.missing_design?
         missing_files << entry.missing_design_error
@@ -25,6 +24,8 @@ class GenerateCsv
         missing_files << entry.missing_design_url_error
         next
       end
+
+      royalty = Royalty.find_by_league(entry.league)
 
       if !royalty
         missing_files << entry.missing_royalty_error
