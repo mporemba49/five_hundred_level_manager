@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :locations
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   post '/create_csv', to: 'pages#create_csv'
   post '/kill_jobs', to: 'pages#kill_jobs'

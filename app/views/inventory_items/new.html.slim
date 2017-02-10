@@ -4,8 +4,10 @@
     = f.text_field :full_sku
   .fieldset
     = f.label :Location
-    = f.text_field :location
+    = select_tag "location", options_for_select(@locations.collect{ |u| [u.name, u.name] })
   .fieldset
     = f.label :Quantity
     = f.number_field :quantity
   = f.submit
+
+= link_to "Manage Locations", locations_path
