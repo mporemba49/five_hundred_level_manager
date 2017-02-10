@@ -26,6 +26,7 @@ table
     th Color
     th Location
     th Quantity
+    th Date Added
 
   = form_tag mass_delete_path do |f|
     = submit_tag "Delete Items"
@@ -42,4 +43,5 @@ table
         td = item.color.name if item.color
         td = item.location
         td = item.quantity
+        td = item.created_at.strftime('%D')
         td = link_to "Edit", edit_inventory_item_path(item)
