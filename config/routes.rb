@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#login'
   get '/logout', to: 'sessions#logout'
   post '/confirm_login', to: 'sessions#confirm_login'
+  post 'mass_delete', to: 'inventory_items#mass_delete'
 
   resources :sales_channels
   resources :colors

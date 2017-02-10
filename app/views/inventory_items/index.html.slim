@@ -1,6 +1,16 @@
 = link_to 'New Inventory Item', new_inventory_item_path
+= form_tag check_sku_path, multipart: true, id: 'sku_upload' do |f|
+  h4 Upload SKU CSV
+  .fieldset
+    = label_tag :sku_csv
+    = file_field_tag :sku_csv
+  = submit_tag "Check SKUs"
+
+h4 Manage Inventory Items
+
 table
-  tr 
+  tr
+    th
     th Full Sku 
     th 
       = sortable "product"
@@ -17,28 +27,19 @@ table
     th Location
     th Quantity
 
-  tr
-    td Inventory Items
-  - @inventory_items.each do |item|
-    tr
-      td = item.full_sku
-      td = item.product
-      td = item.design
-      td = item.team
-      td = item.player
-      td = item.league
-      td = item.size.name if item.size
-      td = item.color.name if item.color
-      td = item.location
-      td = item.quantity
-      td = link_to "Edit", edit_inventory_item_path(item)
-      td
-        = form_tag inventory_item_path(item), method: 'DELETE' do
-          = submit_tag "Delete", data: { confirm: 'Are you sure you want to delete this item?' }
-
-= form_tag check_sku_path, multipart: true, id: 'sku_upload' do |f|
-  h4 Upload SKU CSV
-  .fieldset
-    = label_tag :sku_csv
-    = file_field_tag :sku_csv
-  = submit_tag "Check SKUs"
+  = form_tag mass_delete_path do |f|
+    = submit_tag "Delete Items"
+    - @inventory_items.each do |item|
+      tr
+        td = check_box_tag 'inventory_item_ids[]', item.id
+        td = item.full_sku
+        td = item.product
+        td = item.design
+        td = item.team
+        td = item.player
+        td = item.league
+        td = item.size.name if item.size
+        td = item.color.name if item.color
+        td = item.location
+        td = item.quantity
+        td = link_to "Edit", edit_inventory_item_path(item)
