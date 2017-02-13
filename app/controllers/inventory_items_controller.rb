@@ -50,7 +50,7 @@ class InventoryItemsController < ApplicationController
       flash[:notice] = "Inventory Item Saved"
       redirect_to inventory_items_path
     else
-      flash[:error] = "Clothing Not Saved"
+      flash[:error] = "Inventory Item Not Saved"
       redirect_to inventory_items_path
     end
   end
@@ -89,6 +89,23 @@ class InventoryItemsController < ApplicationController
 
     redirect_to inventory_items_path
   end
+
+  def soft_deleted
+    @inventory_items = InventoryItem.only_deleted
+  end
+
+  def recover
+    @inventory_item = InventoryItem.only_deleted.find(params[:id])
+    if @inventory_item.recover
+      flash[:notice] = "Inventory Item Recovered"
+      redirect_to inventory_items_path
+    else
+      flash[:error] = "Inventory Item Not Recovered"
+      redirect_to inventory_items_path
+    end
+  end
+
+
 
   private
 

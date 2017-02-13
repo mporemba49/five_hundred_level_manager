@@ -7,5 +7,6 @@ class InventoryItem < ApplicationRecord
 
   validates_presence_of :full_sku
   validates_uniqueness_of :full_sku
+  acts_as_paranoid
 
 end

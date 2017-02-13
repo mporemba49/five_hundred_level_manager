@@ -1,0 +1,38 @@
+h4 Manage Inventory Items
+
+table
+  tr
+    th Full Sku 
+    th 
+      = sortable "product"
+    th 
+      = sortable "design"
+    th 
+      = sortable "team"
+    th 
+      = sortable "player"
+    th 
+      = sortable "league"
+    th Size
+    th Color
+    th Location
+    th Quantity
+    th Date Added
+    th
+
+
+  - @inventory_items.each do |item|
+    tr
+      td = item.full_sku
+      td = item.product
+      td = item.design
+      td = item.team
+      td = item.player
+      td = item.league
+      td = item.size.name if item.size
+      td = item.color.name if item.color
+      td = item.location
+      td = item.quantity
+      td = item.created_at.strftime('%D')
+      td = form_tag recover_inventory_item_path(item), method: 'POST', data: { confirm: "This will undelete #{item.product}" }
+        = submit_tag "Undelete"

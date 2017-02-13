@@ -30,6 +30,8 @@ table
 
   = form_tag mass_delete_path do |f|
     = submit_tag "Delete Items"
+    br
+    = link_to "Undo Delete", inventory_items_soft_deleted_path
     - @inventory_items.each do |item|
       tr
         td = check_box_tag 'inventory_item_ids[]', item.id

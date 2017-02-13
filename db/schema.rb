@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210211448) do
+ActiveRecord::Schema.define(version: 20170213030926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20170210211448) do
     t.string   "player"
     t.string   "league"
     t.string   "artist"
+    t.datetime "deleted_at"
     t.index ["full_sku"], name: "index_inventory_items_on_full_sku", unique: true, using: :btree
     t.index ["producible_type", "producible_id"], name: "index_inventory_items_on_producible_type_and_producible_id", using: :btree
   end

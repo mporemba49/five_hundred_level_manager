@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#logout'
   post '/confirm_login', to: 'sessions#confirm_login'
   post 'mass_delete', to: 'inventory_items#mass_delete'
+  get 'inventory_items/soft_deleted', to: 'inventory_items#soft_deleted'
+  post 'inventory_items/recover/:id', to: 'inventory_items#recover'
 
   resources :sales_channels
   resources :colors
@@ -18,7 +20,11 @@ Rails.application.routes.draw do
   resources :royalties
   resources :reserved_designs
   resources :team_player_designs
-  resources :inventory_items
+  resources :inventory_items do
+    member do
+      post 'recover'
+    end
+  end
 
   resources :clothing do
     get '/clothing_colors', to: 'clothing_colors#edit'
