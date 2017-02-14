@@ -9,9 +9,10 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#login'
   get '/logout', to: 'sessions#logout'
   post '/confirm_login', to: 'sessions#confirm_login'
-  post 'mass_delete', to: 'inventory_items#mass_delete'
+  post 'inventory_items/mass_delete', to: 'inventory_items#mass_delete'
   get 'inventory_items/soft_deleted', to: 'inventory_items#soft_deleted'
   post 'inventory_items/recover/:id', to: 'inventory_items#recover'
+  post 'team_player_designs/mass_delete', to: 'team_player_designs#mass_delete'
 
   resources :sales_channels
   resources :colors

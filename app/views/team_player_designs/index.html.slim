@@ -1,6 +1,7 @@
 = render partial: '/shared/search_form', locals: { klass: TeamPlayerDesign }
 table
   tr
+    th
     th League
     th Team
     th Team SKU
@@ -8,16 +9,17 @@ table
     th Player SKU
     th Design Name
     th Design SKU
-  - @team_player_designs.each do |team_player_design|
-    tr
-      td = team_player_design.team.league
-      td = team_player_design.team.name
-      td = team_player_design.team.id_string
-      td = team_player_design.team_player.player
-      td = team_player_design.team_player.sku
-      td = team_player_design.name
-      td = team_player_design.readable_sku
-      td
-        = form_tag team_player_design_path(team_player_design), method: 'DELETE' do
-          = submit_tag "Delete", data: { confirm: 'Are you sure you want to delete this design?' }
+  = form_tag team_player_designs_mass_delete_path do |f|
+    = submit_tag "Delete Items"
+    - @team_player_designs.each do |team_player_design|
+      tr
+        td = check_box_tag 'team_player_design_ids[]', team_player_design.id
+        td = team_player_design.team.league
+        td = team_player_design.team.name
+        td = team_player_design.team.id_string
+        td = team_player_design.team_player.player
+        td = team_player_design.team_player.sku
+        td = team_player_design.name
+        td = team_player_design.readable_sku
+        td
 = will_paginate @team_player_designs

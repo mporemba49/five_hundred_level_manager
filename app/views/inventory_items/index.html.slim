@@ -28,7 +28,7 @@ table
     th Quantity
     th Date Added
 
-  = form_tag mass_delete_path do |f|
+  = form_tag inventory_items_mass_delete_path do |f|
     = submit_tag "Delete Items"
     br
     = link_to "Undo Delete", inventory_items_soft_deleted_path
