@@ -12,6 +12,7 @@ class InventoryItemsController < ApplicationController
 
   def edit
     @inventory_item = InventoryItem.find(params[:id])
+    @locations = Location.all
   end
 
   def update
@@ -50,7 +51,13 @@ class InventoryItemsController < ApplicationController
       flash[:notice] = "Inventory Item Saved"
       redirect_to inventory_items_path
     else
-      flash[:error] = "Inventory Item Not Saved"
+      @existing_item = InventoryItem.where(full_sku: @inventory_item.full_sku).first
+      if @existing_item
+        @existing_item.update_attributes(quantity: @existing_item.quantity + 1)
+        flash[:notice] = "Item quantity increased"
+      else
+        flash[:error] = "Inventory Item Not Saved"
+      end
       redirect_to inventory_items_path
     end
   end
