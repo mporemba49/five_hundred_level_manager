@@ -7,7 +7,7 @@ class InputEntry
     team = design['Team'].strip
     player = design['Player'].strip
     league = design['League'].strip
-    @handle = design['Handle']
+    @handle = design['Handle'] || design['Title'].strip.downcase.delete(' ')
     @title = design['Title'].strip
     @artist = design['Artist'].strip
     Rails.logger.info("ENTRY: #{league}, #{handle}, #{title}, #{artist}")
