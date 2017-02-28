@@ -11,10 +11,9 @@ class GenerateCsv
     Validator.league_and_teams = league_and_teams
 
     CSV.foreach(title_team_player_path, encoding: "ISO8859-1", headers: true) do |row|
+      next if row['Title'].blank?
       handle = row['Handle'] 
-      if handle.blank?
-        handle = row['Title'].downcase.delete(' ') unless row['Title'].blank?
-      end
+      handle = row['Title'].downcase.delete(' ') if handle.blank?
       entry = InputEntry.new(row)
 
       if entry.missing_design?
