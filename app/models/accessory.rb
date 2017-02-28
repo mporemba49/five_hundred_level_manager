@@ -9,6 +9,7 @@ class Accessory < ApplicationRecord
   has_many :colors, through: :accessory_colors
   has_many :sizes, through: :accessory_sizes
   has_many :inventory_items, as: :producible
+  belongs_to :brand
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
@@ -76,7 +77,11 @@ class Accessory < ApplicationRecord
   end
 
   def options_data(color, size)
-    ["Style", style_tag, "Color", color.color_name, "Size", size]
+    if brand
+      ["Brand", brand.name, "Size", size, "Style", style_tag]
+    else
+      ["Style", style_tag, "Color", color.color_name, "Size", size]
+    end
   end
 
   def variants_data(accessory_size)
@@ -95,7 +100,7 @@ class Accessory < ApplicationRecord
     when 'Kids'
       gender_prefix = "Kids " unless style.include?('Kids')
     end
-    gender_prefix + style + " " + color
+    style + " " + color
   end
 
   def image_data(image_url, color)
@@ -120,7 +125,7 @@ class Accessory < ApplicationRecord
     columns += full_sku(size.sku, accessory_color)
     columns += variants_data(accessory_size) + image_data(image_url, accessory_color)
     columns += first_line ? first_line_entries(image_url, accessory_size) : later_line_entries(image_url, accessory_size)
-    columns += [@entry.title] if first_line
+    columns += [@entry.player] if first_line
 
     columns
   end
@@ -153,8 +158,8 @@ class Accessory < ApplicationRecord
     [
       [
         ENV['UPLOAD_VERSION'],
-        self.product_sku + size_style_color_sku(size, accessory_color),
-        "XX",
+        product_sku + size_style_color_sku(size, accessory_color),
+        brand ? brand.sku + "X" : "XX",
         @entry.team.id_string,
         @entry.player.sku,
         @entry.design.readable_sku,

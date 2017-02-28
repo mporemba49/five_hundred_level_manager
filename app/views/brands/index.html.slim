@@ -1,0 +1,23 @@
+h1 Listing brands
+
+table
+  thead
+    tr
+      th Name
+      th Sku
+      th
+      th
+      th
+
+  tbody
+    - @brands.each do |brand|
+      tr
+        td = brand.name
+        td = brand.sku
+        td = link_to 'Show', brand
+        td = link_to 'Edit', edit_brand_path(brand)
+        td = link_to 'Destroy', brand, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Brand', new_brand_path

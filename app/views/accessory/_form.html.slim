@@ -10,6 +10,10 @@
   = f.label :accessory_type
   = f.text_field :accessory_type, placeholder: 'Pillow', value: accessory.accessory_type
 .fieldset
+  - brands_array = Brand.all.map { |brand| [brand.name, brand.id] }
+  = f.label :brand
+  = f.select :brand_id, brands_array
+.fieldset
   = f.label :product_sku
   = f.text_field :product_sku, placeholder: 'P', value: accessory.product_sku
 .fieldset
@@ -24,6 +28,10 @@
   = f.label :gender_women, "Women"
   = f.radio_button :gender, "Kids"
   = f.label :gender_kids, "Kids"
+  = f.radio_button :gender, "Phone Cases"
+  = f.label :gender_phones, "Phone Cases"
+  = f.radio_button :gender, "Hats"
+  = f.label :gender_hats, "Hats"
 .checkboxes
   - Size.all.each do |size|
     = f.check_box :sizes, { multiple: true, checked: @sizes.include?(size.name) }, size.name

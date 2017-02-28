@@ -117,19 +117,18 @@ class InputEntry
         sport.pop
         sport = sport.join(' ')
       end
-      item_tags = [
-        "player=#{player}",
-        "gender=#{item.gender.downcase}",
-        "style=#{item.style_tag}",
-        "v=#{ENV['500_LEVEL_VERSION']}",
-        "team=#{team.name}",
-        "city=#{city}",
-        "sport=#{sport}"
-      ].join(',')
+      item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
+      if item.brand
+        item_tags_2 = ["style=#{item.brand.name}"]
+      else
+        item_tags_2 = ["style=#{item.style_tag}"]
+      end
+      item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
+      item_tags = item_tags_1 + item_tags_2 + item_tags_3.join(',')
       if item.respond_to?(:clothing_type)
         item_type = item.clothing_type
       else
-        item_type = item.accessory_type
+        item.brand ? item.brand.name : item.accessory_type
       end
 
       [title, nil, artist, item_type, item_tags, published]

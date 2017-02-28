@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213030926) do
+ActiveRecord::Schema.define(version: 20170227210539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20170213030926) do
     t.string   "handle_extension"
     t.string   "gender"
     t.string   "product_sku"
+    t.string   "brand"
+    t.integer  "brand_id"
     t.index ["accessory_type"], name: "index_accessories_on_accessory_type", using: :btree
     t.index ["active"], name: "index_accessories_on_active", using: :btree
     t.index ["base_name"], name: "index_accessories_on_base_name", unique: true, using: :btree
@@ -56,6 +58,13 @@ ActiveRecord::Schema.define(version: 20170213030926) do
     t.integer "accessory_id"
     t.integer "tag_id"
     t.index ["accessory_id", "tag_id"], name: "index_accessory_tags_on_accessory_id_and_tag_id", unique: true, using: :btree
+  end
+
+  create_table "brands", force: :cascade do |t|
+    t.string   "name"
+    t.string   "sku"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clothing_colors", force: :cascade do |t|

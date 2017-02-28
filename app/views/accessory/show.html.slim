@@ -9,6 +9,9 @@ table
     td Style
     td = @accessory.style
   tr
+    td Brand
+    td = @accessory.brand.name if @accessory.brand
+  tr
     td Prices
     td = @accessory.accessory_sizes.pluck(:price).join(', ')
   tr

@@ -31,6 +31,10 @@ class Clothing < ApplicationRecord
     CLOTHING_SKU
   end
 
+  def brand
+    nil
+  end
+
   def add_sizes(sizes)
     clothing_sizes.where.not(size_id: Size.where(name: sizes)).destroy_all
     sizes.each do |size|
@@ -121,7 +125,7 @@ class Clothing < ApplicationRecord
     columns += full_sku(size.sku, clothing_color)
     columns += variants_data(clothing_size) + image_data(image_url, clothing_color)
     columns += first_line ? first_line_entries(image_url, clothing_size) : later_line_entries(image_url, clothing_size)
-    columns += [@entry.title] if first_line
+    columns += [@entry.player] if first_line
 
     columns
   end
