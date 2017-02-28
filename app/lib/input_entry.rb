@@ -124,7 +124,7 @@ class InputEntry
         item_tags_2 = ["style=#{item.style_tag}"]
       end
       item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
-      item_tags = item_tags_1 + item_tags_2 + item_tags_3.join(',')
+      item_tags = (item_tags_1 + item_tags_2 + item_tags_3).join(',')
       if item.respond_to?(:clothing_type)
         item_type = item.clothing_type
       else
