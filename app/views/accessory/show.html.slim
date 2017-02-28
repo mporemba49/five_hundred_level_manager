@@ -32,5 +32,8 @@ table
     td = @accessory.colors.map(&:name).join(", ")
     td = link_to 'Edit', accessory_accessory_colors_path(@accessory)
   tr
+    td Options
+    td = [@accessory.option_one, @accessory.option_two, @accessory.option_three].join(", ")
+  tr
     td Tags
     td = @accessory.tags.map(&:name).join(", ")

@@ -50,7 +50,7 @@ table
       td = link_to accessory.base_name, accessory_path(accessory)
       td = accessory.style
       td = accessory.gender
-      td = accessory.brand
+      td = accessory.brand.name if accessory.brand
       td = accessory.accessory_sizes.map(&:price).join(', ')
       td = accessory.sizes.map(&:name).join(', ')
       td = accessory.sku

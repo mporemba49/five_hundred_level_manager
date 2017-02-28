@@ -25,6 +25,7 @@ class AccessoryController < ApplicationController
 
   def update
     @accessory = Accessory.unscoped.find(params[:id])
+    @options = [params[:options_1], params[:options_2], params[:options_3]].join( )
     sizes = params[:accessory].delete(:sizes)
     @sizes = sizes.reject { |size| size == "0" }
     if @accessory.update_attributes(accessory_params)
@@ -63,7 +64,7 @@ class AccessoryController < ApplicationController
   def accessory_params
     params.require(:accessory).permit(:base_name, :accessory_type, :style,
                                       :extension, :gender, :product_sku,
-                                      :handle_extension, :sku,  :brand_id, sizes: [])
+                                      :handle_extension, :sku,  :brand_id, :option_one, :option_two, :option_three, sizes: [])
   end
 
   def require_login

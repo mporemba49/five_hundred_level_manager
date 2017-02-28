@@ -12,7 +12,7 @@
 .fieldset
   - brands_array = Brand.all.map { |brand| [brand.name, brand.id] }
   = f.label :brand
-  = f.select :brand_id, brands_array
+  = f.select :brand_id, brands_array, {:include_blank => true}
 .fieldset
   = f.label :product_sku
   = f.text_field :product_sku, placeholder: 'P', value: accessory.product_sku
@@ -39,4 +39,15 @@
 .fieldset
   = f.label :sku
   = f.text_field :sku
+- options_array = [["Brand", "Brand"], ["Size", "Size"], ["Color", "Color"], ["Style", "Style"]]
+.fieldset
+  = f.label :option_one
+  = f.select :option_one, options_array
+.fieldset
+  = f.label :option_two
+  = f.select :option_two, options_array
+.fieldset
+  = f.label :option_three
+  = f.select :option_three, options_array
+
 = f.submit

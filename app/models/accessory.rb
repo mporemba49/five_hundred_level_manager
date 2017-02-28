@@ -77,11 +77,9 @@ class Accessory < ApplicationRecord
   end
 
   def options_data(color, size)
-    if brand
-      ["Brand", brand.name, "Size", size, "Style", style_tag]
-    else
-      ["Style", style_tag, "Color", color.color_name, "Size", size]
-    end
+    options_hash = { "Size" => size, "Style" => style_tag, "Color" => color.color_name }
+    options_hash["Brand"]= brand.name if brand
+    [option_one, options_hash[option_one], option_two, options_hash[option_two], option_three, options_hash[option_three]]
   end
 
   def variants_data(accessory_size)
