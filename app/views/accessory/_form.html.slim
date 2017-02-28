@@ -10,9 +10,8 @@
   = f.label :accessory_type
   = f.text_field :accessory_type, placeholder: 'Pillow', value: accessory.accessory_type
 .fieldset
-  - brands_array = Brand.all.map { |brand| [brand.name, brand.id] }
   = f.label :brand
-  = f.select :brand, brands_array, {:include_blank => true}
+  = f.collection_select :brand_id, Brand.all, :id, :name, include_blank: true
 .fieldset
   = f.label :product_sku
   = f.text_field :product_sku, placeholder: 'P', value: accessory.product_sku
