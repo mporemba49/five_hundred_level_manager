@@ -12,7 +12,9 @@ class GenerateCsv
 
     CSV.foreach(title_team_player_path, encoding: "ISO8859-1", headers: true) do |row|
       handle = row['Handle'] 
-      handle = row['Title'].downcase.delete(' ') if handle.blank?
+      if handle.blank?
+        handle = row['Title'].downcase.delete(' ') unless row['Title'].blank?
+      end
       entry = InputEntry.new(row)
 
       if entry.missing_design?
