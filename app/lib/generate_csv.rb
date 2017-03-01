@@ -10,6 +10,10 @@ class GenerateCsv
     league_and_teams = CreateDesigns.call(title_team_player_path)
     Validator.league_and_teams = league_and_teams
 
+    clothing_items = Clothing.includes(clothing_colors: [:color]).includes(:tags, :sizes)
+
+    accessories = Accessory.includes(accessory_colors: [:color]).includes(:tags, :sizes)
+
     CSV.foreach(title_team_player_path, encoding: "ISO8859-1", headers: true) do |row|
       next if row['Title'].blank?
       handle = row['Handle'] 
@@ -36,7 +40,7 @@ class GenerateCsv
       last_style = ''
       line_success = false
 
-      entry.clothing.each do |clothing_item|
+      clothing_items.each do |clothing_item|
         clothing_item.entry = entry
         clothing_item.royalty_sku = royalty.code + sales_channel.sku
 
@@ -54,7 +58,7 @@ class GenerateCsv
         missing_files << entry.missing_item_error(clothing_item) unless line_success
         line_success = false
       end
-      entry.accessory.each do |accessory_item|
+      accessories.each do |accessory_item|
         accessory_item.entry = entry
         accessory_item.royalty_sku = royalty.code + sales_channel.sku
 
