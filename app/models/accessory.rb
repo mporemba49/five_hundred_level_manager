@@ -123,7 +123,7 @@ class Accessory < ApplicationRecord
     columns += full_sku(size.sku, accessory_color)
     columns += variants_data(accessory_size) + image_data(image_url, accessory_color)
     columns += first_line ? first_line_entries(image_url, accessory_size) : later_line_entries(image_url, accessory_size)
-    columns += ([@entry.title] + " " + gender) if first_line
+    columns += [@entry.title + " " + gender] if first_line
 
     columns
   end
