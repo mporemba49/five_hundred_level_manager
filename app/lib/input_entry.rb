@@ -128,7 +128,7 @@ class InputEntry
       if item.respond_to?(:clothing_type)
         item_type = item.clothing_type
       else
-        item.brand ? item_type = item.brand.name : item_type = item.accessory_type
+        item_type = item.accessory_type
       end
 
       [title, nil, artist, item_type, item_tags, published]
