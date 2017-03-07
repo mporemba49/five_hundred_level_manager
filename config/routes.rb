@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'inventory_items/soft_deleted', to: 'inventory_items#soft_deleted'
   post 'inventory_items/recover/:id', to: 'inventory_items#recover'
   post 'team_player_designs/mass_delete', to: 'team_player_designs#mass_delete'
+  post 'clothing/mass_toggle', to: 'clothing#mass_toggle'
+  post 'accessory/mass_toggle', to: 'accessory#mass_toggle'
 
   resources :sales_channels
   resources :colors

@@ -58,6 +58,13 @@ class ClothingController < ApplicationController
     redirect_to clothing_path(@clothing)
   end
 
+  def mass_toggle
+    @clothings = Clothing.unscoped.find(params[:clothing_ids])
+    @clothings.each { |c| c.update_attribute(:active, !c.active) }
+    flash[:notice] = "Clothing activation change"
+    redirect_to root_path
+  end
+
   private
 
   def clothing_params

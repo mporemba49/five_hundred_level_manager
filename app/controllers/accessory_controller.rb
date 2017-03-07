@@ -59,6 +59,13 @@ class AccessoryController < ApplicationController
     redirect_to accessory_path(@accessory)
   end
 
+  def mass_toggle
+    @accessories = Accessory.unscoped.find(params[:accessory_ids])
+    @accessories.each { |c| c.update_attribute(:active, !c.active) }
+    flash[:notice] = "Accessory activation change"
+    redirect_to root_path
+  end
+
   private
 
   def accessory_params
