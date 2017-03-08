@@ -11,9 +11,12 @@ table
   tr
     td Active Clothing
   = form_tag clothing_mass_toggle_path do |f|
+    tr
+      td = check_box_tag 'active_clothing_check', nil, checked = false, class: 'activeClothingCheck'
+      td = "Select All"
     - @clothing.active.each do |clothing|
       tr
-        td = check_box_tag 'clothing_ids[]', clothing.id
+        td = check_box_tag 'clothing_ids[]', clothing.id, checked = false, class: "activeClothing"
         td = link_to clothing.base_name, clothing_path(clothing)
         td = clothing.style
         td = clothing.gender
@@ -26,9 +29,12 @@ table
     - if @clothing.inactive.any?
       tr
         td Inactive Clothing
+      tr
+        td = check_box_tag 'inactive_clothing_check', nil, checked = false, class: 'inactiveClothingCheck'
+        td = "Select All"
         - @clothing.inactive.each do |clothing|
           tr
-            td = check_box_tag 'clothing_ids[]', clothing.id
+            td = check_box_tag 'clothing_ids[]', clothing.id, checked = false, class: "inactiveClothing"
             td = link_to clothing.base_name, clothing_path(clothing)
             td = clothing.style
             td = clothing.gender
@@ -54,9 +60,12 @@ table
     td Active Accessory
 
   = form_tag accessory_mass_toggle_path do |f|
+    tr
+      td = check_box_tag 'active_accessory_check', nil, checked = false, class: 'activeAccessoryCheck'
+      td = "Select All"
     - @accessory.active.each do |accessory|
       tr
-        td = check_box_tag 'accessory_ids[]', accessory.id
+        td = check_box_tag 'accessory_ids[]', accessory.id, checked = false, class: 'activeAccessory'
         td = link_to accessory.base_name, accessory_path(accessory)
         td = accessory.style
         td = accessory.gender
@@ -70,9 +79,12 @@ table
     - if @accessory.inactive.any?
       tr
         td Inactive Accessory
+      tr
+        td = check_box_tag 'inactive_accessory_check', nil, checked = false, class: 'inactiveAccessoryCheck'
+        td = "Select All"
         - @accessory.inactive.each do |accessory|
           tr
-            td = check_box_tag 'accessory_ids[]', accessory.id
+            td = check_box_tag 'accessory_ids[]', accessory.id, checked = false, class: 'inactiveAccessory'
             td = link_to accessory.base_name, accessory_path(accessory)
             td = accessory.style
             td = accessory.gender
