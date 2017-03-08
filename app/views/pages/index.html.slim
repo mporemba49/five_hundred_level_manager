@@ -9,13 +9,12 @@ table
     th Sizes
     th SKU
   tr
+    td
     td Active Clothing
   = form_tag clothing_mass_toggle_path do |f|
     tr
-      td
-        div
-          = check_box_tag 'active_clothing_check', nil, checked = false, class: 'activeClothingCheck'
-          label Select All
+      td = check_box_tag 'active_clothing_check', nil, checked = false, class: 'activeClothingCheck'
+      td Select All
     - @clothing.active.each do |clothing|
       tr
         td = check_box_tag 'clothing_ids[]', clothing.id, checked = false, class: "activeClothing"
@@ -30,12 +29,11 @@ table
         td = link_to 'Edit Sizes', clothing_clothing_sizes_path(clothing)
     - if @clothing.inactive.any?
       tr
+        td
         td Inactive Clothing
       tr
-        td 
-          div
-            = check_box_tag 'inactive_clothing_check', nil, checked = false, class: 'inactiveClothingCheck'
-            label Select All
+        td = check_box_tag 'inactive_clothing_check', nil, checked = false, class: 'inactiveClothingCheck'
+        td Select All
         - @clothing.inactive.each do |clothing|
           tr
             td = check_box_tag 'clothing_ids[]', clothing.id, checked = false, class: "inactiveClothing"
@@ -47,6 +45,7 @@ table
             td = clothing.sku
             td = link_to 'Edit', edit_clothing_path(clothing)
     tr
+      td
       td = submit_tag "Toggle Clothing Activation"
 
 = link_to 'New Accessory', new_accessory_path
@@ -61,14 +60,13 @@ table
     th Sizes
     th SKU
   tr
+    td
     td Active Accessory
 
   = form_tag accessory_mass_toggle_path do |f|
     tr
-      td 
-        div
-          = check_box_tag 'active_accessory_check', nil, checked = false, class: 'activeAccessoryCheck'
-          label Select All
+      td = check_box_tag 'active_accessory_check', nil, checked = false, class: 'activeAccessoryCheck'
+      td Select All
     - @accessory.active.each do |accessory|
       tr
         td = check_box_tag 'accessory_ids[]', accessory.id, checked = false, class: 'activeAccessory'
@@ -84,12 +82,11 @@ table
         td = link_to 'Edit Sizes', accessory_accessory_sizes_path(accessory)
     - if @accessory.inactive.any?
       tr
+        td
         td Inactive Accessory
       tr
-        td
-          div
-            = check_box_tag 'inactive_accessory_check', nil, checked = false, class: 'inactiveAccessoryCheck'
-            label Select All
+        td = check_box_tag 'inactive_accessory_check', nil, checked = false, class: 'inactiveAccessoryCheck'
+        td Select All
         - @accessory.inactive.each do |accessory|
           tr
             td = check_box_tag 'accessory_ids[]', accessory.id, checked = false, class: 'inactiveAccessory'
@@ -102,6 +99,7 @@ table
             td = accessory.sku
             td = link_to 'Edit', edit_accessory_path(accessory)
     tr
+      td
       td = submit_tag "Toggle Accessory Activation"
 
 = form_tag create_csv_path, multipart: true, id: 'csv_upload' do |f|
