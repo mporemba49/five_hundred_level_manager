@@ -12,8 +12,10 @@ table
     td Active Clothing
   = form_tag clothing_mass_toggle_path do |f|
     tr
-      td = check_box_tag 'active_clothing_check', nil, checked = false, class: 'activeClothingCheck'
-      td = "Select All"
+      td
+        div
+          = check_box_tag 'active_clothing_check', nil, checked = false, class: 'activeClothingCheck'
+          label Select All
     - @clothing.active.each do |clothing|
       tr
         td = check_box_tag 'clothing_ids[]', clothing.id, checked = false, class: "activeClothing"
@@ -30,8 +32,10 @@ table
       tr
         td Inactive Clothing
       tr
-        td = check_box_tag 'inactive_clothing_check', nil, checked = false, class: 'inactiveClothingCheck'
-        td = "Select All"
+        td 
+          div
+            = check_box_tag 'inactive_clothing_check', nil, checked = false, class: 'inactiveClothingCheck'
+            label Select All
         - @clothing.inactive.each do |clothing|
           tr
             td = check_box_tag 'clothing_ids[]', clothing.id, checked = false, class: "inactiveClothing"
@@ -61,8 +65,10 @@ table
 
   = form_tag accessory_mass_toggle_path do |f|
     tr
-      td = check_box_tag 'active_accessory_check', nil, checked = false, class: 'activeAccessoryCheck'
-      td = "Select All"
+      td 
+        div
+          = check_box_tag 'active_accessory_check', nil, checked = false, class: 'activeAccessoryCheck'
+          label Select All
     - @accessory.active.each do |accessory|
       tr
         td = check_box_tag 'accessory_ids[]', accessory.id, checked = false, class: 'activeAccessory'
@@ -80,8 +86,10 @@ table
       tr
         td Inactive Accessory
       tr
-        td = check_box_tag 'inactive_accessory_check', nil, checked = false, class: 'inactiveAccessoryCheck'
-        td = "Select All"
+        td
+          div
+            = check_box_tag 'inactive_accessory_check', nil, checked = false, class: 'inactiveAccessoryCheck'
+            label Select All
         - @accessory.inactive.each do |accessory|
           tr
             td = check_box_tag 'accessory_ids[]', accessory.id, checked = false, class: 'inactiveAccessory'
