@@ -103,7 +103,7 @@ class Accessory < ApplicationRecord
       gender_prefix = "Womens " unless style.include?('Womens')
     when 'Kids'
       gender_prefix = "Kids " unless style.include?('Kids')
-    when 'Phone Case'
+    when 'Phone Cases'
       brand.name + " " + size.name + " " + style + " " + color
     end
     style + " " + color
