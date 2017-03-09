@@ -39,15 +39,15 @@ class GenerateCsv
 
       output = [output_csv_lines, missing_files]
 
-      output = GenerateCsv.create_lines(output, clothing_items, :clothing_colors, entry)
-      output = GenerateCsv.create_lines(output, accessories, :accessory_colors, entry)
+      output = GenerateCsv.create_lines(output, clothing_items, :clothing_colors, entry, royalty)
+      output = GenerateCsv.create_lines(output, accessories, :accessory_colors, entry, royalty)
 
     end
 
     output
   end
 
-  def self.create_lines(output, items, color_method, entry)
+  def self.create_lines(output, items, color_method, entry, royalty)
     last_style = ''
     line_success = false
     output_csv_lines = output[0]
