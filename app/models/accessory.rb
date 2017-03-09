@@ -50,9 +50,15 @@ class Accessory < ApplicationRecord
   end
 
   def handle
-    return_handle = @entry.handle + handle_extension.downcase + "-" + style.parameterize
-    return_handle.gsub!("men-s","mens")
-    return_handle.gsub("--","-")
+    if brand.present?
+      return_handle = @entry.handle + "-" + brand.parameterize + "-case"
+      return_handle.gsub!("men-s","mens")
+      return_handle.gsub("--","-")
+    else
+      return_handle = @entry.handle + handle_extension.downcase + "-" + style.parameterize
+      return_handle.gsub!("men-s","mens")
+      return_handle.gsub("--","-")
+    end
   end
 
   def entry_tags(first_line)

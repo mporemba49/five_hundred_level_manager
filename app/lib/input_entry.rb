@@ -118,7 +118,7 @@ class InputEntry
         sport = sport.join(' ')
       end
       item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
-      if item.brand
+      if item.brand.present?
         item_tags_2 = ["style=#{item.brand.name}"]
       else
         item_tags_2 = ["style=#{item.style_tag}"]
@@ -128,7 +128,11 @@ class InputEntry
       if item.respond_to?(:clothing_type)
         item_type = item.clothing_type
       else
-        item_type = item.accessory_type
+        if item.brand.present?
+          item_type = item.gender.singularize
+        else
+          item_type = item.accessory_type
+        end
       end
 
       [title, nil, artist, item_type, item_tags, published]
