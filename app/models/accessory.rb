@@ -94,7 +94,7 @@ class Accessory < ApplicationRecord
      VARIANT_TAXABLE,nil]
   end
 
-  def img_alt_text(color)
+  def img_alt_text(color, size)
     gender_prefix = ''
     case gender
     when 'Men'
@@ -103,20 +103,30 @@ class Accessory < ApplicationRecord
       gender_prefix = "Womens " unless style.include?('Womens')
     when 'Kids'
       gender_prefix = "Kids " unless style.include?('Kids')
+    when 'Phone Case'
+      brand.name + " " + size.name + " " + style + " " + color
     end
     style + " " + color
   end
 
-  def image_data(image_url, color)
-    [image_url, img_alt_text(color.color_name)]
+  def image_data(image_url, color, size)
+    [image_url, img_alt_text(color.color_name, size)]
   end
 
   def seo_title
-    "#{@entry.title} #{style} | 500 LEVEL"
+    if brand.present?
+      "#{@entry.title} #{brand.name} Case | 500 LEVEL"
+    else
+      "#{@entry.title} #{style} | 500 LEVEL"
+    end
   end
 
   def seo_description
-    description = "Show off your fandom with 500 LEVEL's #{@entry.title} #{style}. Made by fans, "
+    if brand.present?
+      description = "Show off your fandom with 500 LEVEL's #{@entry.title} #{brand.name} Phone Case. Made by fans, "
+    else
+      description = "Show off your fandom with 500 LEVEL's #{@entry.title} #{style}. Made by fans, "
+    end
     description << "for fans, 500 LEVEL sports apparel lets you rep your team in style. Browse our selection "
     description << "and order today."
     description
@@ -127,7 +137,7 @@ class Accessory < ApplicationRecord
     columns += entry_tags(first_line)
     columns += options_data(accessory_color, size.name)
     columns += full_sku(size.sku, accessory_color)
-    columns += variants_data(accessory_size) + image_data(image_url, accessory_color)
+    columns += variants_data(accessory_size) + image_data(image_url, accessory_color, size)
     columns += first_line ? first_line_entries(image_url, accessory_size) : later_line_entries(image_url, accessory_size)
     columns += [@entry.title + " " + gender] if first_line
 
@@ -180,7 +190,7 @@ class Accessory < ApplicationRecord
     sizes.reload.each do |size|
       accessory_size = AccessorySize.where(accessory_id: self.id, size_id: size.id).first
       lines << csv_line_for_size_and_color(size, accessory_color, accessory_size, image_url, first_line)
-      first_line = false if first_line
+      first_line = false if first_line 
     end
 
     lines
