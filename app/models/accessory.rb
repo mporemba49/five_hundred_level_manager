@@ -51,7 +51,7 @@ class Accessory < ApplicationRecord
 
   def handle
     if brand.present?
-      return_handle = @entry.handle + "-" + brand.parameterize + "-case"
+      return_handle = @entry.handle + "-" + brand.name.parameterize + "-case"
       return_handle.gsub!("men-s","mens")
       return_handle.gsub("--","-")
     else
