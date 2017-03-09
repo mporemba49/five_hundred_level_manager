@@ -65,12 +65,12 @@ class GenerateCsv
         accessory_item.entry = entry
         accessory_item.royalty_sku = royalty.code + sales_channel.sku
 
-        first_line = accessory_item.handle != last_style || !line_success
+        first_line = accessory_item.handle != last_style
         last_style = accessory_item.handle
 
         shuffled_colors = accessory_item.accessory_colors.shuffle
         shuffled_colors.each do |accessory_color|
-          test_line = accessory_item.csv_lines_for_color(accessory_color, !line_success)
+          test_line = accessory_item.csv_lines_for_color(accessory_color, accessory_item.brand.present? ? first_line : !line_success)
           if test_line
             line_success = true
             output_csv_lines += test_line
