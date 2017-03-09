@@ -37,37 +37,47 @@ class GenerateCsv
         next
       end
 
-      output = [output_csv_lines, missing_files]
-
-      output = GenerateCsv.create_lines(output, clothing_items, :clothing_colors, entry, royalty)
-      output = GenerateCsv.create_lines(output, accessories, :accessory_colors, entry, royalty)
-
-    end
-
-    output
-  end
-
-  def self.create_lines(output, items, color_method, entry, royalty)
-    last_style = ''
-    line_success = false
-    output_csv_lines = output[0]
-    missing_files = output[1]
-    items.each do |item|
-      item.entry = entry
-      item.royalty_sku = royalty.code + sales_channel.sku
-      first_line = item.handle != last_style || !line_success
-      last_style = item.handle
-      shuffled_colors = item.send(color_method).shuffle
-      shuffled_colors.each do |color|
-        test_line = accessory_item.csv_lines_for_color(color, !line_success)
-        if test_line
-          line_success = true
-          output_csv_lines += test_line
-        end
-      end
-      missing_files << entry.missing_item_error(item) unless line_success
+      last_style = ''
       line_success = false
+
+      clothing_items.each do |clothing_item|
+        clothing_item.entry = entry
+        clothing_item.royalty_sku = royalty.code + sales_channel.sku
+
+        first_line = clothing_item.handle != last_style || !line_success
+        last_style = clothing_item.handle
+
+        shuffled_colors = clothing_item.clothing_colors.shuffle
+        shuffled_colors.each do |clothing_color|
+          test_line = clothing_item.csv_lines_for_color(clothing_color, !line_success)
+          if test_line
+            line_success = true
+            output_csv_lines += test_line
+          end
+        end
+        missing_files << entry.missing_item_error(clothing_item) unless line_success
+        line_success = false
+      end
+      accessories.each do |accessory_item|
+        accessory_item.entry = entry
+        accessory_item.royalty_sku = royalty.code + sales_channel.sku
+
+        first_line = accessory_item.handle != last_style || !line_success
+        last_style = accessory_item.handle
+
+        shuffled_colors = accessory_item.accessory_colors.shuffle
+        shuffled_colors.each do |accessory_color|
+          test_line = accessory_item.csv_lines_for_color(accessory_color, !line_success)
+          if test_line
+            line_success = true
+            output_csv_lines += test_line
+          end
+        end
+        missing_files << entry.missing_item_error(accessory_item) unless line_success
+        line_success = false
+      end
     end
+
     [output_csv_lines, missing_files]
   end
 end
