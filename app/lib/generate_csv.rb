@@ -15,7 +15,7 @@ class GenerateCsv
     accessories << acc[nil]
     accessories << acc['Apple']
     accessories << acc['Samsung']
-    accessories.flatten!.compact!
+    accessories.flatten!.compact! if accessories.present?
 
     CSV.foreach(title_team_player_path, encoding: "ISO8859-1", headers: true) do |row|
       next if row['Title'].blank?
