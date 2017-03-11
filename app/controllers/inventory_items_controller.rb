@@ -85,6 +85,18 @@ class InventoryItemsController < ApplicationController
     redirect_to inventory_items_path
   end
 
+  def destroy_all
+    @inventory_items = InventoryItem.only_deleted
+    @size = @inventory_items.size
+    if @inventory_items.delete_all!
+      flash[:notice] = "#{@size} Items Deleted"
+    else
+      flash[:error] = 'Items Not Deleted'
+    end
+    redirect_to inventory_items_path
+  end
+
+
   def mass_delete
     @inventory_items = InventoryItem.where(id: params['inventory_item_ids'])
     @size = @inventory_items.size
