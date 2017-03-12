@@ -1,7 +1,7 @@
 require 'uri'
 
 class InputEntry
-  attr_reader :handle, :title, :artist,:design
+  attr_reader :handle, :title, :artist,:design, :unique
 
   def initialize(design={})
     team = design['Team'].strip
@@ -10,6 +10,7 @@ class InputEntry
     @handle = design['Handle'] || design['Title'].strip.downcase.delete(' ')
     @title = design['Title'].strip
     @artist = design['Artist'].strip
+    @unique = design['Unique'].strip || "Men’s Premium Shirt"
     Rails.logger.info("ENTRY: #{league}, #{handle}, #{title}, #{artist}")
     @team = Team.find_by(name: team, league: league)
     @player = @team.team_players.find_by_player(player) if @team
@@ -124,7 +125,8 @@ class InputEntry
         item_tags_2 = ["style=#{item.style_tag}"]
       end
       item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
-      item_tags = (item_tags_1 + item_tags_2 + item_tags_3).join(',')
+      item.style == unique ? item_tags_4 = ["listing=Unique"] : item_tags_4 = []
+      item_tags = (item_tags_1 + item_tags_2 + item_tags_3 + item_tags_4).join(',')
       if item.respond_to?(:clothing_type)
         item_type = item.clothing_type
       else
