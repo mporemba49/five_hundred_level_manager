@@ -125,7 +125,7 @@ class InputEntry
         item_tags_2 = ["style=#{item.style_tag}"]
       end
       item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
-      item.dku == unique ? item_tags_4 = ["listing=Unique"] : item_tags_4 = []
+      item.sku == unique ? item_tags_4 = ["listing=Unique"] : item_tags_4 = []
       item_tags = (item_tags_1 + item_tags_2 + item_tags_3 + item_tags_4).join(',')
       if item.respond_to?(:clothing_type)
         item_type = item.clothing_type
