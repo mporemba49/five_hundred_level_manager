@@ -1,7 +1,7 @@
 require 'uri'
 
 class InputEntry
-  attr_reader :handle, :title, :artist, :design, :unique
+  attr_reader :handle, :title, :artist, :design, :unique, :player_add, :team_add, :sport_add, :city_add
 
   def initialize(design={})
     team = design['Team'].strip
@@ -15,6 +15,10 @@ class InputEntry
     @team = Team.find_by(name: team, league: league)
     @player = @team.team_players.find_by_player(player) if @team
     @design = @player.designs.includes(team_player: [:team]).find_by(artist: @artist.downcase, name: @title.downcase) if @player
+    @player_add = design["Player1"].strip if design["Player1"]
+    @team_add = design["Team1"].strip if design["Team1"]
+    @sport_add = design["Sport1"].strip if design["Sport1"]
+    @city_add = design["City1"].strip if design["City1"]
   end
 
   def url_string_for_item(item, image)
@@ -110,6 +114,15 @@ class InputEntry
     sports[league]
   end
 
+  def additional_tags(tag, data_add)
+    data_array = data_add.split(";")
+    size = 1
+    tag_array = []
+    data_array.each { |x| tag_array << tag + size.to_s; size += 1 }
+    join_array = tag_array.zip(data_array)
+    join_array.map { |x| x.join('=')}
+  end
+
   def tags(item, published, first_line)
     if first_line
       sport = league_sport(league) || league
@@ -118,15 +131,16 @@ class InputEntry
         sport.pop
         sport = sport.join(' ')
       end
+      @player_add.present? ? player_add = additional_tags("player", @player_add) : player_add = []
+      @team_add.present? ? team_add = additional_tags("team", @team_add) : team_add = []
+      @sport_add.present? ? sport_add = additional_tags("sport", @sport_add) : @sport_add = []
+      @city_add.present? ? city_add = additional_tags("city", @city_add) : city_add = []
       item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
-      if item.brand.present?
-        item_tags_2 = ["style=#{item.brand.name}"]
-      else
-        item_tags_2 = ["style=#{item.style_tag}"]
-      end
+      item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style_tag}"]
       item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
       item.sku == unique ? item_tags_4 = ["listing=Unique"] : item_tags_4 = []
-      item_tags = (item_tags_1 + item_tags_2 + item_tags_3 + item_tags_4).join(',')
+      item_tags_5 = player_add + team_add + sport_add + city_add
+      item_tags = (item_tags_1 + item_tags_2 + item_tags_3 + item_tags_4 + item_tags_5).join(',')
       if item.respond_to?(:clothing_type)
         item_type = item.clothing_type
       else
