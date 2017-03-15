@@ -133,7 +133,7 @@ class InputEntry
       end
       @player_add.present? ? player_add = additional_tags("player", @player_add) : player_add = []
       @team_add.present? ? team_add = additional_tags("team", @team_add) : team_add = []
-      @sport_add.present? ? sport_add = additional_tags("sport", @sport_add) : @sport_add = []
+      @sport_add.present? ? sport_add = additional_tags("sport", @sport_add) : sport_add = []
       @city_add.present? ? city_add = additional_tags("city", @city_add) : city_add = []
       item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
       item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style_tag}"]
