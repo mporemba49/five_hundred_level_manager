@@ -48,5 +48,8 @@
 .fieldset
   = f.label :option_three
   = f.select :option_three, options_array
+.fieldset
+  = f.label :body
+  = f.text_area :body, value: accessory.body, size: "50x5"
 
 = f.submit

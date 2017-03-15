@@ -42,4 +42,7 @@
   = f.label :extension_yes, "Yes"
   = f.radio_button :extension, "", checked: !clothing.extension.include?("WINTER")
   = f.label :extension_no, "No"
+.fieldset
+  = f.label :body
+  = f.text_area :body, value: clothing.body, size: "50x5"
 = f.submit

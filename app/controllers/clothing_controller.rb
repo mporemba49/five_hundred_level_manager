@@ -68,7 +68,7 @@ class ClothingController < ApplicationController
   private
 
   def clothing_params
-    params.require(:clothing).permit(:base_name, :clothing_type, :style,
+    params.require(:clothing).permit(:base_name, :clothing_type, :style, :body,
                                      :gender, :price, :weight, :extension,
                                      :handle_extension, :sku, :kids, sizes: [])
   end

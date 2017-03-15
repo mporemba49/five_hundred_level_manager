@@ -151,7 +151,7 @@ class InputEntry
         end
       end
 
-      [title, nil, artist, item_type, item_tags, published]
+      [title, item.body, artist, item_type, item_tags, published]
     else
       [nil,nil,nil,nil,nil,nil]
     end

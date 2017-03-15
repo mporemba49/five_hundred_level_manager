@@ -37,3 +37,6 @@ table
   tr
     td Tags
     td = @accessory.tags.map(&:name).join(", ")
+  tr
+    td Body
+    td = @accessory.body
