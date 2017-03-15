@@ -1,7 +1,7 @@
 require 'uri'
 
 class InputEntry
-  attr_reader :handle, :title, :artist,:design, :unique
+  attr_reader :handle, :title, :artist, :design, :unique
 
   def initialize(design={})
     team = design['Team'].strip
@@ -10,7 +10,7 @@ class InputEntry
     @handle = design['Handle'] || design['Title'].strip.downcase.delete(' ')
     @title = design['Title'].strip
     @artist = design['Artist'].strip
-    @unique = design['Unique'].strip || ENV['DEFAULT_SKU']
+    @unique = design['Unique'] || ENV['DEFAULT_SKU']
     Rails.logger.info("ENTRY: #{league}, #{handle}, #{title}, #{artist}")
     @team = Team.find_by(name: team, league: league)
     @player = @team.team_players.find_by_player(player) if @team
