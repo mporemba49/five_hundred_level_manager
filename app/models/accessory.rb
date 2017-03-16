@@ -125,11 +125,11 @@ class Accessory < ApplicationRecord
 
   def seo_description
     if brand.present?
-      description = "Show off your fandom with 500 LEVEL's #{@entry.title} #{brand.name} Phone Case. Made by fans, "
+      description = "Show off your fandom with #{ENV['STORE_TITLE']}'s #{@entry.title} #{brand.name} Phone Case. Made by fans, "
     else
-      description = "Show off your fandom with 500 LEVEL's #{@entry.title} #{style}. Made by fans, "
+      description = "Show off your fandom with #{ENV['STORE_TITLE']}'s #{@entry.title} #{style}. Made by fans, "
     end
-    description << "for fans, 500 LEVEL sports apparel lets you rep your team in style. Browse our selection "
+    description << "for fans, #{ENV['STORE_TITLE']} sports apparel lets you rep your team in style. Browse our selection "
     description << "and order today."
     description
   end

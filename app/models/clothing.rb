@@ -112,8 +112,8 @@ class Clothing < ApplicationRecord
   end
 
   def seo_description
-    description = "Show off your fandom with 500 LEVEL's #{@entry.title} #{style}. Made by fans, "
-    description << "for fans, 500 LEVEL sports apparel lets you rep your team in style. Browse our selection "
+    description = "Show off your fandom with #{ENV['STORE_TITLE']}'s #{@entry.title} #{style}. Made by fans, "
+    description << "for fans, #{ENV['STORE_TITLE']} sports apparel lets you rep your team in style. Browse our selection "
     description << "and order today."
     description
   end
