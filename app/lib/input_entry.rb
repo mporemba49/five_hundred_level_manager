@@ -124,6 +124,43 @@ class InputEntry
   end
 
   def tags(item, published, first_line)
+    if ENV['STORE_TITLE'] == 'Nomadic Apparel'
+      alternate_tags(item, published, first_line)
+    else
+      if first_line
+        sport = league_sport(league) || league
+        if /\A\d+\z/.match(sport.split(' ').last)
+          sport = sport.split(' ')
+          sport.pop
+          sport = sport.join(' ')
+        end
+        @player_add.present? ? player_add = additional_tags("player", @player_add) : player_add = []
+        @team_add.present? ? team_add = additional_tags("team", @team_add) : team_add = []
+        @sport_add.present? ? sport_add = additional_tags("sport", @sport_add) : sport_add = []
+        @city_add.present? ? city_add = additional_tags("city", @city_add) : city_add = []
+        item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
+        item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style_tag}"]
+        item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
+        item.sku == unique ? item_tags_4 = ["listing=Unique"] : item_tags_4 = []
+        item_tags_5 = player_add + team_add + sport_add + city_add
+        item_tags = (item_tags_1 + item_tags_2 + item_tags_3 + item_tags_4 + item_tags_5).join(',')
+        if item.respond_to?(:clothing_type)
+          item_type = item.clothing_type
+        else
+          if item.brand.present?
+            item_type = item.gender.singularize
+          else
+            item_type = item.accessory_type
+          end
+        end
+
+        [title, item.body, artist, item_type, item_tags, published]
+      else
+        [nil,nil,nil,nil,nil,nil]
+      end
+    end
+
+  def alternate_tags(item, published, first_line)
     if first_line
       sport = league_sport(league) || league
       if /\A\d+\z/.match(sport.split(' ').last)
@@ -131,13 +168,13 @@ class InputEntry
         sport.pop
         sport = sport.join(' ')
       end
-      @player_add.present? ? player_add = additional_tags("player", @player_add) : player_add = []
-      @team_add.present? ? team_add = additional_tags("team", @team_add) : team_add = []
-      @sport_add.present? ? sport_add = additional_tags("sport", @sport_add) : sport_add = []
-      @city_add.present? ? city_add = additional_tags("city", @city_add) : city_add = []
-      item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
+      @player_add.present? ? player_add = additional_tags("topic", @player_add) : player_add = []
+      @team_add.present? ? team_add = additional_tags("subcategory", @team_add) : team_add = []
+      @sport_add.present? ? sport_add = additional_tags("category", @sport_add) : sport_add = []
+      @city_add.present? ? city_add = additional_tags("group", @city_add) : city_add = []
+      item_tags_1 = ["topic=#{player}", "gender=#{item.gender.downcase}"]
       item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style_tag}"]
-      item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
+      item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "subcategory=#{team.name}", "group=#{city}", "category=#{sport}"]
       item.sku == unique ? item_tags_4 = ["listing=Unique"] : item_tags_4 = []
       item_tags_5 = player_add + team_add + sport_add + city_add
       item_tags = (item_tags_1 + item_tags_2 + item_tags_3 + item_tags_4 + item_tags_5).join(',')
@@ -156,4 +193,5 @@ class InputEntry
       [nil,nil,nil,nil,nil,nil]
     end
   end
+
 end
