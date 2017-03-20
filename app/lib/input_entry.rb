@@ -159,6 +159,7 @@ class InputEntry
         [nil,nil,nil,nil,nil,nil]
       end
     end
+  end
 
   def alternate_tags(item, published, first_line)
     if first_line
