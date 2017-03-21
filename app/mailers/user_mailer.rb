@@ -15,7 +15,7 @@ class UserMailer < ApplicationMailer
       end
       attachments["shopify_upload.csv"] =  returned_csv
     end
-    mail(to: email, subject: "500 Level | CSV Download")
+    mail(to: email, subject: "#{ENV['STORE_TITLE']} | CSV Download")
   end
 
   def sku_upload(email, check_sku)
@@ -28,9 +28,9 @@ class UserMailer < ApplicationMailer
         end
       end
       attachments["returned_items.csv"] = returned_csv
-      mail(to: email, subject: "500 Level | Items In Inventory")
+      mail(to: email, subject: "#{ENV['STORE_TITLE']} | Items In Inventory")
     else
-      mail(to: email, subject: "500 Level | No Inventory Items Found")
+      mail(to: email, subject: "#{ENV['STORE_TITLE']} | No Inventory Items Found")
     end
   end
 
