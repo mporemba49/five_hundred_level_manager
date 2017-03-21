@@ -65,6 +65,16 @@ class ClothingController < ApplicationController
     redirect_to root_path
   end
 
+  def destroy
+    @clothing = Clothing.find(params[:id])
+    if @clothing.destroy
+      flash[:notice] = 'Clothing deleted'
+    else
+      flash[:error] = 'Clothing not deleted'
+    end
+    redirect_to root_path
+  end
+
   private
 
   def clothing_params

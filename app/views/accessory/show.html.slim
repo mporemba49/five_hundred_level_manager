@@ -1,6 +1,8 @@
 = link_to "Edit #{@accessory.base_name}", edit_accessory_path(@accessory)
 br
 = link_to "#{@accessory.active ? 'Deactivate' : 'Activate'}  #{@accessory.base_name}", accessory_toggle_active_path(@accessory), method: 'POST'
+= form_tag accessory_path(@accessory), method: 'DELETE' do
+  = submit_tag "Delete #{@accessory.base_name}?", data: { confirm: 'Are you sure you want to delete this accessory?' }
 table
   tr
     td Base Name

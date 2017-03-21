@@ -66,6 +66,16 @@ class AccessoryController < ApplicationController
     redirect_to root_path
   end
 
+  def destroy
+    @accessory = Accessory.find(params[:id])
+    if @accessory.destroy
+      flash[:notice] = 'Accessory deleted'
+    else
+      flash[:error] = 'Accessory not deleted'
+    end
+    redirect_to root_path
+  end
+
   private
 
   def accessory_params
