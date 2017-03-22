@@ -108,7 +108,7 @@ class Clothing < ApplicationRecord
   end
 
   def seo_title
-    "#{@entry.title} #{style} | 500 LEVEL"
+    "#{@entry.title} #{style} | #{ENV['STORE_TITLE']}"
   end
 
   def seo_description

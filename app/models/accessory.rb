@@ -117,9 +117,9 @@ class Accessory < ApplicationRecord
 
   def seo_title
     if brand.present?
-      "#{@entry.title} #{brand.name} Case | 500 LEVEL"
+      "#{@entry.title} #{brand.name} Case | #{ENV['STORE_TITLE']}"
     else
-      "#{@entry.title} #{style} | 500 LEVEL"
+      "#{@entry.title} #{style} | #{ENV['STORE_TITLE']}"
     end
   end
 
