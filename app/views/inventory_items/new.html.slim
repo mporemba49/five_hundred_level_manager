@@ -4,7 +4,7 @@
     = f.text_field :full_sku
   .fieldset
     = f.label :Location
-    = select_tag "location", options_for_select(@locations.collect{ |u| [u.name, u.name] })
+    = f.select "location", options_for_select(@locations.collect{ |u| [u.name, u.name] })
   .fieldset
     = f.label :Quantity
     = f.number_field :quantity

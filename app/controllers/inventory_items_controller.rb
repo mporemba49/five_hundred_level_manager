@@ -30,7 +30,7 @@ class InventoryItemsController < ApplicationController
     @inventory_item = InventoryItem.new
     full_sku = item_params[:full_sku]
     @inventory_item.full_sku = full_sku
-    @inventory_item.location = params[:location]
+    @inventory_item.location = item_params[:location]
     @team = Team.where(id: full_sku.slice(15..18)).first
     @player = @team.team_players.where(sku: full_sku.slice(20..22)).first
     @design = TeamPlayerDesign.where(sku: full_sku.slice(24..25).to_i, team_player_id: @player.id).first
