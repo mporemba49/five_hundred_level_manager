@@ -29,7 +29,7 @@ class InventoryItemsController < ApplicationController
   def create
     if !params[:bulk_sku].blank?
       bulk_sku_path = Uploader.call(params[:bulk_sku].path)
-      InventoryUploadJob.perform_now(bulk_sku_path)
+      InventoryUploadJob.perform_later(bulk_sku_path)
       flash[:notice] = "Bulk inventory uploads are being processed"
     else
       @inventory_item = InventoryItem.new

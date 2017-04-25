@@ -1,4 +1,4 @@
-= form_for @inventory_item do |f|
+= form_for @inventory_item, :html => { :multipart => true } do |f|
   h4 Single Item
   .fieldset
     = f.label :SKU
@@ -9,13 +9,9 @@
   .fieldset
     = f.label :Quantity
     = f.number_field :quantity
-  = f.submit
-
-= form_tag '/inventory_items', multipart: true, id: 'bulk_upload' do |f|
-  h4 Bulk Upload
   .fieldset
     = label_tag :bulk_csv
     = file_field_tag :bulk_sku
-  = submit_tag "Upload Items"
+  = f.submit
 
 = link_to "Manage Locations", locations_path
