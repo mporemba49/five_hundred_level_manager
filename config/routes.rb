@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   resources :brands
   resources :locations
-  authenticate :user do
-    mount Sidekiq::Web => '/sidekiq'
-  end
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   post '/create_csv', to: 'pages#create_csv'
   post '/kill_jobs', to: 'pages#kill_jobs'
