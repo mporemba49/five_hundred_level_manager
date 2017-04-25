@@ -32,7 +32,7 @@ class InventoryUpload
         value << item.class.name
         value << line[7] || "N/A"
         value << design.name
-        value << item.name
+        value << item.style
         value << team.name
         value << player.player
         value << team.league
@@ -75,7 +75,7 @@ class InventoryUpload
             value << item.class.name
             value << line[7] || "N/A"
             value << design.name
-            value << item.name
+            value << item.style
             value << team.name
             value << player.player
             value << team.league
