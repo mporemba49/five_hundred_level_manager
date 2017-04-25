@@ -74,6 +74,12 @@ class InventoryUpload
             value << item.id
             value << item.class.name
             value << line[7] || "N/A"
+            value << design.name
+            value << item.name
+            value << team.name
+            value << player.player
+            value << team.league
+            value << design.artist
             value.include?(nil) ? incomplete_values << line : values << value
           end
         end
