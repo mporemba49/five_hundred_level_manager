@@ -27,39 +27,44 @@ class InventoryItemsController < ApplicationController
   end
 
   def create
-    @inventory_item = InventoryItem.new
-    full_sku = item_params[:full_sku]
-    @inventory_item.full_sku = full_sku
-    @inventory_item.location = item_params[:location]
-    @team = Team.where(id: full_sku.slice(15..18)).first
-    @player = @team.team_players.where(sku: full_sku.slice(20..22)).first
-    @design = TeamPlayerDesign.where(sku: full_sku.slice(24..25).to_i, team_player_id: @player.id).first
-    @inventory_item.team_player_id = @player.id
-    @inventory_item.team_player_design_id = @design.id
-    @inventory_item.color_id = Color.where(sku: full_sku.slice(8..10)).first.id
-    @inventory_item.size_id = Size.where(sku: full_sku.slice(3..4)).first.id
-    @item = Accessory.unscoped.where(sku: full_sku.slice(5..7)).first || Clothing.unscoped.where(sku: full_sku.slice(5..7)).first
-    @inventory_item.producible_id = @item.id
-    @inventory_item.producible_type = @item.class.name
-    @inventory_item.player = TeamPlayer.find(@inventory_item.team_player_id).player
-    @inventory_item.team = @team.name
-    @inventory_item.league = @team.league
-    @inventory_item.design = TeamPlayerDesign.find(@inventory_item.team_player_design_id).name
-    @inventory_item.product = @item.style
-    @inventory_item.artist = TeamPlayerDesign.find(@inventory_item.team_player_design_id).artist
-    if @inventory_item.save
-      flash[:notice] = "Inventory Item Saved"
-      redirect_to inventory_items_path
+    if !params[:bulk_sku].blank?
+      bulk_sku_path = Uploader.call(params[:bulk_sku].path)
+      InventoryUploadJob.perform_now(bulk_sku_path)
+      flash[:notice] = "Bulk inventory uploads are being processed"
     else
-      @existing_item = InventoryItem.where(full_sku: @inventory_item.full_sku).first
-      if @existing_item
-        @existing_item.update_attributes(quantity: @existing_item.quantity + 1)
-        flash[:notice] = "Item quantity increased"
+      @inventory_item = InventoryItem.new
+      full_sku = item_params[:full_sku]
+      @inventory_item.full_sku = full_sku
+      @inventory_item.location = item_params[:location]
+      @team = Team.where(id: full_sku.slice(15..18)).first
+      @player = @team.team_players.where(sku: full_sku.slice(20..22)).first
+      @design = TeamPlayerDesign.where(sku: full_sku.slice(24..25).to_i, team_player_id: @player.id).first
+      @inventory_item.team_player_id = @player.id
+      @inventory_item.team_player_design_id = @design.id
+      @inventory_item.color_id = Color.where(sku: full_sku.slice(8..10)).first.id
+      @inventory_item.size_id = Size.where(sku: full_sku.slice(3..4)).first.id
+      @item = Accessory.unscoped.where(sku: full_sku.slice(5..7)).first || Clothing.unscoped.where(sku: full_sku.slice(5..7)).first
+      @inventory_item.producible_id = @item.id
+      @inventory_item.producible_type = @item.class.name
+      @inventory_item.player = TeamPlayer.find(@inventory_item.team_player_id).player
+      @inventory_item.team = @team.name
+      @inventory_item.league = @team.league
+      @inventory_item.design = TeamPlayerDesign.find(@inventory_item.team_player_design_id).name
+      @inventory_item.product = @item.style
+      @inventory_item.artist = TeamPlayerDesign.find(@inventory_item.team_player_design_id).artist
+      if @inventory_item.save
+        flash[:notice] = "Inventory Item Saved"
       else
-        flash[:error] = "Inventory Item Not Saved"
+        @existing_item = InventoryItem.where(full_sku: @inventory_item.full_sku).first
+        if @existing_item
+          @existing_item.update_attributes(quantity: @existing_item.quantity + 1)
+          flash[:notice] = "Item quantity increased"
+        else
+          flash[:error] = "Inventory Item Not Saved"
+        end
       end
-      redirect_to inventory_items_path
     end
+    redirect_to inventory_items_path
   end
 
   def check_sku
@@ -129,7 +134,7 @@ class InventoryItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:inventory_item).permit(:full_sku, :location, :quantity)
+    params.require(:inventory_item).permit(:full_sku, :location, :quantity, :bulk_sku)
   end
 
   def sort_column

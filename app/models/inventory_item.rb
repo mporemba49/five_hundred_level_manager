@@ -5,6 +5,7 @@ class InventoryItem < ApplicationRecord
   belongs_to :color
   belongs_to :producible, polymorphic: true
 
+  attr_accessor :bulk_csv
   validates_presence_of :full_sku
   validates_uniqueness_of :full_sku
   acts_as_paranoid

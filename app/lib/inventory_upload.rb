@@ -6,11 +6,10 @@ CLOTHING_SKU = "C"
 HEADERS = ["SKU", "Player", "Design", "Team", "Apparel", "Style Size", "Color", "Location"]
 
 class InventoryUpload
-  def self.call()
-    url = "https://s3-us-west-2.amazonaws.com/500levelcsvs/returns_sample.csv"
-    download = open(url)
+  def self.call(file_path)
     columns = [:full_sku, :team_player_design_id, :team_player_id, :size_id, :color_id, :producible_id, :producible_type, :location]
-    lines = CSV.read(download, encoding: 'iso-8859-1')
+    bulk_upload_path = Downloader.call(file_path)
+    lines = CSV.read(bulk_upload_path, encoding: 'iso-8859-1')
     lines.shift
     values = []
     incomplete_values = []

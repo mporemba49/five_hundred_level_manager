@@ -9,3 +9,10 @@
     = f.label :Quantity
     = f.number_field :quantity
   = f.submit
+
+= form_tag new_inventory_item_path, multipart: true, id: 'sku_upload' do |f|
+  h4 Upload SKU CSV
+  .fieldset
+    = label_tag :sku_csv
+    = file_field_tag :sku_csv
+  = submit_tag "Check SKUs"
