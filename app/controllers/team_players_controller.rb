@@ -4,6 +4,11 @@ class TeamPlayersController < ApplicationController
     @players = @team.team_players
   end
 
+  def show
+    @player = TeamPlayer.find(params[:id])
+    @designs = @player.designs
+  end
+
   def edit
     @player = TeamPlayer.find(params[:id])
   end

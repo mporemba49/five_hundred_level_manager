@@ -6,7 +6,7 @@ table
     - if @players.any?
       - @players.each do |player|
         tr
-          td = player.player
+          td = link_to player.player, team_player_path(player)
           td = player.sku
           td = link_to 'Edit', edit_team_player_path(player)
           td = form_tag team_player_path(player), method: 'DELETE', data: { confirm: "This will delete #{player.player} and all associated designs!" }

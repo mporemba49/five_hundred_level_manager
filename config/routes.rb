@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   resources :teams do
     resources :team_players, only: :index
   end
-  resources :team_players, only: [:edit, :update, :destroy]
+  resources :team_players, only: [:show, :edit, :update, :destroy]
   resources :sizes
   resources :royalties
   resources :reserved_designs

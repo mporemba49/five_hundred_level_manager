@@ -1,0 +1,33 @@
+h1 = @player.player
+
+table
+  tr
+    td Name
+    td = @player.player
+  tr
+    td SKU
+    td = @player.sku
+
+= link_to 'Edit', edit_team_player_path(@player)
+= form_tag team_player_path(@player), method: 'DELETE', data: { confirm: "This will delete #{@player.player} and all associated designs!" }
+  = submit_tag "Delete"
+
+h1 Designs
+
+table
+  tr
+    th Artist
+    th Design Name
+    th SKU
+    th
+    - if @designs.any?
+      - @designs.each do |design|
+        tr
+          td = design.artist
+          td = design.name
+          td = design.sku
+          td = form_tag team_player_design_path(design), method: 'DELETE', data: { confirm: "This will delete #{design.name}!" }
+            = submit_tag "Delete"
+    - else
+      tr
+        td There are no designs for this player
