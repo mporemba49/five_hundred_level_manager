@@ -9,7 +9,7 @@ table
       - @teams.each do |team|
         tr
           td = team.league
-          td = team.name
+          td = link_to team.name, team_team_players_path(team)
           td = team.city
           td = team.royalty
           td = link_to 'Edit', edit_team_path(team)

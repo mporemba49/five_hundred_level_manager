@@ -1,0 +1,12 @@
+h1
+  | Edit Player: #{@player.player}
+
+= form_for @player do |f|
+  .fieldset
+    = f.label :name
+    = f.text_field :player
+  .fieldset
+    = f.label :sku
+    = f.text_field :sku
+  br
+  = f.submit
