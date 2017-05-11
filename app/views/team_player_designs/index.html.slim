@@ -23,3 +23,5 @@ table
         td = team_player_design.readable_sku
         td
 = will_paginate @team_player_designs
+
+= link_to 'Download CSV list', team_player_designs_path(format: :csv)

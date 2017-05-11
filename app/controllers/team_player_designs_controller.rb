@@ -1,12 +1,22 @@
 class TeamPlayerDesignsController < ApplicationController
   def index
+    respond_to do |format|
+      format.html do
+        filter_q, filter_requests = filter_index(TeamPlayerDesign)
+        @team_player_designs = TeamPlayerDesign.includes(:team, :team_player)
+          .order('teams.league, teams.name, team_players.player')
+          .where(filter_q, *filter_requests)
+          .paginate(page: params[:page])
+      end
+      format.csv do
+        @team_player_designs = TeamPlayerDesign.includes(:team, :team_player)
+        headers['Content-Disposition'] = "attachment; filename=\"team_player_designs.csv\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end
 
-    filter_q, filter_requests = filter_index(TeamPlayerDesign)
-    @team_player_designs = TeamPlayerDesign.includes(:team, :team_player)
-      .order('teams.league, teams.name, team_players.player')
-      .where(filter_q, *filter_requests)
-      .paginate(page: params[:page])
   end
+
 
   def destroy
     @team_player_design = TeamPlayerDesign.find(params[:id])

@@ -1,0 +1,6 @@
+-require 'csv'
+
+- headers = ["Design", "Team", "Player", "League", "City", "Artist"]
+= CSV.generate_line headers
+- @team_player_designs.each do |design|
+  = CSV.generate_line([design.name, design.team.name, design.team_player.player, design.team.league, design.team.city, design.artist])
