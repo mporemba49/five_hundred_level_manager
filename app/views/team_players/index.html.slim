@@ -4,13 +4,13 @@ table
     th Player
     th SKU
     - if @players.any?
-      - @players.each do |player|
-        tr
-          td = link_to player.player, team_player_path(player)
-          td = player.sku
-          td = link_to 'Edit', edit_team_player_path(player)
-          td = form_tag team_player_path(player), method: 'DELETE', data: { confirm: "This will delete #{player.player} and all associated designs!" }
-            = submit_tag "Delete"
+      = form_tag team_players_mass_delete_path do |f|
+        - @players.each do |player|
+          tr
+            td = check_box_tag 'team_player_ids[]', player.id
+            td = link_to player.player, team_player_path(player)
+            td = player.sku
+        = submit_tag "Delete Items"
     - else
       tr
         td No Players Available
