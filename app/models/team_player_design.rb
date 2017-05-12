@@ -25,7 +25,9 @@ class TeamPlayerDesign < ApplicationRecord
       end
     end
 
+    alphabetical_skus = ("A".."Z").to_a.repeated_permutation(2).to_a.map { |pair| pair.join }
     available_skus = (1...ENV['MINIMUM_SKU'].to_i).to_a
+    avalailable_skus += alphabetical_skus
     used_skus = TeamPlayerDesign.unscoped.where(team_player: self.team_player).pluck(:sku)
     self.sku = (available_skus - used_skus).first
   end
