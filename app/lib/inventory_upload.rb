@@ -30,7 +30,7 @@ class InventoryUpload
         item = Accessory.unscoped.where(sku: line[0].slice(5..7)).first || Clothing.unscoped.where(sku: line[0].slice(5..7)).first
         value << item.id
         value << item.class.name
-        value << line[7] || "N/A"
+        value << line[8] || "N/A"
         value << design.name
         value << item.style
         value << team.name
@@ -39,17 +39,17 @@ class InventoryUpload
         value << design.artist
         value.include?(nil) ? incomplete_values << line : values << value
       else
-        unless line[1...6].include?(nil)
-          team = Team.where(name: line[3]).first
+        unless line[1...7].include?(nil)
+          team = Team.where(name: line[3], league: line[4]).first
           if team
             player = team.team_players.find_by_player(line[1])
           else
             player = nil
           end
           design = TeamPlayerDesign.where(name: line[2].downcase).first
-          size = Size.where(name: line[5].upcase).first
-          color = Color.where(name: line[6]).first
-          item = Accessory.unscoped.where(style: line[4]).first || Clothing.unscoped.where(style: line[4]).first
+          size = Size.where(name: line[6].upcase).first
+          color = Color.where(name: line[7]).first
+          item = Accessory.unscoped.where(style: line[5]).first || Clothing.unscoped.where(style: line[5]).first
           if [player, design, size, color, item].include?(nil)
             incomplete_values << line
           else
@@ -73,7 +73,7 @@ class InventoryUpload
             value << color.id
             value << item.id
             value << item.class.name
-            value << line[7] || "N/A"
+            value << line[8] || "N/A"
             value << design.name
             value << item.style
             value << team.name
