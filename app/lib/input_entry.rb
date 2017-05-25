@@ -138,11 +138,12 @@ class InputEntry
         @team_add.present? ? team_add = additional_tags("team", @team_add) : team_add = []
         @sport_add.present? ? sport_add = additional_tags("sport", @sport_add) : sport_add = []
         @city_add.present? ? city_add = additional_tags("city", @city_add) : city_add = []
+        league == "Baseball Hall of Fame" ? throwback_tag = ["sport=Throwback"] : throwback_tag = []
         item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
         item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style_tag}"]
         item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
         item.sku == unique ? item_tags_4 = ["listing=Unique"] : item_tags_4 = []
-        item_tags_5 = player_add + team_add + sport_add + city_add
+        item_tags_5 = player_add + team_add + sport_add + city_add + throwback_tag
         item_tags = (item_tags_1 + item_tags_2 + item_tags_3 + item_tags_4 + item_tags_5).join(',')
         if item.respond_to?(:clothing_type)
           item_type = item.clothing_type
@@ -173,11 +174,12 @@ class InputEntry
       @team_add.present? ? team_add = additional_tags("subcategory", @team_add) : team_add = []
       @sport_add.present? ? sport_add = additional_tags("category", @sport_add) : sport_add = []
       @city_add.present? ? city_add = additional_tags("group", @city_add) : city_add = []
+      league == "Baseball Hall of Fame" ? throwback_tag = ["sport=Throwback"] : throwback_tag = []
       item_tags_1 = ["topic=#{player}", "gender=#{item.gender.downcase}"]
       item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style_tag}"]
       item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "subcategory=#{team.name}", "group=#{city}", "category=#{sport}"]
       item.sku == unique ? item_tags_4 = ["listing=Unique"] : item_tags_4 = []
-      item_tags_5 = player_add + team_add + sport_add + city_add
+      item_tags_5 = player_add + team_add + sport_add + city_add + throwback_tag
       item_tags = (item_tags_1 + item_tags_2 + item_tags_3 + item_tags_4 + item_tags_5).join(',')
       if item.respond_to?(:clothing_type)
         item_type = item.clothing_type
