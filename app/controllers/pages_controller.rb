@@ -28,7 +28,6 @@ class PagesController < ApplicationController
   def create_csv
     if !params[:title_team_player].blank?
       sales_channel_ids = params[:sales_channel_ids]
-      binding.pry
       if params[:only_designs]
         CreateDesigns.call(params[:title_team_player].path)
         flash[:notice] = "Design records have been created"
