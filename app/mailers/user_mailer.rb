@@ -5,6 +5,7 @@ class UserMailer < ApplicationMailer
   end
 
   def csv_upload(email, csv_lines, sales_channel_ids)
+    channel = SalesChannel.find_by_id(channel_id)
     if csv_lines
       returned_csv = CSV.generate(headers: true) do |csv|
         csv_lines.each do |line|
@@ -13,7 +14,6 @@ class UserMailer < ApplicationMailer
       end
       attachments["#{channel.name}_upload.csv"] = returned_csv
     end
-    channel = SalesChannel.find_by_id(channel_id)
     mail(to: email, subject: "#{ENV['EMAIL_TITLE']} | #{channel.name} CSV Download")
   end
 
