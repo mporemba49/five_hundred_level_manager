@@ -9,7 +9,7 @@ class SendCsvJob < ApplicationJob
     if csv_lines
       sales_channel_ids.each do |channel_id|
         channel = SalesChannel.find_by_id(channel_id)
-        csv_lines.each do |line|
+        csv_lines.drop(1).each do |line|
           line[13].chop!.chop!
           line[13] = line[13] + channel.sku
         end
