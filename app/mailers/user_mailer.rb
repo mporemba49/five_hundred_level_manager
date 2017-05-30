@@ -4,34 +4,17 @@ class UserMailer < ApplicationMailer
     mail(to: [email, "braden.mugg@gmail.com"], subject: "500 Level | Upload Error")
   end
 
-  def csv_upload(email, title_team_player, sales_channel_ids)
-    title_team_player_path = Downloader.call(title_team_player)
-    csv_lines, @missing_files = GenerateCsv.call(title_team_player_path, sales_channel_ids.first)
-    channel_id = sales_channel_ids.shift
+  def csv_upload(email, csv_lines, sales_channel_ids)
     if csv_lines
       returned_csv = CSV.generate(headers: true) do |csv|
         csv_lines.each do |line|
           csv << line
         end
       end
-      channel = SalesChannel.find_by_id(channel_id)
       attachments["#{channel.name}_upload.csv"] = returned_csv
     end
+    channel = SalesChannel.find_by_id(channel_id)
     mail(to: email, subject: "#{ENV['EMAIL_TITLE']} | #{channel.name} CSV Download")
-    sales_channel_ids.each do |channel_id|
-      if csv_lines
-        channel = SalesChannel.find_by_id(channel_id)
-        returned_csv = CSV.generate(headers: true) do |csv|
-          csv_lines.each do |line|
-            line[13].chop!.chop!
-            line[13] = line[13] + channel.sku
-            csv << line
-          end
-        end
-        attachments["#{channel.name}_upload.csv"] = returned_csv
-        mail(to: email, subject: "#{ENV['EMAIL_TITLE']} | #{channel.name} CSV Download")
-      end
-    end
   end
 
   def sku_upload(email, check_sku)
