@@ -4,7 +4,8 @@ class UserMailer < ApplicationMailer
     mail(to: [email, "braden.mugg@gmail.com"], subject: "500 Level | Upload Error")
   end
 
-  def csv_upload(email, csv_lines, channel_id)
+  def csv_upload(email, csv_lines, missing_files, channel_id)
+    @missing_files = missing_files
     channel = SalesChannel.find_by_id(channel_id)
     if csv_lines
       returned_csv = CSV.generate(headers: true) do |csv|
