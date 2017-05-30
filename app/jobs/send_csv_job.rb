@@ -13,7 +13,7 @@ class SendCsvJob < ApplicationJob
           line[13].chop!.chop!
           line[13] = line[13] + channel.sku
         end
-        UserMailer.csv_upload(email, csv_lines, @missing_files, sales_channel_id).deliver_now
+        UserMailer.csv_upload(email, csv_lines, @missing_files, channel_id).deliver_now
       end
     end
     Validator.reset
