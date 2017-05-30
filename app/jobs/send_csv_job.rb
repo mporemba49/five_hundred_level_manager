@@ -12,7 +12,6 @@ class SendCsvJob < ApplicationJob
         csv_lines.each do |line|
           line[13].chop!.chop!
           line[13] = line[13] + channel.sku
-          csv << line
         end
         UserMailer.csv_upload(email, csv_lines, @missing_files, sales_channel_id).deliver_now
       end
