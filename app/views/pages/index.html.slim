@@ -108,8 +108,10 @@ table
     = label_tag :title_team_player
     = file_field_tag :title_team_player
   .fieldset
-    = label_tag :sales_channel, "Sales Channel"
-    = select_tag 'sales_channel', options_from_collection_for_select(@sales_channels, 'id', 'name')
+    = label_tag :sales_channels
+  - @sales_channels.each do |sales_channel|
+      = check_box_tag 'sales_channel_ids[]', sales_channel.id, checked = false
+      = label_tag sales_channel.name
   .fieldset
     = label_tag :only_designs, "Only Designs"
     = check_box_tag :only_designs, "Only Designs"
