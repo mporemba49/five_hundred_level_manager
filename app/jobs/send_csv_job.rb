@@ -6,7 +6,8 @@ class SendCsvJob < ApplicationJob
     csv_lines, @missing_files = GenerateCsv.call(title_team_player_path, sales_channel_ids.first)
     sales_channel_id = sales_channel_ids.shift
     if sales_channel_id == "2" 
-      etsy_lines = EtsyModification.call(csv_lines)
+      etsy_lines = csv_lines
+      etsy_lines = EtsyModification.call(etsy_lines)
       UserMailer.csv_upload(email, etsy_lines, @missing_files, sales_channel_id).deliver_now
     else
       UserMailer.csv_upload(email, csv_lines, @missing_files, sales_channel_id).deliver_now
@@ -19,7 +20,8 @@ class SendCsvJob < ApplicationJob
           line[13] = line[13] + channel.sku
         end
         if channel_id == "2"
-          etsy_lines = EtsyModification.call(csv_lines)
+          etsy_lines = csv_lines
+          etsy_lines = EtsyModification.call(etsy_lines)
           logger.info "Etsy"
           UserMailer.csv_upload(email, etsy_lines, @missing_files, channel_id).deliver_now
         else
