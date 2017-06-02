@@ -14,13 +14,13 @@ class EtsyModification
         tags.map! { |t| t.split("=") }
         tags.reject! { |t| t[0] == "v" }
         sport = tags.select { |t| t[0] == "sport" }
-        sport = sport[1]
+        sport = sport[0][1]
         player = tags.select { |t| t[0] == "player" }
-        player = player[1]
+        player = player[0][1]
         team = tags.select { |t| t[0] == "team" }
-        team = team[1]
+        team = team[0][1]
         city = tags.select { |t| t[0] == "city" }
-        city = city[1]
+        city = city[0][1]
         tags.map! { |t| t[1] }
         tags = tags.join(", ")
         if sport == "Baseball" || sport == "Baseball Hall of Fame"
