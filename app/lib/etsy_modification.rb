@@ -10,28 +10,30 @@ class EtsyModification
         line[25] = "Image Position"
       else
         style = line[8]
-        tags = line[5].split(",")
-        tags.map! { |t| t.split("=") }
-        tags.reject! { |t| t[0] == "v" }
-        sport = tags.select { |t| t[0] == "sport" }
-        sport = sport[0][1]
-        player = tags.select { |t| t[0] == "player" }
-        player = player[0][1]
-        team = tags.select { |t| t[0] == "team" }
-        team = team[0][1]
-        city = tags.select { |t| t[0] == "city" }
-        city = city[0][1]
-        tags.map! { |t| t[1] }
-        tags = tags.join(", ")
-        if sport == "Baseball" || sport == "Baseball Hall of Fame"
-          tags += ", MLB, World Series"
-        elsif sport == "Football"
-          tags += ", NFL, Super Bowl"
-        elsif sport == "Baseball"
-          tags += ", NHL, Stanley Cup"
+        if line[5]
+          tags = line[5].split(",")
+          tags.map! { |t| t.split("=") }
+          tags.reject! { |t| t[0] == "v" }
+          sport = tags.select { |t| t[0] == "sport" }
+          sport = sport[0][1]
+          player = tags.select { |t| t[0] == "player" }
+          player = player[0][1]
+          team = tags.select { |t| t[0] == "team" }
+          team = team[0][1]
+          city = tags.select { |t| t[0] == "city" }
+          city = city[0][1]
+          tags.map! { |t| t[1] }
+          tags = tags.join(", ")
+          if sport == "Baseball" || sport == "Baseball Hall of Fame"
+            tags += ", MLB, World Series"
+          elsif sport == "Football"
+            tags += ", NFL, Super Bowl"
+          elsif sport == "Baseball"
+            tags += ", NHL, Stanley Cup"
+          end
+          line[1] = line[1] + "Officially Licensed" + (sport == "Personalities" ? "" : city) + style if line[1]
+          line[5] = tags
         end
-        line[1] = (line[1] + "Officially Licensed" + (sport == "Personalities" ? "" : city) + style) if line[1]
-        line[5] = tags
         line[7] = line[9]
         line[8] = line[10]
         line[9] = line[11]
