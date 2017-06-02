@@ -44,9 +44,11 @@ class EtsyModification
         line[12] = nil
         line[16] = 99
         if images.present?
-          line[25] = index + 1
+          line[25] = index
+          line[24] = images.shift
+        else
+          line[24] = nil
         end
-        line[24] = images.shift if images.present?
         line[26] = player + style + team + " 500 Level"
       end
     end
