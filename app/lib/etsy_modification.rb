@@ -2,7 +2,7 @@ class EtsyModification
 
   def self.call(csv_lines)
     images = csv_lines.map { |line| line[24] }
-    images.drop(1)
+    images = images.drop(1)
     images.uniq!
     csv_lines.each { |line| line.insert(25, nil) }
     sport = nil; player = nil; team = nil; city = nil
@@ -33,7 +33,7 @@ class EtsyModification
           elsif sport == "Baseball"
             tags += ", NHL, Stanley Cup"
           end
-          line[1] = line[1] + "Officially Licensed" + (sport == "Personalities" ? "" : city) + style if line[1]
+          line[1] = line[1] + " Officially Licensed " + (sport == "Personalities" ? "" : city + " ") + style if line[1]
           line[5] = tags
         end
         line[7] = line[9]
@@ -49,7 +49,7 @@ class EtsyModification
         else
           line[24] = nil
         end
-        line[26] = player + style + team + " 500 Level"
+        line[26] = player + " " + style + " " + team + " 500 Level"
       end
     end
     Rails.logger.info "Processing etsy modification"
