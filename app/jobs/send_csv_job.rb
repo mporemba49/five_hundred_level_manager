@@ -7,6 +7,7 @@ class SendCsvJob < ApplicationJob
     if etsy_index = sales_channel_ids.index("2")
       last_index = sales_channel_ids.size - 1
       sales_channel_ids.insert(last_index, sales_channel_ids.delete_at(etsy_index))
+    end
     sales_channel_id = sales_channel_ids.shift
     if sales_channel_id == "2" 
       etsy_lines = EtsyModification.call(csv_lines)
