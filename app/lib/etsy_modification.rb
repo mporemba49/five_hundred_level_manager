@@ -16,6 +16,7 @@ class EtsyModification
       master_images << loop_array
     end
     master_images.each { |array| array.uniq! }
+    Logger.info "Images size: Array 1 - #{master_images[0].size}, Array 2 = #{master_images[1].size}"
     csv_lines.each { |line| line.insert(25, nil) }
     sport = nil; player = nil; team = nil; city = nil
     new_line_count = 0
