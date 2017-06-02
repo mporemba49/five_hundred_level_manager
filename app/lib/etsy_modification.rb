@@ -22,7 +22,7 @@ class EtsyModification
           team = team[0][1]
           city = tags.select { |t| t[0] == "city" }
           city = city[0][1]
-          logger.info "player - #{player} sport - #{sport} team - #{team} city - #{city}"
+          Rails.logger.info "player - #{player} sport - #{sport} team - #{team} city - #{city}"
           tags.map! { |t| t[1] }
           tags = tags.join(", ")
           if sport == "Baseball" || sport == "Baseball Hall of Fame"
@@ -49,7 +49,7 @@ class EtsyModification
         line[26] = player + style + team + " 500 Level"
       end
     end
-    logger.info "Processing etsy modification"
+    Rails.logger.info "Processing etsy modification"
     return csv_lines
   end
 
