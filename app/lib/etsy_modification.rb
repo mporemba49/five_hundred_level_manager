@@ -5,6 +5,7 @@ class EtsyModification
     images.drop(1)
     images.uniq!
     csv_lines.each { |line| line.insert(25, nil) }
+    sport = nil; player = nil; team = nil; city = nil
     csv_lines.each_with_index do |line, index|
       if index == 0
         line[25] = "Image Position"
