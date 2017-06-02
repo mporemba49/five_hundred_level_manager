@@ -21,6 +21,7 @@ class EtsyModification
     sport = nil; player = nil; team = nil; city = nil
     new_line_count = 0
     image_count = 1
+    images = []
     csv_lines.each_with_index do |line, index|
       if index == 0
         line[25] = "Image Position"
