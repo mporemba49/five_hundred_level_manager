@@ -1,11 +1,25 @@
 class EtsyModification
 
   def self.call(csv_lines)
-    images = csv_lines.map { |line| line[24] }
-    images = images.drop(1)
-    images.uniq!
+    master_images = []
+    loop_array = []
+    csv_lines.drop(1).each do |line| 
+      if line[1] && loop_array.present?
+        master_images << loop_array
+        loop_array = []
+        loop_array << line[24]
+      else
+        loop_array << line[24]
+      end
+    end
+    if loop_array.present?
+      master_images << loop_array
+    end
+    master_images.each { |array| array.uniq! }
     csv_lines.each { |line| line.insert(25, nil) }
     sport = nil; player = nil; team = nil; city = nil
+    new_line_count = 0
+    image_count = 1
     csv_lines.each_with_index do |line, index|
       if index == 0
         line[25] = "Image Position"
@@ -30,11 +44,14 @@ class EtsyModification
             tags += ", MLB, World Series"
           elsif sport == "Football"
             tags += ", NFL, Super Bowl"
-          elsif sport == "Baseball"
+          elsif sport == "Hockey"
             tags += ", NHL, Stanley Cup"
           end
           line[1] = line[1] + " Officially Licensed " + (sport == "Personalities" ? "" : city + " ") + style if line[1]
           line[5] = tags
+          images = master_images[new_line_count]
+          new_line_count += 1
+          image_count = 1
         end
         line[7] = line[9]
         line[8] = line[10]
@@ -44,8 +61,9 @@ class EtsyModification
         line[12] = nil
         line[16] = 99
         if images.present?
-          line[25] = index
+          line[25] = image_count
           line[24] = images.shift
+          image_count += 1
         else
           line[24] = nil
         end
