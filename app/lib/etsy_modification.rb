@@ -30,7 +30,7 @@ class EtsyModification
         elsif sport == "Baseball"
           tags += ", NHL, Stanley Cup"
         end
-        line[1] = line[1] + “Officially Licensed” + (sport == "Personalities" ? "" : city) + style
+        line[1] = line[1] + "Officially Licensed" + (sport == "Personalities" ? "" : city) + style
         line[5] = tags
         line[7] = line[9]
         line[8] = line[10]
@@ -43,8 +43,8 @@ class EtsyModification
           line[25] = index + 1
         end
         line[24] = images.shift if images.present?
+        line[26] = player + style + team + " 500 Level"
       end
-      line[26] = player + style + team + " 500 Level"
     end
     return csv_lines
   end
