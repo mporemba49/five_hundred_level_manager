@@ -6,12 +6,12 @@ class EtsyModification
     images.uniq!
     csv_lines.each { |line| line.insert(25, nil) }
     csv_lines.each_with_index do |line, index|
-      if index = [0]
+      if index == 0
         line[25] = "Image Position"
       else
         style = line[8]
         tags = line[5].split(",")
-        tags.map! { |t| t.split("=")}
+        tags.map! { |t| t.split("=") }
         tags.reject! { |t| t[0] == "v" }
         sport = tags.select { |t| t[0] == "sport" }
         sport = sport[1]
@@ -39,7 +39,7 @@ class EtsyModification
         line[11] = nil
         line[12] = nil
         line[16] = 99
-        if images.present
+        if images.present?
           line[25] = index + 1
         end
         line[24] = images.shift if images.present?
