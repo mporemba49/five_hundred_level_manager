@@ -46,6 +46,7 @@ class EtsyModification
         line[26] = player + style + team + " 500 Level"
       end
     end
+    logger.info "Processing etsy modification"
     return csv_lines
   end
 

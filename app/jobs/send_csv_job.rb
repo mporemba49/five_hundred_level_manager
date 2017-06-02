@@ -20,7 +20,7 @@ class SendCsvJob < ApplicationJob
         end
         if channel_id == 2
           etsy_lines = EtsyModification.call(csv_lines)
-          UserMailer.csv_upload(email, etsy_lines, @missing_files, sales_channel_id).deliver_now
+          UserMailer.csv_upload(email, etsy_lines, @missing_files, channel_id).deliver_now
         else
           UserMailer.csv_upload(email, csv_lines, @missing_files, channel_id).deliver_now
         end
