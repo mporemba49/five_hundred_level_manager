@@ -30,7 +30,7 @@ class EtsyModification
         elsif sport == "Baseball"
           tags += ", NHL, Stanley Cup"
         end
-        line[1] = line[1] + "Officially Licensed" + (sport == "Personalities" ? "" : city) + style
+        line[1] = line[1] + "Officially Licensed" + (sport == "Personalities" ? "" : city) + style if line[1]
         line[5] = tags
         line[7] = line[9]
         line[8] = line[10]
