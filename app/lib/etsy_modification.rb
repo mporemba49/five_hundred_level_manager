@@ -66,10 +66,11 @@ class EtsyModification
           line[25] = image_count
           line[24] = images.shift
           image_count += 1
+          line[26] = player + " " + style + " " + team + " 500 Level"
         else
           line[24] = nil
+          line[26] = nil
         end
-        line[26] = player + " " + style + " " + team + " 500 Level"
       end
     end
     Rails.logger.info "Processing etsy modification"
