@@ -3,11 +3,11 @@ class SendCsvJob < ApplicationJob
 
   def perform(email, title_team_player, sales_channel_ids)
     title_team_player_path = Downloader.call(title_team_player)
-    csv_lines, @missing_files = GenerateCsv.call(title_team_player_path, sales_channel_ids.first)
     if etsy_index = sales_channel_ids.index("2")
       last_index = sales_channel_ids.size - 1
       sales_channel_ids.insert(last_index, sales_channel_ids.delete_at(etsy_index))
     end
+    csv_lines, @missing_files = GenerateCsv.call(title_team_player_path, sales_channel_ids.first)
     sales_channel_id = sales_channel_ids.shift
     if sales_channel_id == "2" 
       etsy_lines = EtsyModification.call(csv_lines)
