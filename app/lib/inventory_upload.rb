@@ -89,6 +89,7 @@ class InventoryUpload
 
     InventoryItem.import(columns, values, validate: false, on_duplicate_key_ignore: true)
 
+    Rails.logger.info incomplete_values
     
     S3Uploader.upload_incomplete(incomplete_values) unless incomplete_values.empty?
   
