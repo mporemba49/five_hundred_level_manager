@@ -30,7 +30,7 @@ class InventoryUpload
         item = Accessory.unscoped.where(sku: line[0].slice(5..7)).first || Clothing.unscoped.where(sku: line[0].slice(5..7)).first
         value << item.id
         value << item.class.name
-        value << line[8] || "N/A"
+        line[8] ? value << line[8] : value << "N/A"
         value << design.name
         value << item.style
         value << team.name
@@ -73,7 +73,7 @@ class InventoryUpload
             value << color.id
             value << item.id
             value << item.class.name
-            value << line[8] || "N/A"
+            line[8] ? value << line[8] : value << "N/A"
             value << design.name
             value << item.style
             value << team.name
