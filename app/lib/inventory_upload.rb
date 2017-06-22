@@ -19,7 +19,7 @@ class InventoryUpload
         value = []
         value << line[0]
         team = Team.where(id: line[0].slice(15..18).to_i).first
-        player = team.team_players.where(sku: string.slice(20..22)).first
+        player = team.team_players.where(sku: line[0].slice(20..22)).first
         design = TeamPlayerDesign.where(sku: line[0].slice(24..25).to_i, team_player_id: player.id).first
         color = Color.where(sku: line[0].slice(8..10)).first
         size = Size.where(sku: line[0].slice(3..4)).first
