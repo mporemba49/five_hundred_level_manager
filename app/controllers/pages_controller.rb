@@ -34,7 +34,7 @@ class PagesController < ApplicationController
       else
         uploaded_ttp_path = Uploader.call(params[:title_team_player].path)
         SendCsvJob.perform_later(User.find(session[:user_id]).email,
-                                 uploaded_ttp_path, sales_channel_ids)
+                                 uploaded_ttp_path, sales_channel_skus)
         flash[:notice] = "An email with CSV attached will be sent soon"
       end
     else

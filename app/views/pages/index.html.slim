@@ -110,7 +110,7 @@ table
   .fieldset
     = label_tag :sales_channels
   - @sales_channels.each do |sales_channel|
-      = check_box_tag 'sales_channel_ids[]', sales_channel.id, checked = false
+      = check_box_tag 'sales_channel_skus[]', sales_channel.sku, checked = false
       = label_tag sales_channel.name
   .fieldset
     = label_tag :only_designs, "Only Designs"
