@@ -8,7 +8,7 @@ class SendCsvJob < ApplicationJob
       last_index = sales_channel_skus.size - 1
       sales_channel_skus.insert(last_index, sales_channel_skus.delete_at(etsy_index))
     end
-    csv_lines, @missing_files = GenerateCsv.call(title_team_player_path, SalesChannel.find_by_sku(sales_channel_sku).id)
+    csv_lines, @missing_files = GenerateCsv.call(title_team_player_path, SalesChannel.find_by_sku(sales_channel_skus).id)
     sales_channel_sku = sales_channel_skus.shift
     if sales_channel_sku == "ET"
       etsy_lines = EtsyModification.call(csv_lines)

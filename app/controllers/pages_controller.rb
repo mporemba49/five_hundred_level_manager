@@ -26,6 +26,7 @@ class PagesController < ApplicationController
   end
 
   def create_csv
+    binding.pry
     if !params[:title_team_player].blank?
       sales_channel_skus = params[:sales_channel_skus]
       if params[:only_designs]
