@@ -3,6 +3,9 @@ h1
 
 = form_tag accessory_accessory_colors_path, method: 'PUT', id: 'edit_cc' do
   table
+    tr
+      td = "Update All"
+      td = text_field_tag :mass_update
     - @selections.each do |selection|
       tr
         td = selection[:name]
