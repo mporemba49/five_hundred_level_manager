@@ -25,8 +25,8 @@ class InventoryUpload
         size = Size.where(sku: line[0].slice(3..4)).first
         value << design.id
         value << player.id
-        value << color.id
         value << size.id
+        value << color.id
         item = Accessory.unscoped.where(sku: line[0].slice(5..7)).first || Clothing.unscoped.where(sku: line[0].slice(5..7)).first
         value << item.id
         value << item.class.name
