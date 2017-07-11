@@ -19,7 +19,7 @@ table
         td = team_player_design.team.id_string
         td = team_player_design.team_player.player
         td = team_player_design.team_player.sku
-        td = team_player_design.name
+        td = link_to team_player_design.name, edit_team_player_design_path(team_player_design)
         td = team_player_design.readable_sku
         td
 = will_paginate @team_player_designs

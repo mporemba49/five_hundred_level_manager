@@ -17,6 +17,21 @@ class TeamPlayerDesignsController < ApplicationController
 
   end
 
+  def edit
+    @design = TeamPlayerDesign.find(params[:id])
+  end
+
+  def update
+    @design = TeamPlayerDesign.find(params[:id])
+    if @design.update_attributes(design_params)
+      flash[:notice] = "Design Updated"
+      redirect_to team_player_designs_path
+    else
+      flash[:error] = "Design Not Updated"
+      render :edit
+    end
+  end
+
 
   def destroy
     @team_player_design = TeamPlayerDesign.find(params[:id])
@@ -39,5 +54,11 @@ class TeamPlayerDesignsController < ApplicationController
     end
 
     redirect_to team_player_designs_path
+  end
+
+  private
+
+  def design_params
+    params.require(:team_player_design).permit(:name, :artist)
   end
 end

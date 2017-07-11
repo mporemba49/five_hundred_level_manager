@@ -8,5 +8,8 @@ h1
   .fieldset
     = f.label :royalty, "Royalty (%)"
     = f.number_field :royalty, step: 0.5
+    .fieldset
+    = f.label :name
+    = f.text_field :name
   br
   = f.submit

@@ -1,0 +1,12 @@
+h1
+  | Edit Design: #{@design.name}
+
+= form_for @design do |f|
+  .fieldset
+    = f.label :name
+    = f.text_field :name
+  .fieldset
+    = f.label :artist
+    = f.text_field :artist
+  br
+  = f.submit
