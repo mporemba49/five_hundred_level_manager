@@ -37,10 +37,10 @@ table
         td = check_box_tag 'inventory_item_ids[]', item.id
         td = item.full_sku
         td = item.product
-        td = item.team_player_design.name
-        td = item.team_player.team.name
-        td = item.team_player.player
-        td = item.team_player.team.league
+        td = item.team_player_design.name if item.team_player_design
+        td = item.team_player.team.name if item.team_player
+        td = item.team_player.player if item.team_player
+        td = item.team_player.team.league if item.team_player
         td = item.size.name if item.size
         td = item.color.name if item.color
         td = item.location
