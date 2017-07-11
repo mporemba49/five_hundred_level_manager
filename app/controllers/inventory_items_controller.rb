@@ -2,7 +2,7 @@ class InventoryItemsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @inventory_items = InventoryItem.all.order(sort_column + " " + sort_direction).includes(:team_player, :team_player_design, :color, :size)
+    @inventory_items = InventoryItem.all.order(sort_data + " " + sort_direction).includes(:team_player_design, :color, :size, team_player: [:team])
   end
 
   def new
@@ -45,13 +45,8 @@ class InventoryItemsController < ApplicationController
       @inventory_item.size_id = Size.where(sku: full_sku.slice(3..4)).first.id
       @item = Accessory.unscoped.where(sku: full_sku.slice(5..7)).first || Clothing.unscoped.where(sku: full_sku.slice(5..7)).first
       @inventory_item.producible_id = @item.id
-      @inventory_item.producible_type = @item.class.name
-      @inventory_item.player = TeamPlayer.find(@inventory_item.team_player_id).player
-      @inventory_item.team = @team.name
-      @inventory_item.league = @team.league
-      @inventory_item.design = TeamPlayerDesign.find(@inventory_item.team_player_design_id).name
+      @inventory_item.producible_type = @item.class.name  
       @inventory_item.product = @item.style
-      @inventory_item.artist = TeamPlayerDesign.find(@inventory_item.team_player_design_id).artist
       if @inventory_item.save
         flash[:notice] = "Inventory Item Saved"
       else
@@ -137,8 +132,24 @@ class InventoryItemsController < ApplicationController
     params.require(:inventory_item).permit(:full_sku, :location, :quantity, :bulk_sku)
   end
 
+  def sort_data
+    if params[:sort] == "design"
+      "team_player_designs.name"
+    elsif params[:sort] == "player"
+      "team_players.player"
+    elsif params[:sort] == "league"
+      "teams.league"
+    elsif params[:sort] == "team"
+      "teams.name"
+    elsif params[:sort] == "product"
+      "product"
+    else
+      "team_player_id"
+    end
+  end
+
   def sort_column
-    InventoryItem.column_names.include?(params[:sort]) ? params[:sort] : "team_player_id"
+    %w[design team player league product].include?(params[:sort]) ? params[:sort] : "team_player_id"
   end
   
   def sort_direction
