@@ -27,10 +27,10 @@ table
     tr
       td = item.full_sku
       td = item.product
-      td = item.design
-      td = item.team
-      td = item.player
-      td = item.league
+      td = item.team_player_design.name if item.team_player_design
+      td = item.team_player.team.name if item.team_player
+      td = item.team_player.player if item.team_player
+      td = item.team_player.team.league if item.team_player
       td = item.size.name if item.size
       td = item.color.name if item.color
       td = item.location
