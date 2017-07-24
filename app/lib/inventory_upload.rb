@@ -7,7 +7,7 @@ HEADERS = ["SKU", "Player", "Design", "Team", "Apparel", "Style Size", "Color", 
 
 class InventoryUpload
   def self.call(file_path)
-    columns = [:full_sku, :team_player_design_id, :team_player_id, :size_id, :color_id, :producible_id, :producible_type, :location, :design, :product, :team, :player, :league, :artist]
+    columns = [:full_sku, :team_player_design_id, :team_player_id, :size_id, :color_id, :producible_id, :producible_type, :location, :product]
     bulk_upload_path = Downloader.call(file_path)
     lines = CSV.read(bulk_upload_path, encoding: 'iso-8859-1')
     lines.shift
@@ -31,12 +31,6 @@ class InventoryUpload
         value << item.id
         value << item.class.name
         line[8] ? value << line[8] : value << "N/A"
-        value << design.name
-        value << item.style
-        value << team.name
-        value << player.player
-        value << team.league
-        value << design.artist
         value.include?(nil) ? incomplete_values << line : values << value
       else
         unless line[1...7].include?(nil)
@@ -74,12 +68,7 @@ class InventoryUpload
             value << item.id
             value << item.class.name
             line[8] ? value << line[8] : value << "N/A"
-            value << design.name
             value << item.style
-            value << team.name
-            value << player.player
-            value << team.league
-            value << design.artist
             value.include?(nil) ? incomplete_values << line : values << value
           end
         end
