@@ -31,6 +31,7 @@ class InventoryUpload
         value << item.id
         value << item.class.name
         line[8] ? value << line[8] : value << "N/A"
+        value << item.style
         value.include?(nil) ? incomplete_values << line : values << value
       else
         unless line[1...7].include?(nil)
