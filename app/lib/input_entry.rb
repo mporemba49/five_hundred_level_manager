@@ -61,7 +61,7 @@ class InputEntry
   end
 
   def city
-    @city ||= @design.team.city
+    @city ||= @design.city
   end
 
   def league
