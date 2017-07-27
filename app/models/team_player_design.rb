@@ -4,7 +4,7 @@ class TeamPlayerDesign < ApplicationRecord
   validates_presence_of :team_player_id, :name, :artist
   validates_uniqueness_of :team_player_id, scope: [:name, :artist]
   before_validation(on: :create) { set_sku }
-  attr_reader :city
+  attr_accessor :city
 
   def self.search_fields
     [:team_player_id, :name, :artist]
