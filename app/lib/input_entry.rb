@@ -15,6 +15,7 @@ class InputEntry
     @team = Team.find_by(name: team, league: league)
     @player = @team.team_players.find_by_player(player) if @team
     @design = @player.designs.includes(team_player: [:team]).find_by(artist: @artist.downcase, name: @title.downcase) if @player
+    @design.city = design['City'].strip
     @player_add = design["Player1"].strip if design["Player1"]
     @team_add = design["Team1"].strip if design["Team1"]
     @sport_add = design["Sport1"].strip if design["Sport1"]
