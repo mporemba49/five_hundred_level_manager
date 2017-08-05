@@ -143,7 +143,7 @@ class Clothing < ApplicationRecord
       csv_line = [GIFT_CARD, gender, "Unisex", "Apparel Style – Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby One-Pieces", nil]
     elsif gender == "Kids"
       csv_line = [GIFT_CARD, gender, "Unisex", "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
-    elsif gender = "Womens"
+    elsif gender == "Womens"
       csv_line = [GIFT_CARD, "Adult", "Female", "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
     else
       csv_line = [GIFT_CARD, "Adult", "Male", "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
