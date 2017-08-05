@@ -128,13 +128,13 @@ class Accessory < ApplicationRecord
     end
 
     if license && accessory_type == "Phone Cases"
-      description = "Shop the #{@entry.design.name} #{brand.name} #{size.name} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Phone Cases at the Ultimate #{@entry.team.city} #{@entry.league} Store!"
+      description = "Shop the #{@entry.design.name.titleize} #{brand.name} #{size.name} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Phone Cases at the Ultimate #{@entry.team.city} #{@entry.league} Store!"
     elsif license
-      description = "Shop the #{@entry.design.name} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.team.city} #{@entry.league} Store!"
+      description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.team.city} #{@entry.league} Store!"
     elsif accessory_type == "Phone Cases"
-      description = "Shop the #{@entry.design.name} #{brand.name} #{size.name} #{style} at 500level.com & Buy Officially Licensed #{@entry.player.player} Phone Cases at the Ultimate #{@entry.player.player} Store!"
+      description = "Shop the #{@entry.design.name.titleize} #{brand.name} #{size.name} #{style} at 500level.com & Buy Officially Licensed #{@entry.player.player} Phone Cases at the Ultimate #{@entry.player.player} Store!"
     else
-      description = "Shop the #{@entry.design.name} #{style} at 500level.com. Officially Licensed by #{@entry.player.player}, 500 LEVEL is the Ultimate #{@entry.player.player} Store!"
+      description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com. Officially Licensed by #{@entry.player.player}, 500 LEVEL is the Ultimate #{@entry.player.player} Store!"
     end
   end
 
