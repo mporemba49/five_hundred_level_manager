@@ -140,9 +140,9 @@ class Clothing < ApplicationRecord
 
   def first_line_entries(image_url, clothing_size)
     if gender == "Kids" && style == "Onesie"
-      csv_line = [GIFT_CARD, gender, Unisex, "Apparel Style – Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby One-Pieces", nil]
+      csv_line = [GIFT_CARD, gender, "Unisex", "Apparel Style – Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby One-Pieces", nil]
     elsif gender == "Kids"
-      csv_line = [GIFT_CARD, gender, Unisex, "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
+      csv_line = [GIFT_CARD, gender, "Unisex", "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
     elsif gender = "Womens"
       csv_line = [GIFT_CARD, "Adult", "Female", "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
     else
