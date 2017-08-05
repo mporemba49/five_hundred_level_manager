@@ -91,16 +91,7 @@ class Clothing < ApplicationRecord
   end
 
   def img_alt_text(color)
-    gender_prefix = ''
-    case gender
-    when 'Men'
-      gender_prefix = "Mens " unless style.include?('Mens')
-    when 'Women'
-      gender_prefix = "Womens " unless style.include?('Womens')
-    when 'Kids'
-      gender_prefix = "Kids " unless style.include?('Kids')
-    end
-    gender_prefix + style + " " + color
+    "#{@entry.player} #{style} | 500 LEVEL"
   end
 
   def image_data(image_url, color)
@@ -112,10 +103,27 @@ class Clothing < ApplicationRecord
   end
 
   def seo_description
-    description = "Show off your fandom with #{ENV['STORE_TITLE']}'s #{@entry.title} #{style}. Made by fans, "
-    description << "for fans, #{ENV['STORE_TITLE']} sports apparel lets you rep your team in style. Browse our selection "
-    description << "and order today."
-    description
+    if @entry.team.league == "Baseball"
+      license = "MLBPA"
+    elsif @entry.team.league == "Hockey"
+      license = "NHLPA"
+    elsif @entry.team.league == "Football"
+      license = "NFLPA"
+    elsif @entry.team.league == "Baseball Hall of Fame"
+      license = "National Baseball Hall of Fame"
+    elsif @entry.team.league == "Music"
+      license = "Periscope Records"
+    end
+
+    if license
+      description = "Shop the #{@entry.design.name} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.team.city} #{@entry.league} Store!"
+    else
+      description = "Shop the #{@entry.design.name} #{style} at 500level.com. Officially Licensed by #{@entry.player.player}, 500 LEVEL is the Ultimate #{@entry.player.player} Store!"
+    end
+  end
+
+  def adwords_grouping
+    "#{@entry.team.league} #{@entry.team.name} #{@entry.player.player} #{style}"
   end
 
   def csv_line_for_size_and_color(size, clothing_color, clothing_size, image_url, first_line)
@@ -131,10 +139,19 @@ class Clothing < ApplicationRecord
   end
 
   def first_line_entries(image_url, clothing_size)
-    csv_line = [GIFT_CARD, nil, nil, nil, nil]
+    if gender == "Kids" && style == "Onesie"
+      csv_line = [GIFT_CARD, gender, Unisex, "Apparel Style – Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby One-Pieces", nil]
+    elsif gender == "Kids"
+      csv_line = [GIFT_CARD, gender, Unisex, "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
+    elsif gender = "Womens"
+      csv_line = [GIFT_CARD, "Adult", "Female", "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
+    else
+      csv_line = [GIFT_CARD, "Adult", "Male", "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
+    end
     csv_line << seo_title
     csv_line << seo_description
-    9.times { csv_line << nil }
+    csv_line << adwords_grouping
+    8.times { csv_line << nil }
     csv_line << image_url
     csv_line << "oz"
 

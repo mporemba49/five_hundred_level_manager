@@ -95,19 +95,10 @@ class Accessory < ApplicationRecord
   end
 
   def img_alt_text(color, size)
-    gender_prefix = ''
-    case gender
-    when 'Men'
-      gender_prefix = "Mens " unless style.include?('Mens')
-    when 'Women'
-      gender_prefix = "Womens " unless style.include?('Womens')
-    when 'Kids'
-      gender_prefix = "Kids " unless style.include?('Kids')
-    end
-    if brand.present?
-      brand.name + " " + size.name + " " + style + " " + color
+    if accessory_type == "Phone Cases"
+      "#{@entry.player.player} #{brand.name} #{size.name} #{style} | 500 LEVEL"
     else
-      style + " " + color
+      "#{@entry.player.player} #{style} | 500 LEVEL"
     end
   end
 
@@ -116,22 +107,39 @@ class Accessory < ApplicationRecord
   end
 
   def seo_title
-    if brand.present?
-      "#{@entry.title} #{brand.name} Case | #{ENV['STORE_TITLE']}"
+    if accessory_type == "Phone Cases"
+      "#{@entry.design.name} #{brand.name} #{size.name} #{style} | 500 LEVEL"
     else
-      "#{@entry.title} #{style} | #{ENV['STORE_TITLE']}"
+      "#{@entry.design.name} #{style} | 500 LEVEL"
     end
   end
 
   def seo_description
-    if brand.present?
-      description = "Show off your fandom with #{ENV['STORE_TITLE']}'s #{@entry.title} #{brand.name} Phone Case. Made by fans, "
-    else
-      description = "Show off your fandom with #{ENV['STORE_TITLE']}'s #{@entry.title} #{style}. Made by fans, "
+    if @entry.team.league == "Baseball"
+      license = "MLBPA"
+    elsif @entry.team.league == "Hockey"
+      license = "NHLPA"
+    elsif @entry.team.league == "Football"
+      license = "NFLPA"
+    elsif @entry.team.league == "Baseball Hall of Fame"
+      license = "National Baseball Hall of Fame"
+    elsif @entry.team.league == "Music"
+      license = "Periscope Records"
     end
-    description << "for fans, #{ENV['STORE_TITLE']} sports apparel lets you rep your team in style. Browse our selection "
-    description << "and order today."
-    description
+
+    if license && accessory_type == "Phone Cases"
+      description = "Shop the #{@entry.design.name} #{brand.name} #{size.name} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Phone Cases at the Ultimate #{@entry.team.city} #{@entry.league} Store!"
+    elsif license
+      description = "Shop the #{@entry.design.name} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.team.city} #{@entry.league} Store!"
+    elsif accessory_type == "Phone Cases"
+      description = "Shop the #{@entry.design.name} #{brand.name} #{size.name} #{style} at 500level.com & Buy Officially Licensed #{@entry.player.player} Phone Cases at the Ultimate #{@entry.player.player} Store!"
+    else
+      description = "Shop the #{@entry.design.name} #{style} at 500level.com. Officially Licensed by #{@entry.player.player}, 500 LEVEL is the Ultimate #{@entry.player.player} Store!"
+    end
+  end
+
+  def adwords_grouping
+    "#{@entry.team.league} #{@entry.team.name} #{@entry.player.player} #{style}"
   end
 
   def csv_line_for_size_and_color(size, accessory_color, accessory_size, image_url, first_line)
@@ -147,10 +155,24 @@ class Accessory < ApplicationRecord
   end
 
   def first_line_entries(image_url, accessory_size)
-    csv_line = [GIFT_CARD, nil, nil, nil, nil]
+
+    if accessory_type == "Pillow"
+      category = "Home & Garden > Decor > Throw Pillows"
+    elsif accessory_type == "Poster"
+      category = "Home & Garden > Decor > Artwork > Posters, Prints, & Visual Artwork"
+    elsif accessory_type == "Fleece Blanket"
+      category = "Home & Garden > Linens & Bedding > Bedding > Blankets"
+    elsif accessory_type == "Hats"
+      category = "Apparel & Accessories > Clothing Accessories > Hats"
+    elsif accessory_type == "Phone Cases"
+      category = "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Cases"
+    end
+
+    csv_line = [GIFT_CARD, "Adult", "Unisex", category, nil]
     csv_line << seo_title
     csv_line << seo_description
-    9.times { csv_line << nil }
+    csv_line << adwords_grouping
+    8.times { csv_line << nil }
     csv_line << image_url
     csv_line << "oz"
 
