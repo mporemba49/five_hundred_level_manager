@@ -105,10 +105,13 @@ class Clothing < ApplicationRecord
   def seo_description
     if @entry.team.league == "MLB"
       license = "MLBPA"
+      sport = "Baseball"
     elsif @entry.team.league == "NHL"
       license = "NHLPA"
+      sport = "Hockey"
     elsif @entry.team.league == "NFL"
       license = "NFLPA"
+      sport ="Football"
     elsif @entry.team.league == "Baseball Hall of Fame"
       license = "National Baseball Hall of Fame"
     elsif @entry.team.league == "Music"
@@ -116,7 +119,7 @@ class Clothing < ApplicationRecord
     end
 
     if license
-      description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.team.city} #{@entry.league} Store!"
+      description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.team.city} #{sport} Store!"
     else
       description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com. Officially Licensed by #{@entry.player.player}, 500 LEVEL is the Ultimate #{@entry.player.player} Store!"
     end
