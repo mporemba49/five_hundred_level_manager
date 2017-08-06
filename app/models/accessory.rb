@@ -115,11 +115,11 @@ class Accessory < ApplicationRecord
   end
 
   def seo_description
-    if @entry.team.league == "Baseball"
+    if @entry.team.league == "MLB"
       license = "MLBPA"
-    elsif @entry.team.league == "Hockey"
+    elsif @entry.team.league == "NHL"
       license = "NHLPA"
-    elsif @entry.team.league == "Football"
+    elsif @entry.team.league == "NFL"
       license = "NFLPA"
     elsif @entry.team.league == "Baseball Hall of Fame"
       license = "National Baseball Hall of Fame"
@@ -168,7 +168,7 @@ class Accessory < ApplicationRecord
       category = "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Cases"
     end
 
-    csv_line = [GIFT_CARD, "Adult", "Unisex", category, nil]
+    csv_line = [GIFT_CARD, nil, "Adult", "Unisex", category]
     csv_line << seo_title
     csv_line << seo_description
     csv_line << adwords_grouping

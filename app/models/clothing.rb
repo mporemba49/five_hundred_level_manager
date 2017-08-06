@@ -103,11 +103,11 @@ class Clothing < ApplicationRecord
   end
 
   def seo_description
-    if @entry.team.league == "Baseball"
+    if @entry.team.league == "MLB"
       license = "MLBPA"
-    elsif @entry.team.league == "Hockey"
+    elsif @entry.team.league == "NHL"
       license = "NHLPA"
-    elsif @entry.team.league == "Football"
+    elsif @entry.team.league == "NFL"
       license = "NFLPA"
     elsif @entry.team.league == "Baseball Hall of Fame"
       license = "National Baseball Hall of Fame"
@@ -140,13 +140,13 @@ class Clothing < ApplicationRecord
 
   def first_line_entries(image_url, clothing_size)
     if gender == "Kids" && style == "Onesie"
-      csv_line = [GIFT_CARD, gender, "Unisex", "Apparel Style – Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby One-Pieces", nil]
+      csv_line = [GIFT_CARD, nil, gender, "Unisex", "Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby One-Pieces"]
     elsif gender == "Kids"
-      csv_line = [GIFT_CARD, gender, "Unisex", "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
+      csv_line = [GIFT_CARD, nil, gender, "Unisex", "Apparel & Accessories > Clothing > Shirts & Tops"]
     elsif gender == "Womens"
-      csv_line = [GIFT_CARD, "Adult", "Female", "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
+      csv_line = [GIFT_CARD, nil, "Adult", "Female", "Apparel & Accessories > Clothing > Shirts & Tops"]
     else
-      csv_line = [GIFT_CARD, "Adult", "Male", "Apparel Styles - Clothing - Apparel & Accessories > Clothing > Shirts & Tops", nil]
+      csv_line = [GIFT_CARD, nil, "Adult", "Male", "Apparel & Accessories > Clothing > Shirts & Tops"]
     end
     csv_line << seo_title
     csv_line << seo_description
