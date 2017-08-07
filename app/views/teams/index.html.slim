@@ -5,6 +5,7 @@ table
     th Name
     th City
     th Royalty (%)
+    th SKU
     - if @teams.any?
       - @teams.each do |team|
         tr
@@ -12,6 +13,7 @@ table
           td = link_to team.name, team_team_players_path(team)
           td = team.city
           td = team.royalty
+          td = team.id_string
           td = link_to 'Edit', edit_team_path(team)
           td = form_tag team_path(team), method: 'DELETE', data: { confirm: "This will delete #{team.name} and all associated players and designs!" }
             = submit_tag "Delete"
