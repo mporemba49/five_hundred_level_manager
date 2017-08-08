@@ -114,7 +114,7 @@ class Accessory < ApplicationRecord
     end
   end
 
-  def seo_description
+  def seo_description(accessory_size)
     if @entry.team.league == "MLB"
       license = "MLBPA"
       sport = "Baseball"
@@ -131,11 +131,11 @@ class Accessory < ApplicationRecord
     end
 
     if license && accessory_type == "Phone Cases"
-      description = "Shop the #{@entry.design.name.titleize} #{brand.name} #{size.name} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Phone Cases at the Ultimate #{@entry.team.city} #{sport} Store!"
+      description = "Shop the #{@entry.design.name.titleize} #{brand.name} #{accessory_size.size.name} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Phone Cases at the Ultimate #{@entry.team.city} #{sport} Store!"
     elsif license
       description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.team.city} #{sport} Store!"
     elsif accessory_type == "Phone Cases"
-      description = "Shop the #{@entry.design.name.titleize} #{brand.name} #{size.name} #{style} at 500level.com & Buy Officially Licensed #{@entry.player.player} Phone Cases at the Ultimate #{@entry.player.player} Store!"
+      description = "Shop the #{@entry.design.name.titleize} #{brand.name} #{accessory_size.size.name} #{style} at 500level.com & Buy Officially Licensed #{@entry.player.player} Phone Cases at the Ultimate #{@entry.player.player} Store!"
     else
       description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com. Officially Licensed by #{@entry.player.player}, 500 LEVEL is the Ultimate #{@entry.player.player} Store!"
     end
@@ -173,7 +173,7 @@ class Accessory < ApplicationRecord
 
     csv_line = [GIFT_CARD, nil, "Adult", "Unisex", category]
     csv_line << seo_title(accessory_size)
-    csv_line << seo_description
+    csv_line << seo_description(accessory_size)
     csv_line << adwords_grouping
     8.times { csv_line << nil }
     csv_line << image_url
