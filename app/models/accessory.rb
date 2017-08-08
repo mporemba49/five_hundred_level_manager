@@ -106,9 +106,9 @@ class Accessory < ApplicationRecord
     [image_url, img_alt_text(color.color_name, size)]
   end
 
-  def seo_title(size)
+  def seo_title(accessory_size)
     if accessory_type == "Phone Cases"
-      "#{@entry.design.name} #{brand.name} #{size.name} #{style} | 500 LEVEL"
+      "#{@entry.design.name} #{brand.name} #{accessory_size.size.name} #{style} | 500 LEVEL"
     else
       "#{@entry.design.name} #{style} | 500 LEVEL"
     end
