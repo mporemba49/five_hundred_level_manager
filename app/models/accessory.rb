@@ -106,7 +106,7 @@ class Accessory < ApplicationRecord
     [image_url, img_alt_text(color.color_name, size)]
   end
 
-  def seo_title
+  def seo_title(size)
     if accessory_type == "Phone Cases"
       "#{@entry.design.name} #{brand.name} #{size.name} #{style} | 500 LEVEL"
     else
@@ -172,7 +172,7 @@ class Accessory < ApplicationRecord
     end
 
     csv_line = [GIFT_CARD, nil, "Adult", "Unisex", category]
-    csv_line << seo_title
+    csv_line << seo_title(accessory_size)
     csv_line << seo_description
     csv_line << adwords_grouping
     8.times { csv_line << nil }
