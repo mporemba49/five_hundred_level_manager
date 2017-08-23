@@ -21,7 +21,7 @@
   = f.label :gender_kids, "Kids"
 .fieldset
   = f.label :price, "Price (USD)"
-  = f.number_field :price
+  = f.number_field :price, step: :any
 .checkboxes
   - Size.adults.each do |size|
     = f.check_box :sizes, { multiple: true, checked: @sizes.include?(size.name) }, size.name

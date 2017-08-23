@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711153002) do
+ActiveRecord::Schema.define(version: 20170823192525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20170711153002) do
   create_table "accessory_sizes", force: :cascade do |t|
     t.integer "accessory_id", null: false
     t.integer "size_id",      null: false
-    t.integer "price"
+    t.decimal "price"
     t.integer "weight"
     t.index ["accessory_id"], name: "index_accessory_sizes_on_accessory_id", using: :btree
     t.index ["size_id"], name: "index_accessory_sizes_on_size_id", using: :btree
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20170711153002) do
     t.string   "clothing_type",    default: "T-Shirt", null: false
     t.string   "style",                                null: false
     t.string   "gender",                               null: false
-    t.integer  "price",                                null: false
+    t.decimal  "price",                                null: false
     t.integer  "weight",                               null: false
     t.string   "extension",        default: ""
     t.string   "handle_extension", default: "",        null: false
