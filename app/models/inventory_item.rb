@@ -3,7 +3,7 @@ class InventoryItem < ApplicationRecord
   belongs_to :team_player
   belongs_to :size
   belongs_to :color
-  belongs_to :producible, -> { unscope(:where) }, polymorphic: true
+  belongs_to :producible, -> { unscope(where: :active) }, polymorphic: true
 
   attr_accessor :bulk_csv
   validates_presence_of :full_sku
