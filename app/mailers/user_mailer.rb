@@ -18,6 +18,20 @@ class UserMailer < ApplicationMailer
     mail(to: email, subject: "#{ENV['EMAIL_TITLE']} | #{channel.name} CSV Download")
   end
 
+  def clearance_csv_upload(email, csv_lines, missing_files, channel_id)
+    @missing_files = missing_files
+    channel = SalesChannel.find_by_id(channel_id)
+    if csv_lines
+      returned_csv = CSV.generate(headers: true) do |csv|
+        csv_lines.each do |line|
+          csv << line
+        end
+      end
+      attachments["#{channel.name}_upload.csv"] = returned_csv
+    end
+    mail(to: email, subject: "#{ENV['EMAIL_TITLE']} | #{channel.name} Clearance CSV Download")
+  end
+
   def sku_upload(email, check_sku)
     check_sku_path = Downloader.call(check_sku)
     csv_lines = CheckSkuCsv.call(check_sku_path)

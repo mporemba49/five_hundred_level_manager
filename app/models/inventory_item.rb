@@ -12,6 +12,9 @@ class InventoryItem < ApplicationRecord
 
   def build_entry
     row = { 'Title' => team_player_design.name, 'Team' => team_player.team.name, 'Player' => team_player.player, 'League' => team_player.team.league, 'City' => team_player.team.city, 'Artist' => team_player_design.artist }
+    row.keys.each do |key|
+      return false if row[key] == nil
+    end
     InputEntry.new(row)
   end
 

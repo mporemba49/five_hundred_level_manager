@@ -202,6 +202,15 @@ class Clothing < ApplicationRecord
     lines
   end
 
+  def csv_lines_for_clearance(item)
+    lines = []
+    image_url = @entry.url_string_for_item(self, clothing_color.image)
+    return false unless image_url
+    clothing_size = ClothingSize.where(clothing_id: self.id, size_id: item.size.id).first
+    lines << csv_line_for_size_and_color(item.size, item.color, clothing_size, image_url, true)
+    lines
+  end
+
   private
 
   def set_handle_extension
