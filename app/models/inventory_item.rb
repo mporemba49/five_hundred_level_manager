@@ -21,6 +21,10 @@ class InventoryItem < ApplicationRecord
     true
   end
 
+  def add_quantity(line)
+    line[16] = quantity
+  end
+
   def self.build_leagues_and_teams(items)
     leagues_and_teams = []
     items.each do |item|

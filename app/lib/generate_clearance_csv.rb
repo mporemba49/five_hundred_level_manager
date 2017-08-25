@@ -35,6 +35,7 @@ class GenerateClearanceCsv
         end
         test_line = product.csv_lines_for_clearance(item, product_color)
         if test_line
+          test_line = item.add_quantity(test_line)
           line_success = true
           output_csv_lines += test_line
         end
