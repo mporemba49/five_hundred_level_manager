@@ -21,4 +21,14 @@ class InventoryItem < ApplicationRecord
     true
   end
 
+  def self.build_leagues_and_teams(items)
+    leagues_and_teams = []
+    items.each do |item|
+      if item.team != nil
+        leagues_and_teams  <<  [item.team.name, item.team.league]
+      end
+    end
+    leagues_and_teams
+  end
+
 end

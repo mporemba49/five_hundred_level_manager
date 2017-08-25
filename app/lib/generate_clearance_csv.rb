@@ -7,7 +7,9 @@ class GenerateClearanceCsv
     output_csv_lines = [header]
     missing_files = []
     sales_channel = SalesChannel.find_by_id(sales_channel_id)
-    InventoryItem.where(id: inventory_item_ids).includes(:team_player_design, :team_player, :size, :color, :producible).find_each do |item|
+    InventoryItem.where(id: inventory_item_ids).includes(:team_player_design, :team_player, :size, :color, :producible).find_in_batches do |batch|
+      leagues_and_teams = InventoryItem.build_leagues_and_teams
+      Validator.league_and_teams = leagues_and_teams
       unless entry = item.build_entry
         missing_files << entry.missing_royalty_error
         next
