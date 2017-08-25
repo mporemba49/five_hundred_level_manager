@@ -8,32 +8,35 @@ class GenerateClearanceCsv
     missing_files = []
     sales_channel = SalesChannel.find_by_id(sales_channel_id)
     InventoryItem.where(id: inventory_item_ids).includes(:team_player_design, :team_player, :size, :color, :producible).find_in_batches do |batch|
-      leagues_and_teams = InventoryItem.build_leagues_and_teams
+      leagues_and_teams = InventoryItem.build_leagues_and_teams(batch)
       Validator.league_and_teams = leagues_and_teams
-      unless entry = item.build_entry
-        missing_files << entry.missing_royalty_error
-        next
+      batch.each do |item|
+        unless entry = item.build_entry
+          missing_files << entry.missing_royalty_error
+          next
+        end
+        product = item.producible
+        product.entry = entry
+        royalty = Royalty.find_by_league(entry.league)
+        if !royalty
+          missing_files << entry.missing_royalty_error
+          next
+        end
+        line_success = false
+        product.royalty_sku = royalty.code + sales_channel.sku
+        if product.class.name == "Clothing"
+          product_color = ClothingColor.where(clothing_id: product.id, color_id: item.color.id).first
+        else
+          product_color = AccessoryColor.where(accessory_id: product.id, color_id: item.color.id).first
+        end
+        test_line = product.csv_lines_for_clearance(item, product_color)
+        if test_line
+          line_success = true
+          output_csv_lines += test_line
+        end
+        missing_files << entry.missing_item_error(product) unless line_success
       end
-      product = item.producible
-      product.entry = entry
-      royalty = Royalty.find_by_league(entry.league)
-      if !royalty
-        missing_files << entry.missing_royalty_error
-        next
-      end
-      line_success = false
-      product.royalty_sku = royalty.code + sales_channel.sku
-      if product.class.name == "Clothing"
-        product_color = ClothingColor.where(clothing_id: product.id, color_id: item.color.id).first
-      else
-        product_color = AccessoryColor.where(accessory_id: product.id, color_id: item.color.id).first
-      end
-      test_line = product.csv_lines_for_clearance(item, product_color)
-      if test_line
-        line_success = true
-        output_csv_lines += test_line
-      end
-      missing_files << entry.missing_item_error(product) unless line_success
+      Validator.reset
     end
     [output_csv_lines, missing_files]
   end
