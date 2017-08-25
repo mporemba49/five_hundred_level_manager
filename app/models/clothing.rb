@@ -202,7 +202,7 @@ class Clothing < ApplicationRecord
     lines
   end
 
-  def csv_lines_for_clearance(item)
+  def csv_lines_for_clearance(item, clothing_color)
     lines = []
     image_url = @entry.url_string_for_item(self, clothing_color.image)
     return false unless image_url

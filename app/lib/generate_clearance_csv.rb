@@ -26,7 +26,7 @@ class GenerateClearanceCsv
       else
         product_color = AccessoryColor.where(accessory_id: product.id, color_id: item.color.id).first
       end
-      test_line = product.csv_lines_for_clearance(product_color)
+      test_line = product.csv_lines_for_clearance(item, product_color)
       if test_line
         line_success = true
         output_csv_lines += test_line
