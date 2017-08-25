@@ -12,7 +12,7 @@ class InventoryItem < ApplicationRecord
 
   def build_entry
     return false unless check_data
-    row = { 'Title' => team_player_design.name, 'Team' => team_player.team.name, 'Player' => team_player.player, 'League' => team_player.team.league, 'City' => team_player.team.city, 'Artist' => team_player_design.artist }
+    row = { 'Title' => team_player_design.name.split.map(&:capitalize).join(' '), 'Team' => team_player.team.name, 'Player' => team_player.player, 'League' => team_player.team.league, 'City' => team_player.team.city, 'Artist' => team_player_design.artist.split.map(&:capitalize).join(' ') }
     InputEntry.new(row)
   end
 
