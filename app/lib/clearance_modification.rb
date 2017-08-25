@@ -8,7 +8,7 @@ class ClearanceModification
       line[15] = "shopify"
       line[20] = line[19]
       line[19] = line[19] / 2
-      line.last += " Clearance"
+      line[44] += " Clearance"
     end
     return csv_lines
   end
