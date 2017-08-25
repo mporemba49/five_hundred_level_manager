@@ -11,11 +11,14 @@ class InventoryItem < ApplicationRecord
   acts_as_paranoid
 
   def build_entry
+    return false unless check_data
     row = { 'Title' => team_player_design.name, 'Team' => team_player.team.name, 'Player' => team_player.player, 'League' => team_player.team.league, 'City' => team_player.team.city, 'Artist' => team_player_design.artist }
-    row.keys.each do |key|
-      return false if row[key] == nil
-    end
     InputEntry.new(row)
+  end
+
+  def check_data
+    return false if team_player_design == nil || team_player == nil || size == nil || color == nil || producible == nil
+    true
   end
 
 end

@@ -19,6 +19,7 @@ class GenerateClearanceCsv
         missing_files << entry.missing_royalty_error
         next
       end
+      line_success = false
       product.royalty_sku = royalty.code + sales_channel.sku
       if product.class.name == "Clothing"
         product_color = ClothingColor.where(clothing_id: product.id, color_id: item.color.id).first
