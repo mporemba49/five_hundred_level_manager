@@ -22,7 +22,7 @@ class InventoryItem < ApplicationRecord
   end
 
   def add_quantity(line)
-    line[16] = quantity
+    line[0][16] = quantity
     return line
   end
 
