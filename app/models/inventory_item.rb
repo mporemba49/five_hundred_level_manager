@@ -28,6 +28,7 @@ class InventoryItem < ApplicationRecord
         leagues_and_teams  <<  [item.team.name, item.team.league]
       end
     end
+    leagues_and_teams.uniq!
     leagues_and_teams
   end
 
