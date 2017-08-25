@@ -23,6 +23,7 @@ class InventoryItem < ApplicationRecord
 
   def add_quantity(line)
     line[16] = quantity
+    return line
   end
 
   def self.build_leagues_and_teams(items)
