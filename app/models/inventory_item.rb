@@ -24,8 +24,8 @@ class InventoryItem < ApplicationRecord
   def self.build_leagues_and_teams(items)
     leagues_and_teams = []
     items.each do |item|
-      if item.team != nil
-        leagues_and_teams  <<  [item.team.name, item.team.league]
+      if item.team_player != nil && item.team_player.team != nil
+        leagues_and_teams  <<  [item.team_player.team.name, item.team_player.team.league]
       end
     end
     leagues_and_teams.uniq!
