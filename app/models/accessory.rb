@@ -229,7 +229,7 @@ class Accessory < ApplicationRecord
     return false unless image_url
     logger.info "Image URL"
     accessory_size = AccessorySize.where(accessory_id: self.id, size_id: item.size.id).first
-    lines << csv_line_for_size_and_color(item.size, item.color, accessory_size, image_url, true)
+    lines << csv_line_for_size_and_color(item.size, accessory_color, accessory_size, image_url, true)
     lines
   end
 
