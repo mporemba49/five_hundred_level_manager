@@ -1,12 +1,8 @@
-class InventoryCsvJob < ApplicationJob
+class ClearanceCsvJob < ApplicationJob
   queue_as :default
 
-  def perform(email, inventory_item_ids, sales_channel_skus)
-    if sales_channel_skus.include?("ET")
-      etsy_index = sales_channel_skus.index("ET")
-      last_index = sales_channel_skus.size - 1
-      sales_channel_skus.insert(last_index, sales_channel_skus.delete_at(etsy_index))
-    end
+  def perform(email, inventory_item_ids)
+    sales_channel_skus = ["SH"]
     csv_lines, @missing_files = GenerateClearanceCsv.call(inventory_item_ids, SalesChannel.find_by_sku(sales_channel_skus).id)
     csv_lines = ClearanceModification.call(csv_lines)
     sales_channel_sku = sales_channel_skus.shift

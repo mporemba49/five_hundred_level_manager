@@ -28,13 +28,18 @@ table
     th Quantity
     th Date Added
 
-  = form_tag inventory_items_mass_delete_path do |f|
-    = submit_tag "Delete Items"
+  = form_tag inventory_items_mass_action_path do |f|
+    = submit_tag 'Delete Items'
+    br
+    = submit_tag 'Clearance CSV'
     br
     = link_to "Undo Delete", inventory_items_soft_deleted_path
+    tr
+      td = check_box_tag 'inactive_accessory_check', nil, checked = false, class: 'inventoryItemCheck'
+      td Select All
     - @inventory_items.each do |item|
       tr
-        td = check_box_tag 'inventory_item_ids[]', item.id
+        td = check_box_tag 'inventory_item_ids[]', item.id, checked = false, class: "inventoryItem"
         td = item.full_sku
         td = item.product
         td = item.team_player_design.name if item.team_player_design
