@@ -1,7 +1,8 @@
 class ClearanceModification
 
   def self.call(csv_lines)
-    csv_lines.drop(1).each do |line| 
+    csv_lines.drop(1).each do |line|
+      logger.info(line) 
       line[0] += "-clearance"
       line[1] += " - Clearance"
       line[5] += ",Clearance"
