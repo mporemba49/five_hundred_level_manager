@@ -29,6 +29,10 @@ class GenerateClearanceCsv
         else
           product_color = AccessoryColor.where(accessory_id: product.id, color_id: item.color.id).first
         end
+        if !product_color
+          missing_files << entry.missing_royalty_error
+          next
+        end
         test_line = product.csv_lines_for_clearance(item, product_color)
         if test_line
           line_success = true
