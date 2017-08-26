@@ -101,12 +101,12 @@ class InputEntry
     "MISSING \'/#{league}/#{team}/#{title}/\ - League Royalty'"
   end
 
-  def missing_item_data
-    "MISSING \'/#{league}/#{team}/#{title}/\ - Incomplete Data'"
+  def self.missing_item_data(inventory_item)
+    "MISSING \'/Item Number #{inventory_item.id}/\ - Incomplete Data'"
   end
 
   def missing_product_color
-    "MISSING \'/#{league}/#{team}/#{title}/\ - Color does note exist for product type'"
+    "MISSING \'/#{league}/#{team}/#{title}/\ - Color does not exist for product type'"
   end
 
   def clothing
