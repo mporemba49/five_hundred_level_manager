@@ -208,6 +208,7 @@ class Clothing < ApplicationRecord
     return false unless image_url
     logger.info "Image URL"
     clothing_size = ClothingSize.where(clothing_id: self.id, size_id: item.size.id).first
+    return false unless clothing_size
     lines << csv_line_for_size_and_color(item.size, clothing_color, clothing_size, image_url, true)
     lines
   end
