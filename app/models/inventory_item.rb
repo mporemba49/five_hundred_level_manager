@@ -17,7 +17,7 @@ class InventoryItem < ApplicationRecord
   end
 
   def check_data
-    return false if team_player_design == nil || team_player == nil || size == nil || color == nil || producible == nil
+    return false if team_player_design == nil || team_player == nil || size == nil || color == nil || producible == nil || team_player.team == nil
     true
   end
 
