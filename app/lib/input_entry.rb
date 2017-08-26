@@ -101,6 +101,10 @@ class InputEntry
     "MISSING \'/#{league}/#{team}/#{title}/\ - League Royalty'"
   end
 
+  def missing_item_data
+    "MISSING \'/#{league}/#{team}/#{title}/\ - Incomplete Data'"
+  end
+
   def clothing
     Clothing.includes(clothing_colors: [:color]).includes(:tags, :sizes)
   end

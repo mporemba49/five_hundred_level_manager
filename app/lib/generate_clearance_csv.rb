@@ -12,7 +12,7 @@ class GenerateClearanceCsv
       Validator.league_and_teams = leagues_and_teams
       batch.each do |item|
         unless entry = item.build_entry
-          missing_files << entry.missing_royalty_error
+          missing_files << entry.missing_item_data
           next
         end
         product = item.producible
