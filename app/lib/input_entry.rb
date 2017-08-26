@@ -105,6 +105,10 @@ class InputEntry
     "MISSING \'/#{league}/#{team}/#{title}/\ - Incomplete Data'"
   end
 
+  def missing_product_color
+    "MISSING \'/#{league}/#{team}/#{title}/\ - Color does note exist for product type'"
+  end
+
   def clothing
     Clothing.includes(clothing_colors: [:color]).includes(:tags, :sizes)
   end
