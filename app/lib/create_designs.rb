@@ -22,6 +22,7 @@ class CreateDesigns
     city = row[4].strip
     artist = row[5].strip.downcase
 
+    return if !Royalty.find_by_league(league).present?
     team = create_team(team, league, city)
     team_player = create_team_player(team, player)
     create_design(team_player, title, artist)
