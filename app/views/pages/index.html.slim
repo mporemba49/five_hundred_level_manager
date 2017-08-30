@@ -1,17 +1,18 @@
 = link_to 'New Clothing', new_clothing_path
-table
-  tr 
-    th
-    th Base Name
-    th Style
-    th Gender
-    th Price
-    th Sizes
-    th SKU
-  tr
-    td
-    td Active Clothing
-  = form_tag clothing_mass_toggle_path do |f|
+
+= form_tag clothing_mass_toggle_path do |f|
+  table
+    tr 
+      th
+      th Base Name
+      th Style
+      th Gender
+      th Price
+      th Sizes
+      th SKU
+    tr
+      td
+      td Active Clothing
     tr
       td = check_box_tag 'active_clothing_check', nil, checked = false, class: 'activeClothingCheck'
       td Select All
@@ -49,21 +50,21 @@ table
       td = submit_tag "Toggle Clothing Activation"
 
 = link_to 'New Accessory', new_accessory_path
-table
-  tr 
-    th
-    th Base Name
-    th Style
-    th Gender
-    th Brand
-    th Prices
-    th Sizes
-    th SKU
-  tr
-    td
-    td Active Accessory
-
-  = form_tag accessory_mass_toggle_path do |f|
+= form_tag accessory_mass_toggle_path do |f|
+  table
+    tr 
+      th
+      th Base Name
+      th Style
+      th Gender
+      th Brand
+      th Prices
+      th Sizes
+      th SKU
+    tr
+      td
+      td Active Accessory
+  
     tr
       td = check_box_tag 'active_accessory_check', nil, checked = false, class: 'activeAccessoryCheck'
       td Select All

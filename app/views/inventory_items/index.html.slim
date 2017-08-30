@@ -8,32 +8,32 @@
 
 h4 Manage Inventory Items
 
-table
-  tr
-    th
-    th Full Sku 
-    th 
-      = sortable "product"
-    th 
-      = sortable "design"
-    th 
-      = sortable "team"
-    th 
-      = sortable "player"
-    th 
-      = sortable "league"
-    th Size
-    th Color
-    th Location
-    th Quantity
-    th Date Added
+= form_tag inventory_items_mass_action_path do |f|
+  = submit_tag 'Delete Items'
+  br
+  = submit_tag 'Clearance CSV'
+  br
+  = link_to "Undo Delete", inventory_items_soft_deleted_path
+  table
+    tr
+      th
+      th Full Sku 
+      th 
+        = sortable "product"
+      th 
+        = sortable "design"
+      th 
+        = sortable "team"
+      th 
+        = sortable "player"
+      th 
+        = sortable "league"
+      th Size
+      th Color
+      th Location
+      th Quantity
+      th Date Added
 
-  = form_tag inventory_items_mass_action_path do |f|
-    = submit_tag 'Delete Items'
-    br
-    = submit_tag 'Clearance CSV'
-    br
-    = link_to "Undo Delete", inventory_items_soft_deleted_path
     tr
       td = check_box_tag 'inactive_accessory_check', nil, checked = false, class: 'inventoryItemCheck'
       td Select All
