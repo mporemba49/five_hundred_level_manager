@@ -143,19 +143,31 @@ class InventoryItemsController < ApplicationController
       "team_player_designs.name"
     elsif params[:sort] == "player"
       "team_players.player"
+    elsif params[:sort] == "size"
+      "sizes.name"
+    elsif params[:sort] == "color"
+      "colors.name"
     elsif params[:sort] == "league"
       "teams.league"
     elsif params[:sort] == "team"
       "teams.name"
     elsif params[:sort] == "product"
       "product"
+    elsif params[:sort] == "location"
+      "location"
+    elsif params[:sort] == "quantity"
+      "quantity"
+    elsif params[:sort] == "date_added"
+      "created_at"
+    elsif params[:sort] == "full_sku"
+      "full_sku"
     else
       "team_player_id"
     end
   end
 
   def sort_column
-    %w[design team player league product].include?(params[:sort]) ? params[:sort] : "team_player_id"
+    %w[design team player league product size color location quantity date_added full_sku].include?(params[:sort]) ? params[:sort] : "team_player_id"
   end
   
   def sort_direction

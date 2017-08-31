@@ -17,7 +17,8 @@ h4 Manage Inventory Items
   table
     tr
       th
-      th Full Sku 
+      th 
+        = sortable "full_sku" 
       th 
         = sortable "product"
       th 
@@ -28,11 +29,16 @@ h4 Manage Inventory Items
         = sortable "player"
       th 
         = sortable "league"
-      th Size
-      th Color
-      th Location
-      th Quantity
-      th Date Added
+      th 
+        = sortable "size"
+      th 
+        = sortable "color"
+      th 
+        = sortable "location"
+      th 
+        = sortable "quantity"
+      th 
+        = sortable "date_added"
 
     tr
       td = check_box_tag 'inactive_accessory_check', nil, checked = false, class: 'inventoryItemCheck'
