@@ -37,4 +37,11 @@ class HostValidator < AwsParent
     encoded_path = encoded_path.gsub(")","\\)")
     paths.join.match(encoded_path)
   end
+
+  def alt_valid_folder?(path)
+    encoded_path = path.gsub("(","\\(")
+    encoded_path = encoded_path.gsub(")","\\)")
+    reg = /#{Regexp.quote(encoded_path)}/i
+    paths.join.match(reg)
+  end
 end

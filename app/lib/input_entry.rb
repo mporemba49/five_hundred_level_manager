@@ -56,6 +56,12 @@ class InputEntry
       @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title} (#{@artist})"
     elsif Validator.valid_folder?(default_folder)
       @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title}"
+    elsif match = Validator.alt_valid_folder?(folder_with_artist)
+      @title = match.to_s.split('/')[2].split('(')[0]
+      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title} (#{@artist})"
+    elsif Validator.alt_valid_folder?(default_folder)
+      @title = match.to_s.split('/')[2]
+      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title}"
     end
 
     @url_design
