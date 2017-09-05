@@ -16,6 +16,7 @@ class GenerateSkuCsv
     CSV.open(path, "wb") do |csv|
       TeamPlayer.includes(:designs, :team).find_each(batch_size: 50) do |player|
         royalty = royalties.select { |royalty| royalty.league == player.team.league }.first
+        next unless royalty
         designs = player.designs
         designs.each do |design|
           clothings.each do |clothing|
