@@ -17,7 +17,20 @@ class InventoryItemsController < ApplicationController
 
   def update
     @inventory_item = InventoryItem.find(params[:id])
-    if @inventory_item.update_attributes(item_params)
+    @inventory_item.full_sku = full_sku
+    @inventory_item.location = item_params[:location]
+    @team = Team.where(id: full_sku.slice(15..18)).first
+    @player = @team.team_players.where(sku: full_sku.slice(20..22)).first
+    @design = TeamPlayerDesign.where(sku: full_sku.slice(24..25).to_i, team_player_id: @player.id).first
+    @inventory_item.team_player_id = @player.id
+    @inventory_item.team_player_design_id = @design.id
+    @inventory_item.color_id = Color.where(sku: full_sku.slice(8..10)).first.id
+    @inventory_item.size_id = Size.where(sku: full_sku.slice(3..4)).first.id
+    @item = Accessory.unscoped.where(sku: full_sku.slice(5..7)).first || Clothing.unscoped.where(sku: full_sku.slice(5..7)).first
+    @inventory_item.producible_id = @item.id
+    @inventory_item.producible_type = @item.class.name  
+    @inventory_item.product = @item.style
+    if @inventory_item.save
       flash[:notice] = 'Inventory Item updated'
       redirect_to inventory_items_path
     else
