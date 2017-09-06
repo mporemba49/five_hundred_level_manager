@@ -72,7 +72,7 @@ class InputEntry
   end
 
   def league
-    @league ||= @design.team.league
+    @league ||= @team.league
   end
 
   def team
