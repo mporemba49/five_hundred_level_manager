@@ -175,11 +175,9 @@ class InputEntry
 
   def complete
     return false unless @title
-    return false unless @artist
     return false unless @design
     return false unless @team
     return false unless @player
-    return false unless @city
     true
   end
 
