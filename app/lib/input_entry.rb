@@ -24,7 +24,7 @@ class InputEntry
 
   def url_string_for_item(item, image)
     search_sub_dirs.each do |sub_dir|
-      test_url = item.image_url_builder(entry.url_design, sub_dir, image)
+      test_url = item.image_url_builder(self.url_design, sub_dir, image)
       rootless_url = test_url.gsub(ENV['IMAGE_ROOT'],'')
       matching_object = Validator.objects.select { |object| object.key.downcase == rootless_url.downcase }.first
 
