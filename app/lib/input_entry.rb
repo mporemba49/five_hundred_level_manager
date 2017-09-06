@@ -111,6 +111,11 @@ class InputEntry
     "MISSING \'/Item Number #{inventory_item.id}/\ - Incomplete Data'"
   end
 
+
+  def self.failed_completeness(inventory_item)
+    "MISSING \'/Item Number #{inventory_item.id}/\ - Incomplete Data 2'"
+  end
+
   def missing_product_color
     "MISSING \'/#{league}/#{team}/#{title}/\ - Color does not exist for product type'"
   end

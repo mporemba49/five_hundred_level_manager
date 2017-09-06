@@ -16,7 +16,7 @@ class GenerateClearanceCsv
           next
         end
         unless entry.complete
-          missing_files << InputEntry.missing_item_data(item)
+          missing_files << InputEntry.failed_completeness(item)
           next
         end
         product = item.producible
