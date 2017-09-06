@@ -24,7 +24,7 @@ class InputEntry
 
   def url_string_for_item(item, image)
     search_sub_dirs.each do |sub_dir|
-      test_url = item.image_url_builder(url_design, sub_dir, image)
+      test_url = item.image_url_builder(entry.url_design, sub_dir, image)
       rootless_url = test_url.gsub(ENV['IMAGE_ROOT'],'')
       matching_object = Validator.objects.select { |object| object.key.downcase == rootless_url.downcase }.first
 
@@ -57,10 +57,10 @@ class InputEntry
     elsif Validator.valid_folder?(default_folder)
       @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title}"
     elsif match = Validator.alt_valid_folder?(folder_with_artist)
-      @title = match.to_s.split('/')[2].split('(')[0]
+      @title = match.to_s.split('/')[2].split('(')[0].squish
       @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title} (#{@artist})"
     elsif match = Validator.alt_valid_folder?(default_folder)
-      @title = match.to_s.split('/')[2]
+      @title = match.to_s.split('/')[2].squish
       @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title}"
     end
 
