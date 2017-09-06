@@ -15,6 +15,10 @@ class GenerateClearanceCsv
           missing_files << InputEntry.missing_item_data(item)
           next
         end
+        unless entry.complete
+          missing_files << InputEntry.missing_item_data(item)
+          next
+        end
         product = item.producible
         product.entry = entry
         royalty = Royalty.find_by_league(entry.league)
