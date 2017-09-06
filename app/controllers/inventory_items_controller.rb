@@ -17,6 +17,7 @@ class InventoryItemsController < ApplicationController
 
   def update
     @inventory_item = InventoryItem.find(params[:id])
+    full_sku = item_params[:full_sku]
     @inventory_item.full_sku = full_sku
     @inventory_item.location = item_params[:location]
     @team = Team.where(id: full_sku.slice(15..18)).first
