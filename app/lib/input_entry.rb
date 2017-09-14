@@ -23,21 +23,23 @@ class InputEntry
   end
 
   def url_string_for_item(item, image)
-    search_sub_dirs.each do |sub_dir|
-      test_url = item.image_url_builder(self.url_design, sub_dir, image)
-      rootless_url = test_url.gsub(ENV['IMAGE_ROOT'],'')
-      matching_object = Validator.objects.select { |object| object.key.downcase == rootless_url.downcase }.first
+    test_url = item.image_url_builder(self.url_design, item.gender, image)
+    rootless_url = test_url.gsub(ENV['IMAGE_ROOT'],'')
+    matching_object = Validator.objects.select { |object| object.key.downcase == rootless_url.downcase }.first
 
-      if matching_object
-        test_url = ENV['IMAGE_ROOT'] + matching_object.key
-        return URI.escape(test_url)
-      end
+    if matching_object
+      test_url = ENV['IMAGE_ROOT'] + matching_object.key
+      return URI.escape(test_url)
     end
+
 
     nil
   end
 
-  def search_sub_dirs
+  def url_strings_for_items
+
+  def search_sub_dirs(item)
+    [item.gender, item.gender.upcase]
     ["Men","Women","Kids","","MEN","Unisex","KIDS","women","WOMEN","Accessories"]
   end
 
