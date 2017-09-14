@@ -36,8 +36,6 @@ class InputEntry
     nil
   end
 
-  def url_strings_for_items
-
   def search_sub_dirs(item)
     [item.gender, item.gender.upcase]
     ["Men","Women","Kids","","MEN","Unisex","KIDS","women","WOMEN","Accessories"]
