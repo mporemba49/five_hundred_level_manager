@@ -36,11 +36,6 @@ class InputEntry
     nil
   end
 
-  def search_sub_dirs(item)
-    [item.gender, item.gender.upcase]
-    ["Men","Women","Kids","","MEN","Unisex","KIDS","women","WOMEN","Accessories"]
-  end
-
   def default_folder
     "#{league}/#{team}/#{@title}/"
   end
@@ -157,7 +152,7 @@ class InputEntry
       @city_add.present? ? city_add = additional_tags("city", @city_add) : city_add = []
       league == "Baseball Hall of Fame" ? throwback_tag = ["sport=Throwbacks"] : throwback_tag = []
       item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
-      item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style_tag}"]
+      item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style}"]
       item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
       item.sku == unique ? item_tags_4 = ["listing=Unique"] : item_tags_4 = []
       item_tags_5 = player_add + team_add + sport_add + city_add + throwback_tag
