@@ -119,9 +119,7 @@ class Accessory < ApplicationRecord
   end
 
   def seo_description(accessory_size)
-    if ENV['STORE_TITLE'] == "Nomadic Apparel"
-      nomadic_seo_description(accessory_size)
-    elsif @entry.team.league == "MLB"
+    if @entry.team.league == "MLB"
       license = "MLBPA"
       sport = "Baseball"
     elsif @entry.team.league == "NHL"
@@ -136,7 +134,9 @@ class Accessory < ApplicationRecord
       license = "Periscope Records"
     end
 
-    if license && accessory_type == "Phone Cases"
+    if ENV['STORE_TITLE'] == "Nomadic Apparel"
+      nomadic_seo_description(accessory_size)
+    elsif license && accessory_type == "Phone Cases"
       description = "Shop the #{@entry.design.name.titleize} #{brand.name} #{accessory_size.size.name} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Phone Cases at the Ultimate #{@entry.team.city} #{sport} Store!"
     elsif license
       description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.team.city} #{sport} Store!"
