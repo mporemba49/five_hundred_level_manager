@@ -96,10 +96,14 @@ class Accessory < ApplicationRecord
 
   def img_alt_text(color, size)
     if accessory_type == "Phone Cases"
-      "#{@entry.player.player} #{brand.name} #{size.name} #{style} | 500 LEVEL"
+      text = "#{@entry.player.player} #{brand.name} #{size.name} #{style} | 500 LEVEL"
     else
-      "#{@entry.player.player} #{style} | 500 LEVEL"
+      text = "#{@entry.player.player} #{style} | 500 LEVEL"
     end
+    if ENV['STORE_TITLE'] == "Nomadic Apparel"
+      text.slice!(" | 500 LEVEL")
+    end
+    text
   end
 
   def image_data(image_url, color, size)
