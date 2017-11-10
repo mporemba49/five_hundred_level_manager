@@ -91,7 +91,11 @@ class Clothing < ApplicationRecord
   end
 
   def img_alt_text(color)
-    "#{@entry.player} #{style} | 500 LEVEL"
+    if ENV['STORE_TITLE'] == "Nomadic Apparel"
+      "#{@entry.player} #{style}"
+    else
+      "#{@entry.player} #{style} | 500 LEVEL"
+    end
   end
 
   def image_data(image_url, color)
