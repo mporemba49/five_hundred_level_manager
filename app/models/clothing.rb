@@ -107,6 +107,8 @@ class Clothing < ApplicationRecord
   end
 
   def seo_description
+    if ENV['STORE_TITLE'] == "Nomadic Apparel"
+      nomadic_seo_description(accessory_size)
     if @entry.team.league == "MLB"
       license = "MLBPA"
       sport = "Baseball"
@@ -127,6 +129,10 @@ class Clothing < ApplicationRecord
     else
       description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com. Officially Licensed by #{@entry.player.player}, 500 LEVEL is the Ultimate #{@entry.player.player} Store!"
     end
+  end
+
+  def nomadic_seo_description(accessory_size)
+    "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.league.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
   end
 
   def adwords_grouping
