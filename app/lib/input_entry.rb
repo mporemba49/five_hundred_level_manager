@@ -126,7 +126,7 @@ class InputEntry
   def league_sport(league)
     sports = { 'MLB' => 'Baseball', 'NFL' => 'Football',
                'NBA' => 'Basketball', 'NHL' => 'Hockey' }
-    sports[league]
+    sports[league] || league
   end
 
   def additional_tags(tag, data_add)
@@ -140,7 +140,7 @@ class InputEntry
 
   def tags(item, published, first_line)
     if first_line
-      sport = league_sport(league) || league
+      sport = league_sport(league)
       if /\A\d+\z/.match(sport.split(' ').last)
         sport = sport.split(' ')
         sport.pop
