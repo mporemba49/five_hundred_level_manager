@@ -109,7 +109,7 @@ class Clothing < ApplicationRecord
   def seo_description
     if ENV['STORE_TITLE'] == "Nomadic Apparel"
       nomadic_seo_description(accessory_size)
-    if @entry.team.league == "MLB"
+    elsif @entry.team.league == "MLB"
       license = "MLBPA"
       sport = "Baseball"
     elsif @entry.team.league == "NHL"
