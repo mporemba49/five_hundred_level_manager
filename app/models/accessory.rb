@@ -149,9 +149,9 @@ class Accessory < ApplicationRecord
 
   def nomadic_seo_description(accessory_size)
     if accessory_type == "Phone Cases"
-      "Shop our #{@entry.player.player} #{brand.name} #{accessory_size.size.name} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.league.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
+      "Shop our #{@entry.player.player} #{brand.name} #{accessory_size.size.name} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
     else
-      "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.league.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
+      "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
     end
   end
 

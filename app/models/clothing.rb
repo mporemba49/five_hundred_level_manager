@@ -132,7 +132,7 @@ class Clothing < ApplicationRecord
   end
 
   def nomadic_seo_description
-    "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.league.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
+    "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
   end
 
   def adwords_grouping
