@@ -104,7 +104,7 @@ class Clothing < ApplicationRecord
 
   def seo_title
     if ENV['STORE_TITLE'] == "Nomadic Apparel"
-      "#{@entry.player.player} #{style} #{@entry.team.city} & #{@entry.league_sport(@entry.team.league)} | Themed Apparel"
+      "#{@entry.player.player} #{style} | #{@entry.team.city} & #{@entry.league_sport(@entry.team.league)} Themed Apparel"
     else
       "#{@entry.title} #{style} | #{ENV['STORE_TITLE']}"
     end
