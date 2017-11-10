@@ -114,7 +114,7 @@ class Accessory < ApplicationRecord
     if ENV['STORE_TITLE'] == "Nomadic Apparel" && accessory_type == "Phone Cases"
       "#{@entry.player.player} #{brand.name} #{style} #{gender} | 500 LEVEL"
     elsif ENV['STORE_TITLE'] == "Nomadic Apparel"
-      "#{@entry.title.slice!(" WHT")} #{style} #{@entry.league_sport(@entry.team.league)} | & #{@entry.player} Themed Apparel"
+      "#{@entry.player.player} #{style} #{@entry.team.city} #{@entry.league_sport(@entry.team.league)} Themed Apparel"
     elsif accessory_type == "Phone Cases"
       "#{@entry.design.name.titleize} #{brand.name} #{accessory_size.size.name} #{style} | 500 LEVEL"
     else
