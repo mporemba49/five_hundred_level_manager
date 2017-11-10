@@ -108,7 +108,7 @@ class Clothing < ApplicationRecord
 
   def seo_description
     if ENV['STORE_TITLE'] == "Nomadic Apparel"
-      nomadic_seo_description(accessory_size)
+      nomadic_seo_description
     elsif @entry.team.league == "MLB"
       license = "MLBPA"
       sport = "Baseball"
@@ -131,7 +131,7 @@ class Clothing < ApplicationRecord
     end
   end
 
-  def nomadic_seo_description(accessory_size)
+  def nomadic_seo_description
     "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.league.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
   end
 
