@@ -107,15 +107,21 @@ class Accessory < ApplicationRecord
   end
 
   def seo_title(accessory_size)
-    if accessory_type == "Phone Cases"
-      "#{@entry.design.name} #{brand.name} #{accessory_size.size.name} #{style} | 500 LEVEL"
+    if ENV['STORE_TITLE'] == "Nomadic Apparel" && accessory_type == "Phone Cases"
+      "#{@entry.player.player} #{brand.name} #{style} #{gender} | 500 LEVEL"
+    elsif ENV['STORE_TITLE'] == "Nomadic Apparel"
+      "#{@entry.title.slice!(" WHT")} #{style} #{@entry.league_sport(@entry.team.league)} | & #{@entry.player} Themed Apparel"
+    elsif accessory_type == "Phone Cases"
+      "#{@entry.design.name.titleize} #{brand.name} #{accessory_size.size.name} #{style} | 500 LEVEL"
     else
-      "#{@entry.design.name} #{style} | 500 LEVEL"
+      "#{@entry.design.name.titleize} #{style} | 500 LEVEL"
     end
   end
 
   def seo_description(accessory_size)
-    if @entry.team.league == "MLB"
+    if ENV['STORE_TITLE'] == "Nomadic Apparel"
+      nomadic_seo_description(accessory_size)
+    elsif @entry.team.league == "MLB"
       license = "MLBPA"
       sport = "Baseball"
     elsif @entry.team.league == "NHL"
@@ -141,6 +147,14 @@ class Accessory < ApplicationRecord
     end
   end
 
+  def nomadic_seo_description(accessory_size)
+    if accessory_type == "Phone Cases"
+      "Shop our #{@entry.player.player} #{brand.name} #{accessory_size.size.name} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.league.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
+    else
+      "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.league.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
+    end
+  end
+
   def adwords_grouping
     "#{@entry.team.league} #{@entry.team.name} #{@entry.player.player} #{style}"
   end
@@ -152,7 +166,6 @@ class Accessory < ApplicationRecord
     columns += full_sku(size.sku, accessory_color)
     columns += variants_data(accessory_size) + image_data(image_url, accessory_color, size)
     columns += first_line ? first_line_entries(image_url, accessory_size) : later_line_entries(image_url, accessory_size)
-    columns += [@entry.title + " " + gender] if first_line
 
     columns
   end

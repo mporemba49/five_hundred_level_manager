@@ -99,7 +99,11 @@ class Clothing < ApplicationRecord
   end
 
   def seo_title
-    "#{@entry.title} #{style} | #{ENV['STORE_TITLE']}"
+    if ENV['STORE_TITLE'] == "Nomadic Apparel"
+      "#{@entry.title.slice!(" WHT")} #{style} #{@entry.league_sport(@entry.team.league)} | & #{@entry.player} Themed Apparel"
+    else
+      "#{@entry.title} #{style} | #{ENV['STORE_TITLE']}"
+    end
   end
 
   def seo_description
@@ -136,7 +140,6 @@ class Clothing < ApplicationRecord
     columns += full_sku(size.sku, clothing_color)
     columns += variants_data(clothing_size) + image_data(image_url, clothing_color)
     columns += first_line ? first_line_entries(image_url, clothing_size) : later_line_entries(image_url, clothing_size)
-    columns += [@entry.title] if first_line
 
     columns
   end
