@@ -49,9 +49,10 @@ class EtsyModification
           elsif sport == "Hockey"
             tags += ", NHL, Stanley Cup"
           end
-          line[1] = line[1] + " Officially Licensed " + (sport == "Personalities" ? "" : city + " ") + style if line[1]
           if ENV['STORE_TITLE'] == "Nomadic Apparel"
-            line[2] = "#{player} #{style} - #{sport} #{city} Themed Apparel – " + line[2]
+            line[1] = "#{player} #{style} - #{sport} #{city} Themed Apparel – " + line[1]
+          else
+            line[1] = line[1] + " Officially Licensed " + (sport == "Personalities" ? "" : city + " ") + style if line[1]
           end
           line[5] = tags
           images = master_images[new_line_count]
