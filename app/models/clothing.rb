@@ -104,7 +104,7 @@ class Clothing < ApplicationRecord
 
   def seo_title
     if ENV['STORE_TITLE'] == "Nomadic Apparel"
-      "#{@entry.player.player} #{style} | #{@entry.team.city} & #{@entry.league_sport(@entry.team.league)} Themed Apparel"
+      "#{@entry.player.player} #{style} | #{@entry.city} & #{@entry.league_sport(@entry.team.league)} Themed Apparel"
     else
       "#{@entry.title} #{style} | #{ENV['STORE_TITLE']}"
     end
@@ -129,14 +129,14 @@ class Clothing < ApplicationRecord
     if ENV['STORE_TITLE'] == "Nomadic Apparel"
       description = nomadic_seo_description
     elsif license
-      description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.team.city} #{sport} Store!"
+      description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.city} #{sport} Store!"
     else
       description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com. Officially Licensed by #{@entry.player.player}, 500 LEVEL is the Ultimate #{@entry.player.player} Store!"
     end
   end
 
   def nomadic_seo_description
-    "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
+    "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
   end
 
   def adwords_grouping

@@ -114,7 +114,7 @@ class Accessory < ApplicationRecord
     if ENV['STORE_TITLE'] == "Nomadic Apparel" && accessory_type == "Phone Cases"
       "#{@entry.player.player} #{brand.name} #{style} #{gender} | Themed Apparel"
     elsif ENV['STORE_TITLE'] == "Nomadic Apparel"
-      "#{@entry.player.player} #{style} | #{@entry.team.city} & #{@entry.league_sport(@entry.team.league)} Themed Apparel"
+      "#{@entry.player.player} #{style} | #{@entry.city} & #{@entry.league_sport(@entry.team.league)} Themed Apparel"
     elsif accessory_type == "Phone Cases"
       "#{@entry.design.name.titleize} #{brand.name} #{accessory_size.size.name} #{style} | 500 LEVEL"
     else
@@ -143,7 +143,7 @@ class Accessory < ApplicationRecord
     elsif license && accessory_type == "Phone Cases"
       description = "Shop the #{@entry.design.name.titleize} #{brand.name} #{accessory_size.size.name} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Phone Cases at the Ultimate #{@entry.team.city} #{sport} Store!"
     elsif license
-      description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.team.city} #{sport} Store!"
+      description = "Shop the #{@entry.design.name.titleize} #{style} at 500level.com & Buy Officially Licensed #{license} #{@entry.player.player} Gear at the Ultimate #{@entry.city} #{sport} Store!"
     elsif accessory_type == "Phone Cases"
       description = "Shop the #{@entry.design.name.titleize} #{brand.name} #{accessory_size.size.name} #{style} at 500level.com & Buy Officially Licensed #{@entry.player.player} Phone Cases at the Ultimate #{@entry.player.player} Store!"
     else
@@ -153,9 +153,9 @@ class Accessory < ApplicationRecord
 
   def nomadic_seo_description(accessory_size)
     if accessory_type == "Phone Cases"
-      "Shop our #{@entry.player.player} #{brand.name} #{accessory_size.size.name} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
+      "Shop our #{@entry.player.player} #{brand.name} #{accessory_size.size.name} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
     else
-      "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.team.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
+      "Shop our #{@entry.player.player} #{style}, and other #{@entry.league_sport(@entry.team.league)} & #{@entry.city} themed apparel. Our awesome designs are custom made & printed in Austin, TX."
     end
   end
 
