@@ -38,6 +38,8 @@ class EtsyModification
           team = team[0][1]
           city = tags.select { |t| t[0] == "city" }
           city = city[0][1]
+          style = tags.select { |t| t[0] == "style" }
+          style = style[0][1]
           tags.map! { |t| t[1] }
           tags = tags.join(", ")
           if sport == "Baseball" || sport == "Baseball Hall of Fame"
@@ -48,6 +50,9 @@ class EtsyModification
             tags += ", NHL, Stanley Cup"
           end
           line[1] = line[1] + " Officially Licensed " + (sport == "Personalities" ? "" : city + " ") + style if line[1]
+          if ENV['STORE_TITLE'] == "Nomadic Manager"
+            line[2] = "#{player} #{style} #{sport} #{city} Themed Apparel – " + line[2]
+          end
           line[5] = tags
           images = master_images[new_line_count]
           new_line_count += 1
