@@ -40,7 +40,7 @@ class EtsyModification
           city = city[0][1]
           style = tags.select { |t| t[0] == "style" }
           style = style[0][1]
-          tags.map! { |t| t[1] }
+          tags.map! { |t| t[1] || t[0] }
           tags = tags.join(", ")
           if sport == "Baseball" || sport == "Baseball Hall of Fame"
             tags += ", MLB, World Series"
