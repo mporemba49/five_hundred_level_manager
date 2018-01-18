@@ -154,7 +154,7 @@ class InputEntry
       item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
       item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style}"]
       item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
-      item_tags_4 = ["title=@{item.title}"]
+      item_tags_4 = ["title=#{item.title}"]
       item.sku == unique ? item_tags_5 = ["listing=Unique"] : item_tags_5 = []
       item_tags_6 = player_add + team_add + sport_add + city_add + throwback_tag
       item_tags = (item_tags_1 + item_tags_2 + item_tags_3 + item_tags_4 + item_tags_5 + item_tags_6).join(',')
