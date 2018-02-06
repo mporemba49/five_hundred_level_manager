@@ -71,7 +71,7 @@ class EtsyModification
           line[24] = images.shift
           image_count += 1
           line[26] = player + " " + style + " " + team
-          line[26] += + " 500 Level" unless ENV['STORE_TITLE'] == "Nomadic Apparel"
+          line[26] += " 500 Level" unless ENV['STORE_TITLE'] == "Nomadic Apparel"
         else
           line[24] = nil
           line[26] = nil
