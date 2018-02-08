@@ -29,31 +29,16 @@ class EtsyModification
         if line[5]
           tags = line[5].split(",")
           tags.map! { |t| t.split("=") }
-          tags.reject! { |t| t[0] == "v" }
-          sport = tags.select { |t| t[0] == "sport" }
-          sport = sport[0][1]
-          player = tags.select { |t| t[0] == "player" }
-          player = player[0][1]
-          team = tags.select { |t| t[0] == "team" }
-          team = team[0][1]
-          city = tags.select { |t| t[0] == "city" }
-          city = city[0][1]
-          style = tags.select { |t| t[0] == "style" }
-          style = style[0][1]
+          sport = tags.select { |t| t[0] == "sport" }[0][1]
+          player = tags.select { |t| t[0] == "player" }[0][1]
+          team = tags.select { |t| t[0] == "team" }[0][1]
+          city = tags.select { |t| t[0] == "city" }[0][1]
+          style = tags.select { |t| t[0] == "style" }[0][1]
+          tags.select! { |t| t[0] == "player" || |t| t[0] == "team" }
           tags.map! { |t| t[1] || t[0] }
           tags = tags.join(", ")
-          if sport == "Baseball" || sport == "Baseball Hall of Fame"
-            tags += ", MLB, World Series"
-          elsif sport == "Football"
-            tags += ", NFL, Super Bowl"
-          elsif sport == "Hockey"
-            tags += ", NHL, Stanley Cup"
-          end
-          if ENV['STORE_TITLE'] == "Nomadic Apparel"
-            line[1] = "#{player} #{style} - #{team} & #{city} Themed Apparel - " + line[1]
-          else
-            line[1] = line[1] + " Officially Licensed " + (sport == "Personalities" ? "" : city + " ") + style if line[1]
-          end
+          league = EtsyModification.find_league(sport)
+          line[1] = "#{player} #{style} #{city} #{league} " + line[1]
           line[5] = tags
           images = master_images[new_line_count]
           new_line_count += 1
@@ -79,6 +64,17 @@ class EtsyModification
       end
     end
     return csv_lines
+  end
+
+  def self.find_league(sport)
+    case sport
+    when "Wrestling"
+      "Legends"
+    when "Baseball Hall of Fame"
+      "Baseball"
+    else
+      sport
+    end
   end
 
 end
