@@ -34,7 +34,7 @@ class EtsyModification
           team = tags.select { |t| t[0] == "team" }[0][1]
           city = tags.select { |t| t[0] == "city" }[0][1]
           style = tags.select { |t| t[0] == "style" }[0][1]
-          tags.select! { |t| t[0] == "player" || |t| t[0] == "team" }
+          tags.select! { |t| t[0] == "player" || t[0] == "team" }
           tags.map! { |t| t[1] || t[0] }
           tags = tags.join(", ")
           league = EtsyModification.find_league(sport)
