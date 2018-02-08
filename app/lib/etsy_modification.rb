@@ -38,7 +38,7 @@ class EtsyModification
           tags.map! { |t| t[1] || t[0] }
           tags = tags.join(", ")
           league = EtsyModification.find_league(sport)
-          line[1] = "#{player} #{style} #{city} #{league} " + line[1]
+          line[1] = "#{player} #{style} - #{city} #{league} " + line[1]
           line[5] = tags
           images = master_images[new_line_count]
           new_line_count += 1
