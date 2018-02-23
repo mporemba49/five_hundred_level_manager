@@ -1,4 +1,4 @@
-class ClothingController < ApplicationController
+class SkusController < ApplicationController
 
   def show
     
