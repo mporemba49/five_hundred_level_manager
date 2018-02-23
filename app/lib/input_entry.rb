@@ -153,7 +153,7 @@ class InputEntry
       item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
       item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style}"]
       if item.custom_tag.present?
-        custom_tags = "," + item.custom_tag
+        custom_tags = ";" + item.custom_tag
       else
         custom_tags = ""
       end
