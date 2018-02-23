@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823192525) do
+ActiveRecord::Schema.define(version: 20180222212259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170823192525) do
     t.string   "option_two"
     t.string   "option_three"
     t.string   "body"
+    t.string   "custom_tag",       default: ""
     t.index ["accessory_type"], name: "index_accessories_on_accessory_type", using: :btree
     t.index ["active"], name: "index_accessories_on_active", using: :btree
     t.index ["base_name"], name: "index_accessories_on_base_name", unique: true, using: :btree
@@ -109,6 +110,7 @@ ActiveRecord::Schema.define(version: 20170823192525) do
     t.datetime "updated_at",                           null: false
     t.string   "sku"
     t.string   "body"
+    t.string   "custom_tag",       default: ""
     t.index ["active"], name: "index_clothings_on_active", using: :btree
     t.index ["base_name"], name: "index_clothings_on_base_name", unique: true, using: :btree
     t.index ["clothing_type"], name: "index_clothings_on_clothing_type", using: :btree

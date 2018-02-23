@@ -32,7 +32,6 @@ class InputEntry
       return URI.escape(test_url)
     end
 
-
     nil
   end
 
@@ -153,7 +152,12 @@ class InputEntry
       league == "Baseball Hall of Fame" ? throwback_tag = ["sport=Throwbacks"] : throwback_tag = []
       item_tags_1 = ["player=#{player}", "gender=#{item.gender.downcase}"]
       item.brand.present? ? item_tags_2 = ["style=#{item.brand.name}"] : item_tags_2 = ["style=#{item.style}"]
-      item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}", "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
+      if item.custom_tag.present?
+        custom_tags = "," + item.custom_tag
+      else
+        custom_tags = ""
+      end
+      item_tags_3 = ["v=#{ENV['500_LEVEL_VERSION']}" + custom_tags, "team=#{team.name}", "city=#{city}", "sport=#{sport}"]
       item_tags_4 = ["title=#{item.entry.title}"]
       item.sku == unique ? item_tags_5 = ["listing=Unique"] : item_tags_5 = []
       item_tags_6 = player_add + team_add + sport_add + city_add + throwback_tag
