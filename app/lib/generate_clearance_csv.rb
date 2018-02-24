@@ -8,8 +8,6 @@ class GenerateClearanceCsv
     missing_files = []
     sales_channel = SalesChannel.find_by_id(sales_channel_id)
     InventoryItem.where(id: inventory_item_ids).includes(:team_player_design, :team_player, :size, :color, :producible).find_in_batches do |batch|
-      leagues_and_teams = InventoryItem.build_leagues_and_teams(batch)
-      Validator.league_and_teams = leagues_and_teams
       batch.each do |item|
         unless entry = item.build_entry
           missing_files << InputEntry.missing_item_data(item)
@@ -45,7 +43,6 @@ class GenerateClearanceCsv
         end
         missing_files << entry.missing_item_error(product) unless line_success
       end
-      Validator.reset
     end
     [output_csv_lines, missing_files]
   end

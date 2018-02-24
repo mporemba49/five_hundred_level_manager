@@ -24,14 +24,7 @@ class InputEntry
 
   def url_string_for_item(item, image)
     test_url = item.image_url_builder(self.url_design, item.gender, image)
-    rootless_url = test_url.gsub(ENV['IMAGE_ROOT'],'')
-    matching_object = Validator.objects.select { |object| object.key.downcase == rootless_url.downcase }.first
-
-    if matching_object
-      test_url = ENV['IMAGE_ROOT'] + matching_object.key
-      return URI.escape(test_url)
-    end
-
+    return test_url if UrlChecker.url_exists?(test_url)
     nil
   end
 
@@ -44,21 +37,7 @@ class InputEntry
   end
 
   def url_design
-    return @url_design if @url_design
-
-    if Validator.valid_folder?(folder_with_artist)
-      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title} (#{@artist})"
-    elsif Validator.valid_folder?(default_folder)
-      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title}"
-    elsif match = Validator.alt_valid_folder?(folder_with_artist)
-      @title = match.to_s.split('/')[2].split('(')[0].squish
-      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title} (#{@artist})"
-    elsif match = Validator.alt_valid_folder?(default_folder)
-      @title = match.to_s.split('/')[2].squish
-      @url_design = "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title}"
-    end
-
-    @url_design
+    @url_design ||= "#{ENV['IMAGE_ROOT']}#{league}/#{team}/#{@title} (#{@artist})"
   end
 
   def city
