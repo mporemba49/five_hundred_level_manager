@@ -3,6 +3,7 @@ class UrlChecker
   
   def self.url_exists?(url_string)
     url = URI.encode(url_string)
+    Rails.logger.info("Checked URL: #{url}")
     url = URI.parse(url)
     req = Net::HTTP.new(url.host, url.port)
     req.use_ssl = (url.scheme == 'https')
