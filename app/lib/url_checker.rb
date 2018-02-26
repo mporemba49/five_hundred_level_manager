@@ -2,9 +2,8 @@ class UrlChecker
   require "net/http"
   
   def self.url_exists?(url_string)
-    url = URI.encode(url_string)
-    Rails.logger.info("Checked URL: #{url}")
-    url = URI.parse(url)
+    Rails.logger.info("Checked URL: #{url_string}")
+    url = URI.parse(url_string)
     req = Net::HTTP.new(url.host, url.port)
     req.use_ssl = (url.scheme == 'https')
     path = url.path if url.path.present?

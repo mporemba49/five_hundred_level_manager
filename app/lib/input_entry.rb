@@ -7,7 +7,7 @@ class InputEntry
     team = design['Team'].strip
     player = design['Player'].strip
     league = design['League'].strip
-    @handle = design['Handle'] || design['Title'].strip.downcase.delete(' ')
+    @handle = design['Handle'] || design['Title'].strip.downcase.gsub(' ', '-')
     @title = design['Title'].strip
     @artist = design['Artist'].strip
     @unique = design['Unique'] || ENV['DEFAULT_SKU']
@@ -24,6 +24,7 @@ class InputEntry
 
   def url_string_for_item(item, image)
     test_url = item.image_url_builder(self.url_design, item.gender, image)
+    test_url = URI.encode(test_url)
     return test_url if UrlChecker.url_exists?(test_url)
     nil
   end
